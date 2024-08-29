@@ -163,7 +163,7 @@ Future<void> saveqrorbarcode(GlobalKey key, String? type) async {
       }
       final image = await boundary.toImage();
       ByteData? byteData = await image.toByteData(format: ImageByteFormat.png);
-      Uint8List pngBytes = byteData!.buffer.asUint8List();
+      Uint8List pngBytes = byteData.buffer.asUint8List();
 
       // final directory =
       //     await getApplicationDocumentsDirectory();
