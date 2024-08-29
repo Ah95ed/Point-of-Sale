@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:point_of_sell/AppBinding.dart';
 import 'package:point_of_sell/View/Pages/HomeView.dart';
 import 'package:point_of_sell/View/Pages/SaleScreen/SaleScreen.dart';
 import 'package:point_of_sell/View/Pages/UpdatePrice.dart';
@@ -15,7 +14,7 @@ class RoutePage {
   static List<GetPage> routs = [
     GetPage(name: homeViewPage, page: () => HomeView()),
     GetPage(name: welcomePage, page: () => const WelcomeScreen()),
-    GetPage(name: updatePage, page: () => UpdatePrice(), binding: Appbinding()),
-    GetPage(name: salePage, page: () =>  SaleScreen()),
+    GetPage(name: updatePage, page: () => UpdatePrice()),
+    GetPage(name: salePage, page: () =>  const SaleScreen()),
   ];
 }

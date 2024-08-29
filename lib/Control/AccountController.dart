@@ -19,8 +19,8 @@ class AccountController extends GetxController {
   List<Items>? newResult = [];
   double resultSell = 0.0;
   double count = 0.0;
-  late int i;
-  TextEditingController? controller = TextEditingController();
+  int i = 0;
+  TextEditingController? controller;
 
   static const String Result = 'Result';
   final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
@@ -28,6 +28,7 @@ class AccountController extends GetxController {
 
   @override
   void onInit() {
+    controller = TextEditingController();
     dataBaseSqflite = DataBaseSqflite();
     account = AccountOrdersDataBase();
     getShared();
@@ -119,7 +120,8 @@ class AccountController extends GetxController {
   }
 
   Future<void> searchCodeOrder(String s) async {
-    order = search;
+    order = List.from(search);
+    log('message $s');
 
     i = 0;
     List<Map<String, dynamic>>? result = await account.searchBarCodeOrder(s);
@@ -134,16 +136,17 @@ class AccountController extends GetxController {
             quantity: item[DataBaseSqflite.quantity],
             company: item[DataBaseSqflite.company],
             date: item[DataBaseSqflite.date],
-            time: item[DataBaseSqflite.time]?? 'ah',
+            time: item[DataBaseSqflite.time] ?? 'ah',
           ),
         )
         .toList();
     if (newResult!.isEmpty) {
-      ScaffoldMessenger.of(Get.context!).showSnackBar(
-        const SnackBar(
-          content: Text('Empty'),
-        ),
-      );
+      Get.snackbar('title', 'empty', snackPosition: SnackPosition.BOTTOM);
+      // ScaffoldMessenger.of(Get.context!).showSnackBar(
+      //   const SnackBar(
+      //     content: Text('Empty'),
+      //   ),
+      // );
       controller!.clear();
       update();
       return;
@@ -178,19 +181,22 @@ class AccountController extends GetxController {
 
   Future<void> getDataFromAccount() async {
     var dataList = await account.getAllDataFromAccount();
-    var item = dataList
-        .map((i) => Items(
-              name: i![DataBaseSqflite.name].toString(),
-              code: i[DataBaseSqflite.codeItem].toString(),
-              sale: i[DataBaseSqflite.sale].toString(),
-              buy: i[DataBaseSqflite.buy].toString(),
-              quantity: i[DataBaseSqflite.quantity].toString(),
-              id: i[DataBaseSqflite.id].toString(),
-              company: i[DataBaseSqflite.company].toString(),
-              date: i[DataBaseSqflite.date].toString(),
-              time: i[DataBaseSqflite.time].toString(),
-            ))
-        .toList();
+    var item = dataList.map((i) {
+       log('message ===> ${i![DataBaseSqflite.id].toString()}');
+      return Items(
+        name: i[DataBaseSqflite.name].toString(),
+        code: i[DataBaseSqflite.codeItem].toString(),
+        sale: i[DataBaseSqflite.sale].toString(),
+        buy: i[DataBaseSqflite.buy].toString(),
+        quantity: i[DataBaseSqflite.quantity].toString(),
+        id: i[DataBaseSqflite.id].toString(),
+        company: i[DataBaseSqflite.company].toString(),
+        date: i[DataBaseSqflite.date].toString(),
+        time: i[DataBaseSqflite.time].toString(),
+      );
+      
+    }).toList();
+   
     search.clear();
     search.addAll(item);
     update();
@@ -210,5 +216,11 @@ class AccountController extends GetxController {
 
     getDataFromAccount();
     update();
+  }
+
+  @override
+  void dispose() {
+    controller!.dispose();
+    super.dispose();
   }
 }

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import '../../constants.dart';
 import '../../size_config.dart';
 import 'clock_painter.dart';

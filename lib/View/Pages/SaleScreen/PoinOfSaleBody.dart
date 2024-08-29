@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
-import 'package:point_of_sell/View/Pages/SaleScreen/CardSaleScreen.dart';
-import 'package:point_of_sell/View/Widget/PointSalewidget/SaleTitleTable.dart';
-import 'package:point_of_sell/View/Widget/PointSalewidget/pointSalebodyTable.dart';
+import 'package:point_of_sell/View/SizeApp/SizeApp.dart';
 import 'package:point_of_sell/View/Widget/PointSalewidget/pointSaletableBody.dart';
 import 'package:point_of_sell/View/Widget/PointSalewidget/textFieldDropdown.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/CustomMaterialButton.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/TextCustom.dart';
-import 'package:sizer/sizer.dart';
 
 class PointOfSaleBody extends StatelessWidget {
   PointOfSaleBody({super.key});
@@ -48,7 +45,7 @@ class PointOfSaleBody extends StatelessWidget {
             height: hi * 0.24,
             color: ColorUsed.lightBlue,
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 4.w),
+              padding: EdgeInsets.symmetric(vertical: getHeight(8)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -56,14 +53,14 @@ class PointOfSaleBody extends StatelessWidget {
                     text: 'total 100',
                   ),
                   SizedBox(
-                    width: 1.w,
+                    width: getWidth(1),
                   ),
                   CustomMaterialButton(
                     title: 'print',
                     onPressed: () {},
                   ),
                   SizedBox(
-                    width: 1.w,
+                    width: getWidth(1),
                   ),
                   CustomMaterialButton(
                     title: 'New Menu',

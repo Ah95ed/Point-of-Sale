@@ -1,17 +1,10 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:point_of_sell/View/Colors/Colors.dart';
-import 'package:point_of_sell/View/Pages/SaleScreen/PoinOfSaleBody.dart';
 import 'package:point_of_sell/View/Pages/the_purchasePage/PurchaselistBody.dart';
 import 'package:point_of_sell/View/Widget/PurshaseWidget/MultiButtonModifyPurchase.dart';
 import 'package:point_of_sell/View/Widget/PurshaseWidget/TableInPurchase.dart';
-import 'package:point_of_sell/View/Widget/ShareWidget/CustomMaterialButton.dart';
-import 'package:point_of_sell/View/Widget/ShareWidget/TableNameColumnTitle.dart';
-import 'package:point_of_sell/View/Widget/ShareWidget/TextCustom.dart';
 import 'package:point_of_sell/View/Widget/PointSalewidget/textFieldDropdown.dart';
-import 'package:sizer/sizer.dart';
 
 class Purchase extends StatelessWidget {
   const Purchase({super.key});

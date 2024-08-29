@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
-import 'package:sizer/sizer.dart';
+import 'package:point_of_sell/View/SizeApp/SizeApp.dart';
 
 class CardSaleScreen extends StatelessWidget {
   CardSaleScreen({
@@ -18,38 +18,38 @@ class CardSaleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: ColorUsed.whitesoft,
-      height: 3.h,
+      height: getHeight(3),
       child: Expanded(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             TextCustomSale(
-              width: 4.w,
+              width: getWidth(4),
               text: 'id',
             ),
             TextCustomSale(
-              width: 50.w,
+              width: getWidth(50),
               text: 'name',
             ),
             TextCustomSale(
-              width: 30.w,
+              width: getWidth(30),
               text: 'barcode',
             ),
             TextCustomSale(
-              width: 20.w,
+              width: getWidth(20),
               text: 'pricesingle',
             ),
             TextCustomSale(
-              width: 15.w,
+              width: getWidth(15),
               text: 'count'.tr,
             ),
             TextCustomSale(
-              width: 20.w,
+              width: getWidth(20),
               text: 'allprice'.tr,
             ),
             Container(
               color: ColorUsed.blueDark,
-              width: 8.w,
+              width: getWidth(5),
               child: IconButton(
                 onPressed: () {},
                 icon: Icon(
@@ -75,7 +75,7 @@ class TextCustomSale extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      height: 2.h,
+      height: getHeight(2),
       decoration: BoxDecoration(
         color: ColorUsed.whiteBlue,
         borderRadius: const BorderRadius.vertical(
@@ -88,7 +88,7 @@ class TextCustomSale extends StatelessWidget {
           text!,
           style: TextStyle(
             color: Colors.black,
-            fontSize: 6.sp,
+            fontSize: getFontSize(6),
             fontWeight: FontWeight.bold,
           ),
         ),

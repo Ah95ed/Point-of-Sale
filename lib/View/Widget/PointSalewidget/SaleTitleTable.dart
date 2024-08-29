@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
-import 'package:sizer/sizer.dart';
+import 'package:point_of_sell/View/SizeApp/SizeApp.dart';
 
 
 
@@ -16,7 +16,7 @@ class SaleTitleTable extends StatelessWidget {
         padding: const EdgeInsets.all(6),
         child: Container(
           width: width,
-          height: 2.h,
+          height: getHeight(2),
           decoration: BoxDecoration(
             color: ColorUsed.blueDark,
             borderRadius: const BorderRadius.vertical(
@@ -29,7 +29,7 @@ class SaleTitleTable extends StatelessWidget {
               title!,
               style: TextStyle(
                 color: ColorUsed.whitesoft,
-                fontSize: 6.sp,
+                fontSize: getFontSize(6),
                 fontWeight: FontWeight.bold,
               ),
             ),

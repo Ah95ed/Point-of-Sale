@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
-import 'package:sizer/sizer.dart';
+import 'package:point_of_sell/View/SizeApp/SizeApp.dart';
 
 class TextCustom extends StatelessWidget {
   TextCustom({this.width, this.text,this.onSecondaryTap, super.key});
@@ -12,8 +12,8 @@ class TextCustom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: 1.0.w,
-        vertical: 1.0.w,
+        horizontal: getWidth(1),
+        vertical: getHeight(1),
       ),
       child: Container(
         // width: width ?? 20.w,
@@ -31,7 +31,7 @@ class TextCustom extends StatelessWidget {
           text!,
           style: TextStyle(
             color: Colors.black,
-            fontSize: 6.sp,
+            fontSize: getFontSize(4),
             fontWeight: FontWeight.bold,
           ),
         ),

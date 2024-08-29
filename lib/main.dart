@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/AppBinding.dart';
@@ -7,9 +6,9 @@ import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Helper/Locale/LanguageController.dart';
 import 'package:point_of_sell/Helper/Log/Logger.dart';
 import 'package:point_of_sell/Helper/Service/Service.dart';
+import 'package:point_of_sell/View/Pages/WelcomeScreen.dart';
+import 'package:point_of_sell/View/Pages/theStorage/TheStorePage.dart';
 import 'package:point_of_sell/View/route/Route.dart';
-import 'package:sizer/sizer.dart';
-import 'View/Pages/WelcomeScreen.dart';
 
 Future<void> main() async {
   await runZonedGuarded<Future<void>>(
@@ -20,7 +19,11 @@ Future<void> main() async {
         const MyApp(),
       );
     },
-    (error, stack) => Log.err(
+    (
+      error,
+      stack,
+    ) =>
+        Log.err(
       error,
       'main',
       stack,
@@ -30,22 +33,20 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
   @override
   Widget build(BuildContext context) {
     final c = Get.put(Languagecontroller());
-    return Sizer(
-      builder: (context, orientation, devicetype) {
-        return GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          locale: c.language,
-          translations: Language(),
-          initialRoute: '/',
-          initialBinding: Appbinding(),
-          getPages: RoutePage.routs,
-          home: const RunnerApp(),
-        );
-      },
+    return GetMaterialApp(
+      navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false,
+      locale: c.language,
+      translations: Language(),
+      initialRoute: '/',
+      initialBinding: Appbinding(),
+      getPages: RoutePage.routs,
+      home: const RunnerApp(),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:point_of_sell/View/SizeApp/SizeApp.dart';
 
 // import 'IconCompany.dart';
 import 'clock.dart';
@@ -16,6 +17,8 @@ class Body extends StatelessWidget {
     // double width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Container(
+        height: getHeight(100),
+        width: getWidth(100) ,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: const AssetImage("assets/image/show.png"),

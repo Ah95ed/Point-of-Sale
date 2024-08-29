@@ -44,8 +44,10 @@ class Language implements Translations {
           "pointofsale": "نقطة بيع",
           "salelist": "قائمة بيع",
           "pricethesingle" :"السعر المفرد",
+          'SalesInterface' : 'واجهة المبيعات',
         },
         "en": {
+          'SalesInterface' : 'Sales Interface',
           "SaleofPoint": "Point Of Sale",
           "add": "Add Item",
           "itemName": "Item Name",

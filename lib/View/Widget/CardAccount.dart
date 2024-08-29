@@ -22,9 +22,9 @@ class CardAccount extends StatelessWidget {
                     name: controller.search[index].name,
                     sale: controller.search[index].sale,
                     onPressed: () async {
-                      if (controller.search.isEmpty) {
-                        return;
-                      }
+                      // if (controller.search.isEmpty) {
+                      //   return;
+                      // }
                       await controller.deleteItem(
                         controller.search[index].id,
                         controller.search[index].sale,

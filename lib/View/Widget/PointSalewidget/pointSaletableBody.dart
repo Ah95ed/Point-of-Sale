@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/TableNameColumnTitle.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/list_generate.dart';
 

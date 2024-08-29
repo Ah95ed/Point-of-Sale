@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
-import 'package:sizer/sizer.dart';
+import 'package:point_of_sell/View/SizeApp/SizeApp.dart';
 
 class TitleTablesStorge extends StatelessWidget {
   TitleTablesStorge({this.width, this.title, super.key});
@@ -10,10 +10,13 @@ class TitleTablesStorge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 1.0.w, vertical: 1.0.w),
+      padding: EdgeInsets.symmetric(
+        horizontal: getWidth(1),
+        vertical: getHeight(1),
+      ),
       child: Container(
-        width: width ?? 20.w,
-        height: 4.w,
+        width: width ?? getWidth(18),
+        height: getHeight(4),
         decoration: BoxDecoration(
           color: ColorUsed.blueDark,
           borderRadius: const BorderRadius.vertical(
@@ -28,7 +31,7 @@ class TitleTablesStorge extends StatelessWidget {
             title!,
             style: TextStyle(
               color: ColorUsed.whitesoft,
-              fontSize: 6.sp,
+              fontSize: getFontSize(6),
               fontWeight: FontWeight.bold,
             ),
           ),

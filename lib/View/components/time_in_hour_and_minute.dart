@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:sizer/sizer.dart';
 import '../../size_config.dart';
 
 class TimeInHourAndMinute extends StatefulWidget {

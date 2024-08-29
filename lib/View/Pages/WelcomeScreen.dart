@@ -1,10 +1,8 @@
-import 'dart:developer';
-
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Control/WelcomeController.dart';
-import 'package:point_of_sell/View/Pages/AccountOrders.dart';
+import 'package:point_of_sell/View/Pages/SalesInterface/SalesInterface.dart';
 import 'package:point_of_sell/View/Pages/Sellforcash/AddAccount.dart';
 import 'package:point_of_sell/View/Pages/theStorage/TheStorePage.dart';
 import 'package:point_of_sell/View/Pages/PayCash/PayCash.dart';
@@ -32,11 +30,16 @@ class WelcomeScreen extends StatelessWidget {
               PaneItem(
                 title: Text('welcomescreen'.tr),
                 icon: const Icon(Icons.add),
-                body:  HomeScreen(),
+                body: HomeScreen(),
               ),
               PaneItem(
                 icon: const Icon(Icons.store),
-                body:  TheStorePage(),
+                body: const SalesInterface(),
+                title: Text('SalesInterface'.tr),
+              ),
+              PaneItem(
+                icon: const Icon(Icons.store),
+                body: TheStorePage(),
                 title: Text("store".tr),
               ),
               PaneItem(
@@ -54,11 +57,11 @@ class WelcomeScreen extends StatelessWidget {
                 icon: const Icon(Icons.view_agenda),
                 body: const PayCash(),
               ),
-              PaneItem(
-                icon: const Icon(Icons.account_balance),
-                body: const AccountOrders(),
-                title: const Text("AccountOrders"),
-              ),
+              // PaneItem(
+              //   icon: const Icon(Icons.account_balance),
+              //   body: const AccountOrders(),
+              //   title: const Text("AccountOrders"),
+              // ),
               PaneItem(
                 icon: const Icon(Icons.update_sharp),
                 body: UpdatePrice(),

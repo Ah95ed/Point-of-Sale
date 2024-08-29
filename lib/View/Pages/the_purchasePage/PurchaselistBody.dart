@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
+import 'package:point_of_sell/View/SizeApp/SizeApp.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/CustomMaterialButton.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/TableNameColumnTitle.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/list_generate.dart';
 import 'package:point_of_sell/View/Widget/TextField.dart';
 import 'package:point_of_sell/View/Widget/PointSalewidget/textFieldDropdown.dart';
-import 'package:sizer/sizer.dart';
 
 class PurchaselistBody extends StatelessWidget {
   PurchaselistBody({super.key});
@@ -20,7 +20,7 @@ class PurchaselistBody extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(
-            height: hi / 10,
+            height: getHeight(10),
             width: double.infinity,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -47,7 +47,7 @@ class PurchaselistBody extends StatelessWidget {
 
           Container(
             color: ColorUsed.whitesoft,
-            height: hi * 0.69,
+            height: getHeight(60),
             width: MediaQuery.sizeOf(context).width,
             child: Table(
               border: TableBorder.all(color: ColorUsed.blueDark, width: 1.0),
@@ -83,37 +83,41 @@ class PurchaselistBody extends StatelessWidget {
             ),
           ),
           Container(
-            height: hi / 6,
+            height: getHeight(25),
+            width: getWidth(100),
             color: ColorUsed.lightBlue,
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 4.w),
+              padding: EdgeInsets.symmetric(
+                  vertical: getHeight(8), horizontal: getWidth(5),),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    height: 8.h,
-                    width: 50.w,
-                    decoration: BoxDecoration(
-                      color: ColorUsed.whitesoft,
-                      borderRadius: const BorderRadius.vertical(
-                        bottom: Radius.circular(2),
-                        top: Radius.circular(2),
-                      ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        '${'total summation'.tr} ${200}',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                  Center(
+                    child: Container(
+                      height: getHeight(10),
+                      width: getWidth(20),
+                      decoration: BoxDecoration(
+                        color: ColorUsed.whitesoft,
+                        borderRadius: const BorderRadius.vertical(
+                          bottom: Radius.circular(2),
+                          top: Radius.circular(2),
                         ),
-                        textAlign: TextAlign.center,
+                      ),
+                      child: Center(
+                        child: Text(
+                          '${'tota somation'.tr} 2000',
+                          style: TextStyle(
+                            fontSize: getFontSize(4),
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                   ),
                   SizedBox(
-                    width: 1.w,
+                    width: getWidth(1),
                   ),
                   CustomMaterialButton(
                     title: 'Print',
