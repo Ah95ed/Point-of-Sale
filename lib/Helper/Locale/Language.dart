@@ -1,9 +1,17 @@
+import 'dart:math';
+
 import 'package:get/get.dart';
 
 class Language implements Translations {
+  static const error = 'error';
+  static const saleItem = 'saleItem';
+  static const nameItem = 'nameItem';
   @override
   Map<String, Map<String, String>> get keys => {
         "ar": {
+          nameItem: 'الأسم :-',
+          saleItem : ' -: سعر البيع',
+          error: "خطأ",
           "SaleofPoint": "نقطة البيع",
           "add": "إضافة عنصر",
           "itemName": "اسم العنصر",
@@ -43,11 +51,14 @@ class Language implements Translations {
           "salescreen": "شاشة البيع",
           "pointofsale": "نقطة بيع",
           "salelist": "قائمة بيع",
-          "pricethesingle" :"السعر المفرد",
-          'SalesInterface' : 'واجهة المبيعات',
+          "pricethesingle": "السعر المفرد",
+          'SalesInterface': 'واجهة المبيعات',
         },
         "en": {
-          'SalesInterface' : 'Sales Interface',
+          nameItem: 'Name :-',
+          error: 'Error',
+          saleItem : 'Sale Price :-',
+          'SalesInterface': 'Sales Interface',
           "SaleofPoint": "Point Of Sale",
           "add": "Add Item",
           "itemName": "Item Name",
@@ -95,7 +106,7 @@ class Language implements Translations {
           "pointofsale": "Point of Sale",
           "salelist": "Sale List",
           "pricethesingle": "Price The Single",
-          "number_document" : "Number Document",
+          "number_document": "Number Document",
         },
       };
 }

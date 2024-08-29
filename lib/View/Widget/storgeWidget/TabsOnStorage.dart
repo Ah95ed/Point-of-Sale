@@ -7,12 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Widget/TextField.dart';
 import 'package:point_of_sell/View/Widget/storgeWidget/storge_additional.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-
-
-
 
 class TabsOnStorage extends StatelessWidget {
   const TabsOnStorage({super.key});
@@ -156,42 +154,35 @@ Future<void> saveqrorbarcode(GlobalKey key, String? type) async {
   final p = await Permission.accessMediaLocation.request();
   if (p.isGranted) {
     String? result = await FilePicker.platform.getDirectoryPath();
-    if (result != null) {
-      try {
-        RenderRepaintBoundary boundary =
-            key.currentContext!.findRenderObject() as RenderRepaintBoundary;
-        if (boundary.debugNeedsPaint) {
-          await Future.delayed(const Duration(milliseconds: 20));
-          return saveqrorbarcode(key, type);
-        }
-        final image = await boundary.toImage();
-        ByteData? byteData =
-            await image.toByteData(format: ImageByteFormat.png);
-        Uint8List pngBytes = byteData!.buffer.asUint8List();
-
-        // final directory =
-        //     await getApplicationDocumentsDirectory();
-        final file = File('$result/$type');
-        await file.writeAsBytes(pngBytes);
-
-        // ignore: use_build_context_synchronously
-        // Get.snackbar('title', file.path);
-        Get.showSnackbar(GetSnackBar(
-          title: "Done",
-          message: file.path,
-          duration: const Duration(seconds: 3),
-        ));
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   SnackBar(
-        //       content:
-        //           Text('QR Code saved to ${file.path}')),
-        // );
-      } catch (e) {
-        print(e);
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //   const SnackBar(content: Text('Error saving QR Code')),
-        // );
+    try {
+      RenderRepaintBoundary boundary =
+          key.currentContext!.findRenderObject() as RenderRepaintBoundary;
+      if (boundary.debugNeedsPaint) {
+        await Future.delayed(const Duration(milliseconds: 20));
+        return saveqrorbarcode(key, type);
       }
+      final image = await boundary.toImage();
+      ByteData? byteData = await image.toByteData(format: ImageByteFormat.png);
+      Uint8List pngBytes = byteData!.buffer.asUint8List();
+
+      // final directory =
+      //     await getApplicationDocumentsDirectory();
+      final file = File('$result/$type');
+      await file.writeAsBytes(pngBytes);
+
+      // ignore: use_build_context_synchronously
+      // Get.snackbar('title', file.path);
+      Get.showSnackbar(GetSnackBar(
+        title: "Done",
+        message: file.path,
+        duration: const Duration(seconds: 3),
+      ));
+    } catch (e) {
+      Get.snackbar(
+        Language.error,
+        e.toString(),
+        snackPosition: SnackPosition.TOP,
+      );
     }
   }
 }

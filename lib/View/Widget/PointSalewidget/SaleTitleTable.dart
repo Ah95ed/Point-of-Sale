@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
-import 'package:point_of_sell/View/SizeApp/SizeApp.dart';
+import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
 
 
 

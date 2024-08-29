@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:point_of_sell/Helper/Locale/Language.dart';
+import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
 
 // ignore: must_be_immutable
 class AllItems extends StatelessWidget {
@@ -15,48 +18,72 @@ class AllItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 12,
-      child: Row(
+      elevation: 5,
+      color: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+
+      child: Column(
         children: [
           Expanded(
             flex: 2,
-            child: Padding(
-              padding: const EdgeInsets.all(6),
-              child: Column(
-                children: [
-                  Text(
+            child: Row(
+              children: [
+                Text(
+                  Language.nameItem.tr,
+                  style: TextStyle(
+                      fontSize: context.getFontSize(6),
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(6),
+                  child: Text(
                     name,
-                    style: const TextStyle(
-                        fontSize: 18,
+                    style: TextStyle(
+                        fontSize: context.getFontSize(6),
                         color: Colors.black,
                         fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
+                ),
+               
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Row(
+              children: [
+                Text(
+                  Language.saleItem.tr,
+                  style: TextStyle(
+                      fontSize: context.getFontSize(6),
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(6),
+                  child: Text(
                     sale,
-                    style: const TextStyle(
-                        fontSize: 18,
+                    style: TextStyle(
+                        fontSize: context.getFontSize(6),
                         color: Colors.black,
                         fontWeight: FontWeight.bold),
                   ),
-                ],
-              ),
+                ),
+               
+              ],
             ),
           ),
-          const SizedBox(
-            width: 4,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-              onPressed: onPressed,
-              icon: const Icon(
-                Icons.more_horiz,
+           
+              IconButton(
+                onPressed: onPressed,
+                icon: Icon(
+                  Icons.delete,
+                  size: context.getHeight(5),
+                ),
               ),
-            ),
-          )
         ],
       ),
     );

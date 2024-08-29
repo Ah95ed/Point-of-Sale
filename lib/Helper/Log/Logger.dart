@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 const _isDebug = kDebugMode;
 
 class Log {
-  static void out(String msg, String code) {
+  static void log(String msg, String code) {
     developer.log(msg, name: code);
   }
 

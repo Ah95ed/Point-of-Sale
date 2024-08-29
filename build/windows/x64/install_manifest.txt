@@ -2,7 +2,6 @@ C:/Users/Ahmed/StudioProjects/point_of_sell/build/windows/x64/runner/Debug/data/
 C:/Users/Ahmed/StudioProjects/point_of_sell/build/windows/x64/runner/Debug/flutter_windows.dll
 C:/Users/Ahmed/StudioProjects/point_of_sell/build/windows/x64/runner/Debug/permission_handler_windows_plugin.dll
 C:/Users/Ahmed/StudioProjects/point_of_sell/build/windows/x64/runner/Debug/data/flutter_assets/AssetManifest.bin
-C:/Users/Ahmed/StudioProjects/point_of_sell/build/windows/x64/runner/Debug/data/flutter_assets/AssetManifest.bin.json
 C:/Users/Ahmed/StudioProjects/point_of_sell/build/windows/x64/runner/Debug/data/flutter_assets/AssetManifest.json
 C:/Users/Ahmed/StudioProjects/point_of_sell/build/windows/x64/runner/Debug/data/flutter_assets/assets/icons/clock.svg
 C:/Users/Ahmed/StudioProjects/point_of_sell/build/windows/x64/runner/Debug/data/flutter_assets/assets/icons/Liberty.svg
@@ -17,7 +16,6 @@ C:/Users/Ahmed/StudioProjects/point_of_sell/build/windows/x64/runner/Debug/data/
 C:/Users/Ahmed/StudioProjects/point_of_sell/build/windows/x64/runner/Debug/data/flutter_assets/FontManifest.json
 C:/Users/Ahmed/StudioProjects/point_of_sell/build/windows/x64/runner/Debug/data/flutter_assets/fonts/MaterialIcons-Regular.otf
 C:/Users/Ahmed/StudioProjects/point_of_sell/build/windows/x64/runner/Debug/data/flutter_assets/kernel_blob.bin
-C:/Users/Ahmed/StudioProjects/point_of_sell/build/windows/x64/runner/Debug/data/flutter_assets/NOTICES
 C:/Users/Ahmed/StudioProjects/point_of_sell/build/windows/x64/runner/Debug/data/flutter_assets/NOTICES.Z
 C:/Users/Ahmed/StudioProjects/point_of_sell/build/windows/x64/runner/Debug/data/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
 C:/Users/Ahmed/StudioProjects/point_of_sell/build/windows/x64/runner/Debug/data/flutter_assets/packages/fluent_ui/assets/AcrylicNoise.png

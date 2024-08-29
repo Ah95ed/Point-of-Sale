@@ -3,13 +3,13 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
-import 'package:point_of_sell/View/SizeApp/SizeApp.dart';
+import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
 import '../../Control/AccountController.dart';
 
 // ignore: must_be_immutable
 class AccountOrders extends StatefulWidget {
- const AccountOrders({super.key});
+  const AccountOrders({super.key});
 
   @override
   State<AccountOrders> createState() => _AccountOrdersState();
@@ -65,25 +65,27 @@ class _AccountOrdersState extends State<AccountOrders> {
               ),
               SizedBox(
                 height: getHeight(70),
-                child: ListView.builder(
-                  itemCount: controller.search.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return AllItems(
-                      name: controller.search[index].name,
-                      sale: controller.search[index].sale,
-                      onPressed: () async {
-                        if (controller.search.isEmpty) return;
-                        log('message onClick  ${controller.search[index].id}');
-                        await controller.deleteItem(
-                          controller.search[index].id,
-                          controller.search[index].sale,
-                        );
-                        controller.update();
-                        controller.getDataFromAccount();
-                      },
-                    );
-                  },
-                ),
+                child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: context.isMobile ? 2 : 4,
+                    ),
+                    itemCount: controller.search.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return AllItems(
+                        name: controller.search[index].name,
+                        sale: controller.search[index].sale,
+                        onPressed: () async {
+                          if (controller.search.isEmpty) return;
+                          log('message onClick  ${controller.search[index].id}');
+                          await controller.deleteItem(
+                            controller.search[index].id,
+                            controller.search[index].sale,
+                          );
+                          controller.update();
+                          controller.getDataFromAccount();
+                        },
+                      );
+                    }),
               ),
               Container(
                 color: ColorUsed.lightBlue,
@@ -104,8 +106,10 @@ class _AccountOrdersState extends State<AccountOrders> {
                       width: getWidth(12),
                       child: OutlinedButton(
                         style: const ButtonStyle(
-                          backgroundColor: WidgetStatePropertyAll(Colors.white),
-                          foregroundColor: WidgetStatePropertyAll(Colors.black),
+                          backgroundColor:
+                              WidgetStatePropertyAll(Colors.white),
+                          foregroundColor:
+                              WidgetStatePropertyAll(Colors.black),
                           shadowColor: WidgetStatePropertyAll(Colors.black),
                           // overlayColor: WidgetStatePropertyAll(),
                           // surfaceTintColor:

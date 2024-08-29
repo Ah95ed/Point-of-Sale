@@ -34,7 +34,7 @@ class WelcomeScreen extends StatelessWidget {
               ),
               PaneItem(
                 icon: const Icon(Icons.store),
-                body: const SalesInterface(),
+                body:  SalesInterface(),
                 title: Text('SalesInterface'.tr),
               ),
               PaneItem(
