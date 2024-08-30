@@ -9,17 +9,11 @@ import 'package:point_of_sell/Helper/Log/Logger.dart';
 import 'package:point_of_sell/Helper/Service/Service.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/SalesInterface.dart';
 import 'package:point_of_sell/View/Pages/WelcomeScreen.dart';
-import 'package:point_of_sell/View/Pages/theStorage/TheStorePage.dart';
+import 'package:point_of_sell/View/Widget/Mobile.dart';
 import 'package:point_of_sell/View/route/Route.dart';
+import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
 
-bool get isDesktop {
-  if (kIsWeb) return false;
-  return [
-    TargetPlatform.windows,
-    TargetPlatform.linux,
-    TargetPlatform.macOS,
-  ].contains(defaultTargetPlatform);
-}
+
 
 Future<void> main() async {
   await runZonedGuarded<Future<void>>(
@@ -58,7 +52,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       initialBinding: Appbinding(),
       getPages: RoutePage.routs,
-      home: const RunnerApp(),
+      home:context.isMobile ? const Mobile() :  const RunnerApp(),
     );
   }
 }
@@ -69,6 +63,7 @@ class RunnerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FluentApp(
+      
       showSemanticsDebugger: false,
       debugShowCheckedModeBanner: false,
       theme: FluentThemeData(),

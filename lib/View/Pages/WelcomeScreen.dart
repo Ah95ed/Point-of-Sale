@@ -22,9 +22,7 @@ class WelcomeScreen extends StatelessWidget {
     return GetBuilder<WelcomeController>(
       init: WelcomeController(),
       builder: (controller) {
-        return context.isMobile
-            ? const Mobile()
-            : NavigationView(
+        return  NavigationView(
                 pane: NavigationPane(
                   selected: controller.selecte,
                   size: NavigationPaneSize(

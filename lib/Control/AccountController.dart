@@ -181,10 +181,9 @@ class AccountController extends GetxController {
 
   Future<void> getDataFromAccount() async {
     var dataList = await account.getAllDataFromAccount();
-    var item = dataList.map((i) {
-       log('message ===> ${i![DataBaseSqflite.id].toString()}');
+    var item =  dataList.map((i) {
       return Items(
-        name: i[DataBaseSqflite.name].toString(),
+        name: i![DataBaseSqflite.name].toString(),
         code: i[DataBaseSqflite.codeItem].toString(),
         sale: i[DataBaseSqflite.sale].toString(),
         buy: i[DataBaseSqflite.buy].toString(),
@@ -199,7 +198,7 @@ class AccountController extends GetxController {
    
     search.clear();
     search.addAll(item);
-    update();
+
   }
 
   Future<void> insertInAccount(Map<String, dynamic> data) async {
@@ -214,7 +213,7 @@ class AccountController extends GetxController {
     if (resultSell <= 0.0) return;
     resultSell = resultSell - double.parse(sell);
 
-    getDataFromAccount();
+   await getDataFromAccount();
     update();
   }
 

@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 extension SizedApp on BuildContext {
-  bool get isMobile => MediaQuery.of(this).size.width < 600;
+  bool get isMobile => MediaQuery.of(this).size.width < 800;
   double getHeight(double? h) => MediaQuery.of(this).size.height * h! / 100;
 
-  double getWidth(double? w) =>  MediaQuery.of(this).size.width * w! / 100;
-      
+  double getWidth(double? w) => MediaQuery.of(this).size.width * w! / 100;
 
   double getFontSize(double? f) {
     return isMobile
-        ? (MediaQuery.of(Get.context!).size.width / 3) * f! / 100
-        : (MediaQuery.of(Get.context!).size.height / 3) * f! / 100;
+     ? (MediaQuery.of(Get.context!).size.height / 3) * f! / 100
+     : (MediaQuery.of(Get.context!).size.width / 3) * f! / 100;
   }
+  double getAppBarHeightWithStatusBar() {
+  return AppBar().preferredSize.height + MediaQuery.of(this).padding.top;
+}
 }
 
 bool get isLandscape =>

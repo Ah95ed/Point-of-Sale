@@ -3,7 +3,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Control/HomeController.dart';
+import 'package:point_of_sell/Helper/Log/Logger.dart';
 import 'package:point_of_sell/View/Pages/AccountOrders.dart';
+import 'package:point_of_sell/View/Widget/Mobile.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
 
 class SalesInterface extends StatelessWidget {
@@ -13,32 +15,41 @@ class SalesInterface extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     c.paginationData();
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        body: Column(
-          children: [
-            SizedBox(
-              height: getHeight(10),
-              width: getWidth(100),
-              child: TabBar(
-                tabs: [
-                  Tab(icon: const Icon(Icons.home), text: 'ShowItems'.tr),
-                  const Tab(icon: Icon(Icons.person), text: "Profile"),
-                ],
+    return SizedBox(
+      height: context.getHeight(100),
+      child: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          drawer: context.isMobile ? const DrawerAllApp() : null,
+          appBar: context.isMobile ? AppBar() : null,
+          body: Column(
+            children: [
+              SizedBox(
+                height: context.getHeight(8),
+                width: context.getWidth(100),
+                child: TabBar(
+                  tabs: [
+                    Tab(icon: const Icon(Icons.home), text: 'ShowItems'.tr),
+                    const Tab(icon: Icon(Icons.person), text: "Profile"),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: getHeight(90),
-              width: getWidth(100),
-              child: TabBarView(
-                children: [
-                  ShowAllItem(),
-                  const AccountOrders(),
-                ],
+              SizedBox(
+                height: context.isMobile
+                    ? context.getHeight(92) -
+                        context.getAppBarHeightWithStatusBar()
+                    : context.getHeight(92),
+                width: context.getWidth(100),
+                child: TabBarView(
+                  children: [
+           
+                    const AccountOrders(),
+                             ShowAllItem(),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -81,27 +92,33 @@ class CustomCardView extends StatelessWidget {
     required this.buy,
     required this.onTap,
   });
+  final List<Color> c = const [
+    Color(0xFFAC9B88),
+    Color.fromARGB(255, 126, 118, 110),
+    Color.fromARGB(255, 238, 233, 183),
+    Color.fromARGB(255, 213, 147, 142),
+    Color.fromARGB(255, 250, 202, 157),
+    Color.fromARGB(255, 192, 183, 189),
+    Color.fromARGB(255, 199, 227, 221),
+  ];
   Color getRandomColor() {
-    final random = Random();
-    return Color.fromRGBO(
-      random.nextInt(256), // Red
-      random.nextInt(256), // Green
-      random.nextInt(256), // Blue
-      1, // Alpha (opacity)
-    );
+    c.shuffle();
+    return c.first;
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: context.getWidth(1), vertical: context.getHeight(1)),
+        horizontal: context.getWidth(1),
+        vertical: context.getHeight(1),
+      ),
       child: Container(
-        height:context.getHeight(12),
+        height: context.getHeight(12),
         width: context.getWidth(12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color:getRandomColor(),
+          color: Colors.white70,
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),

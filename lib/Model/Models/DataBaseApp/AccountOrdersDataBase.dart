@@ -84,8 +84,6 @@ class AccountOrdersDataBase {
 
   Future<Future<int>?> delete(String id) async {
     _database = await database;
-    // db?.delete(TableName, id);
-    //  return _database!.delete(TableAccount, where: id);
     return _database!.rawDelete(
       'DELETE FROM $TableAccount WHERE ID = ?',
       [id],

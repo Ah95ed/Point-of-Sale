@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:point_of_sell/Helper/Log/Logger.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
@@ -30,41 +31,40 @@ class _AccountOrdersState extends State<AccountOrders> {
         init: AccountController(),
         builder: (controller) {
           return Column(
-            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                height: getHeight(8),
-                padding: const EdgeInsets.all(4.0),
-                child: TextFormField(
-                  controller: controller.controller,
-                  onChanged: (value) {
-                    if (value.isEmpty) return;
-                    controller.searchCodeOrder(value);
-                  },
-                  style: const TextStyle(
+              TextFormField(
+                controller: controller.controller,
+                onChanged: (value) {
+                  if (value.isEmpty) return;
+                  controller.searchCodeOrder(value);
+                },
+                style: const TextStyle(
+                  color: Colors.black,
+                ),
+                // controller: text,
+                decoration: const InputDecoration(
+                  labelText: 'name',
+                  prefixIcon: Icon(
+                    Icons.search,
                     color: Colors.black,
                   ),
-                  // controller: text,
-                  decoration: const InputDecoration(
-                    labelText: 'name',
-                    prefixIcon: Icon(
-                      Icons.search,
+                  border: OutlineInputBorder(),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
                       color: Colors.black,
                     ),
-                    border: OutlineInputBorder(),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black,
-                      ),
-                    ),
-                    labelStyle: TextStyle(
-                      color: Colors.black,
-                    ),
+                  ),
+                  labelStyle: TextStyle(
+                    color: Colors.black,
                   ),
                 ),
               ),
               SizedBox(
-                height: getHeight(70),
+                height: context.isMobile 
+                ? context.getHeight(69)
+                 - context.getAppBarHeightWithStatusBar()
+                  :context.getHeight(72),
                 child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: context.isMobile ? 2 : 4,
@@ -89,7 +89,7 @@ class _AccountOrdersState extends State<AccountOrders> {
               ),
               Container(
                 color: ColorUsed.lightBlue,
-                height:context.getHeight(12),
+                height: context.getHeight(10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -98,7 +98,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
-                        fontSize: getFontSize(8),
+                        fontSize: context.getFontSize(6),
                       ),
                     ),
                     SizedBox(
@@ -122,7 +122,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                           'Delete All',
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: context.getFontSize(10),
+                            fontSize: context.getFontSize(5),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
