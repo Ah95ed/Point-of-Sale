@@ -32,7 +32,7 @@ class DataBaseSqflite {
     } else if (Platform.isWindows || Platform.isLinux) {
       return windowsApp();
     } else {
-      return await initDataBase();
+      return  initDataBase();
     }
   }
 
@@ -75,9 +75,9 @@ class DataBaseSqflite {
            $id INTEGER PRIMARY KEY AUTOINCREMENT ,
             $name TEXT  ,
              $sale TEXT  ,
-              $quantity TEXT ,)
+              $quantity TEXT )
           
-          ''');
+          ''',);
       },
     );
   }

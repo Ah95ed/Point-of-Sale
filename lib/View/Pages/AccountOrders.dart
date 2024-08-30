@@ -89,7 +89,7 @@ class _AccountOrdersState extends State<AccountOrders> {
               ),
               Container(
                 color: ColorUsed.lightBlue,
-                height: getHeight(12),
+                height:context.getHeight(12),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -102,14 +102,12 @@ class _AccountOrdersState extends State<AccountOrders> {
                       ),
                     ),
                     SizedBox(
-                      height: getHeight(6),
-                      width: getWidth(12),
+                      height: context.getHeight(6),
+                      width: context.getWidth(28),
                       child: OutlinedButton(
                         style: const ButtonStyle(
-                          backgroundColor:
-                              WidgetStatePropertyAll(Colors.white),
-                          foregroundColor:
-                              WidgetStatePropertyAll(Colors.black),
+                          backgroundColor: WidgetStatePropertyAll(Colors.white),
+                          foregroundColor: WidgetStatePropertyAll(Colors.black),
                           shadowColor: WidgetStatePropertyAll(Colors.black),
                           // overlayColor: WidgetStatePropertyAll(),
                           // surfaceTintColor:
@@ -120,7 +118,14 @@ class _AccountOrdersState extends State<AccountOrders> {
                           controller.deleteShared();
                           controller.deleteAllAccount();
                         },
-                        child: const Text("Delete All Items "),
+                        child: Text(
+                          'Delete All',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: context.getFontSize(10),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
                   ],

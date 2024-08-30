@@ -10,6 +10,9 @@ import 'package:point_of_sell/View/Pages/SaleScreen/SaleScreen.dart';
 import 'package:point_of_sell/View/Pages/UpdatePrice.dart';
 import 'package:point_of_sell/View/Pages/home_screen.dart';
 import 'package:point_of_sell/View/Pages/the_purchasePage/purchase.dart';
+import 'package:point_of_sell/View/Widget/Mobile.dart';
+import 'package:point_of_sell/View/components/body.dart';
+import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -19,65 +22,67 @@ class WelcomeScreen extends StatelessWidget {
     return GetBuilder<WelcomeController>(
       init: WelcomeController(),
       builder: (controller) {
-        return NavigationView(
-          pane: NavigationPane(
-            selected: controller.selecte,
-            size: NavigationPaneSize(
-              openMaxWidth: Get.width * 0.15,
-              openMinWidth: Get.width * 0.11,
-            ),
-            items: [
-              PaneItem(
-                title: Text('welcomescreen'.tr),
-                icon: const Icon(Icons.add),
-                body: HomeScreen(),
-              ),
-              PaneItem(
-                icon: const Icon(Icons.store),
-                body:  SalesInterface(),
-                title: Text('SalesInterface'.tr),
-              ),
-              PaneItem(
-                icon: const Icon(Icons.store),
-                body: TheStorePage(),
-                title: Text("store".tr),
-              ),
-              PaneItem(
-                title: Text('salescreen'.tr),
-                icon: const Icon(Icons.price_change_sharp),
-                body: const SaleScreen(),
-              ),
-              PaneItem(
-                title: const Text('The Purchase'),
-                icon: const Icon(Icons.view_agenda),
-                body: const Purchase(),
-              ),
-              PaneItem(
-                title: const Text('Pay Cash'),
-                icon: const Icon(Icons.view_agenda),
-                body: const PayCash(),
-              ),
-              // PaneItem(
-              //   icon: const Icon(Icons.account_balance),
-              //   body: const AccountOrders(),
-              //   title: const Text("AccountOrders"),
-              // ),
-              PaneItem(
-                icon: const Icon(Icons.update_sharp),
-                body: UpdatePrice(),
-                title: const Text("UpdatePrice"),
-              ),
-              PaneItem(
-                icon: const Icon(Icons.add_sharp),
-                body: AddAccount(),
-                title: const Text("AddAccount"),
-              ),
-            ],
-            onChanged: (value) {
-              controller.selected(value);
-            },
-          ),
-        );
+        return context.isMobile
+            ? const Mobile()
+            : NavigationView(
+                pane: NavigationPane(
+                  selected: controller.selecte,
+                  size: NavigationPaneSize(
+                    openMaxWidth: Get.width * 0.15,
+                    openMinWidth: Get.width * 0.11,
+                  ),
+                  items: [
+                    PaneItem(
+                      title: Text('welcomescreen'.tr),
+                      icon: const Icon(Icons.add),
+                      body: HomeScreen(),
+                    ),
+                    PaneItem(
+                      icon: const Icon(Icons.store),
+                      body: SalesInterface(),
+                      title: Text('SalesInterface'.tr),
+                    ),
+                    PaneItem(
+                      icon: const Icon(Icons.store),
+                      body: TheStorePage(),
+                      title: Text("store".tr),
+                    ),
+                    PaneItem(
+                      title: Text('salescreen'.tr),
+                      icon: const Icon(Icons.price_change_sharp),
+                      body: const SaleScreen(),
+                    ),
+                    PaneItem(
+                      title: const Text('The Purchase'),
+                      icon: const Icon(Icons.view_agenda),
+                      body: const Purchase(),
+                    ),
+                    PaneItem(
+                      title: const Text('Pay Cash'),
+                      icon: const Icon(Icons.view_agenda),
+                      body: const PayCash(),
+                    ),
+                    // PaneItem(
+                    //   icon: const Icon(Icons.account_balance),
+                    //   body: const AccountOrders(),
+                    //   title: const Text("AccountOrders"),
+                    // ),
+                    PaneItem(
+                      icon: const Icon(Icons.update_sharp),
+                      body: UpdatePrice(),
+                      title: const Text("UpdatePrice"),
+                    ),
+                    PaneItem(
+                      icon: const Icon(Icons.add_sharp),
+                      body: AddAccount(),
+                      title: const Text("AddAccount"),
+                    ),
+                  ],
+                  onChanged: (value) {
+                    controller.selected(value);
+                  },
+                ),
+              );
       },
     );
     // : const Mobile();
