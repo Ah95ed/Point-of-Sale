@@ -3,18 +3,29 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Control/HomeController.dart';
-import 'package:point_of_sell/Helper/Log/Logger.dart';
+import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Pages/AccountOrders.dart';
 import 'package:point_of_sell/View/Widget/Mobile.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
 
-class SalesInterface extends StatelessWidget {
-  SalesInterface({super.key});
+class SalesInterface extends StatefulWidget {
+  const SalesInterface({super.key});
 
+  @override
+  State<SalesInterface> createState() => _SalesInterfaceState();
+}
+
+class _SalesInterfaceState extends State<SalesInterface> {
   HomeController c = Get.put(HomeController());
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    // TODO: implement initState
+    super.initState();
     c.paginationData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return SizedBox(
       height: context.getHeight(100),
       child: DefaultTabController(
@@ -22,33 +33,39 @@ class SalesInterface extends StatelessWidget {
         child: Scaffold(
           drawer: context.isMobile ? const DrawerAllApp() : null,
           appBar: context.isMobile ? AppBar() : null,
-          body: Column(
-            children: [
-              SizedBox(
-                height: context.getHeight(8),
-                width: context.getWidth(100),
-                child: TabBar(
-                  tabs: [
-                    Tab(icon: const Icon(Icons.home), text: 'ShowItems'.tr),
-                    const Tab(icon: Icon(Icons.person), text: "Profile"),
-                  ],
+          body: SingleChildScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: context.getHeight(8),
+                  width: context.getWidth(100),
+                  child: TabBar(
+                    tabs: [
+                      Tab(
+                          icon: const Icon(Icons.home),
+                          text: Language.showAllItem.tr),
+                      Tab(
+                          icon: const Icon(Icons.person),
+                          text: Language.sales.tr),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: context.isMobile
-                    ? context.getHeight(92) -
-                        context.getAppBarHeightWithStatusBar()
-                    : context.getHeight(92),
-                width: context.getWidth(100),
-                child: TabBarView(
-                  children: [
-           
-                    const AccountOrders(),
-                             ShowAllItem(),
-                  ],
+                SizedBox(
+                  height: context.isMobile
+                      ? context.getHeight(92) -
+                          context.getAppBarHeightWithStatusBar()
+                      : context.getHeight(92),
+                  width: context.getWidth(100),
+                  child: const TabBarView(
+                    children: [
+                      ShowAllItem(),
+                      AccountOrders(),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -57,22 +74,26 @@ class SalesInterface extends StatelessWidget {
 }
 
 class ShowAllItem extends StatelessWidget {
-  ShowAllItem({super.key});
+  const ShowAllItem({super.key});
+  
 
-  HomeController c = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      itemCount: c.items.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: context.isMobile ? 2 : 4,
-      ),
-      itemBuilder: (context, index) {
-        return CustomCardView(
-          title: c.items[index].name,
-          sale: c.items[index].sale,
-          buy: c.items[index].buy,
-          onTap: () {},
+    return GetBuilder<HomeController>(
+      builder: (c) {
+        return GridView.builder(
+          itemCount: c.items.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: context.isMobile ? 2 : 4,
+          ),
+          itemBuilder: (context, index) {
+            return CustomCardView(
+              title: c.items[index].name,
+              sale: c.items[index].sale,
+              buy: c.items[index].buy,
+              onTap: () {},
+            );
+          },
         );
       },
     );

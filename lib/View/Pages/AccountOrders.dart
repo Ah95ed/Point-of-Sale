@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,6 +7,7 @@ import 'package:point_of_sell/Helper/Log/Logger.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
+import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 import '../../Control/AccountController.dart';
 
 // ignore: must_be_immutable
@@ -28,9 +30,10 @@ class _AccountOrdersState extends State<AccountOrders> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AccountController>(
-        init: AccountController(),
-        builder: (controller) {
-          return Column(
+      init: AccountController(),
+      builder: (controller) {
+        return SizedBox(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextFormField(
@@ -39,32 +42,49 @@ class _AccountOrdersState extends State<AccountOrders> {
                   if (value.isEmpty) return;
                   controller.searchCodeOrder(value);
                 },
+          
                 style: const TextStyle(
                   color: Colors.black,
                 ),
                 // controller: text,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'name',
-                  prefixIcon: Icon(
+                  suffixIcon: context.isMobile
+                      ? IconButton(
+                          onPressed: () {
+                            final qrBarCodeScannerDialogPlugin =
+                                QrBarCodeScannerDialog();
+                            qrBarCodeScannerDialogPlugin.getScannedQrBarCode(
+                              context: context,
+                              onCode: (code) {},
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.barcode_reader,
+                            color: Colors.black,
+                          ),
+                        )
+                      : null,
+                  prefixIcon: const Icon(
                     Icons.search,
                     color: Colors.black,
                   ),
-                  border: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(
+                  border: const OutlineInputBorder(),
+                  focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Colors.black,
                     ),
                   ),
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                     color: Colors.black,
                   ),
                 ),
               ),
               SizedBox(
-                height: context.isMobile 
-                ? context.getHeight(69)
-                 - context.getAppBarHeightWithStatusBar()
-                  :context.getHeight(72),
+                height: context.isMobile
+                    ? context.getHeight(69) -
+                        context.getAppBarHeightWithStatusBar()
+                    : context.getHeight(72),
                 child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: context.isMobile ? 2 : 4,
@@ -132,7 +152,9 @@ class _AccountOrdersState extends State<AccountOrders> {
                 ),
               ),
             ],
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }

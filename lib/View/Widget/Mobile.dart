@@ -37,40 +37,32 @@ class DrawerAllApp extends StatelessWidget {
           return ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
-               SizedBox(
-                height: context.getHeight(20),
+              SizedBox(
+                height: context.getHeight(4),
               ),
+                const Divider(),
               ListTile(
-                leading: const Icon(Icons.store),
+
+                leading: const Icon(Icons.shop),
                 title: Text('SalesInterface'.tr),
                 onTap: () {
                   Navigator.pop(context);
-                  Get.off(SalesInterface());
+                  Get.off(() => SalesInterface());
                 },
+
               ),
-              ListTile(
-                leading: const Icon(Icons.satellite),
-                title: const Text(''),
-                onTap: () {
-                  // Close the drawer and navigate to the Home screen
-                  Navigator.pop(context);
-                },
+             const Divider(),
+               ListTile(
+
+              leading: const Icon(Icons.store),
+                      onTap: () {
+                        Navigator.pop(context);
+                        Get.off(() => TheStorePage());
+                      },
+                       title:  Text("store".tr),
+                
               ),
-              ListTile(
-                leading: const Icon(Icons.settings),
-                title: const Text('Settings'),
-                onTap: () {
-                  // Close the drawer and navigate to the Settings screen
-                  Navigator.pop(context);
-                  Get.off(TheStorePage());
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => AddItem(),
-                  //   ),
-                  // );
-                },
-              ),
+
             ],
           );
         },

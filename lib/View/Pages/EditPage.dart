@@ -7,7 +7,8 @@ import 'package:point_of_sell/View/Widget/TextField.dart';
 
 class EditPage extends StatefulWidget {
   final int id;
-  const EditPage({super.key, required this.id});
+
+  const EditPage(this.id, {super.key});
 
   @override
   _EditPageState createState() => _EditPageState();

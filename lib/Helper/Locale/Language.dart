@@ -5,9 +5,28 @@ class Language implements Translations {
   static const error = 'error';
   static const saleItem = 'saleItem';
   static const nameItem = 'nameItem';
+  static const showAllItem = 'showAllItem';
+  static const sales = 'sales';
+  static const add = 'add';
+  static const update = 'update';
+  static const delete = 'delete';
+  static const edit = 'edit';
+  static const select = 'select';
+  static const update_Data = 'Update_Data';
+  static const date = 'date';
+  static const search = 'search';
+  static const update_price = 'update_price';
   @override
   Map<String, Map<String, String>> get keys => {
         "ar": {
+          update : 'تحديث',
+          delete : 'حذف',
+          edit : 'تعديل',
+          update_price : 'تحديث جميع الأسعار',
+          search : 'بحث',
+          add : 'اضافة عنصر',
+          sales : 'البيع',
+          showAllItem :  'عرض جميع العناصر',
           nameItem: 'الأسم :-',
           saleItem : ' -: سعر البيع',
           error: "خطأ",
@@ -54,6 +73,15 @@ class Language implements Translations {
           'SalesInterface': 'واجهة المبيعات',
         },
         "en": {
+          update : 'Update',
+          delete : 'Delete',
+          edit : 'Edit',
+          update_price : 'Update All Price',
+          search : 'Search',
+          
+          add : 'Add Item',
+          sales : 'Sales',
+          showAllItem : 'Show All Item',
           nameItem: 'Name :-',
           error: 'Error',
           saleItem : 'Sale Price :-',

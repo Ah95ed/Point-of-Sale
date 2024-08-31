@@ -16,6 +16,7 @@ dependencies:
   sqflite: 
   get: 
   fluent_ui:
+  qr_bar_code_scanner_dialog: 
   flutter_svg:
   pdf: 
   permission_handler: 

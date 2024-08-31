@@ -20,13 +20,7 @@ ThemeData themeData(BuildContext context) {
       foregroundColor: kAccentIconLightColor,
     ),
     primaryIconTheme: const IconThemeData(color: kPrimaryIconLightColor),
-    // textTheme: GoogleFonts.latoTextTheme().copyWith(
-    //   bodyLarge: const TextStyle(color: kBodyTextColorLight),
-    //   bodyMedium: const TextStyle(color: kBodyTextColorLight),
-    //   headlineMedium:
-    //       const TextStyle(color: kTitleTextLightColor, fontSize: 32),
-    //   displayLarge: const TextStyle(color: kTitleTextLightColor, fontSize: 80),
-    // ),
+ 
   );
 }
 
@@ -46,12 +40,7 @@ ThemeData darkThemeData(BuildContext context) {
       foregroundColor: kAccentIconDarkColor,
     ),
     primaryIconTheme: const IconThemeData(color: kPrimaryIconDarkColor),
-    // textTheme: GoogleFonts.latoTextTheme().copyWith(
-    //   bodyLarge: const TextStyle(color: kBodyTextColorDark),
-    //   bodyMedium: const TextStyle(color: kBodyTextColorDark),
-    //   headlineMedium: const TextStyle(color: kTitleTextDarkColor, fontSize: 32),
-    //   displayLarge: const TextStyle(color: kTitleTextDarkColor, fontSize: 80),
-    // ),
+
   );
 }
 

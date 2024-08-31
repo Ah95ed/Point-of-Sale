@@ -15,6 +15,9 @@ extension SizedApp on BuildContext {
   double getAppBarHeightWithStatusBar() {
   return AppBar().preferredSize.height + MediaQuery.of(this).padding.top;
 }
+double onOpenKeyBorad() {
+  return  MediaQuery.of(this).viewInsets.bottom;
+}
 }
 
 bool get isLandscape =>
