@@ -22,94 +22,99 @@ class _AccountOrdersState extends State<AccountOrders> {
   final ch = Get.put(AccountController());
 
   @override
-  void initState() {
-    super.initState();
-    ch.getDataFromAccount();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return GetBuilder<AccountController>(
       init: AccountController(),
       builder: (controller) {
+       controller.getDataFromAccount();
         return SizedBox(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextFormField(
-                controller: controller.controller,
-                onChanged: (value) {
-                  if (value.isEmpty) return;
-                  controller.searchCodeOrder(value);
-                },
-          
-                style: const TextStyle(
-                  color: Colors.black,
-                ),
-                // controller: text,
-                decoration: InputDecoration(
-                  labelText: 'name',
-                  suffixIcon: context.isMobile
-                      ? IconButton(
-                          onPressed: () {
-                            final qrBarCodeScannerDialogPlugin =
-                                QrBarCodeScannerDialog();
-                            qrBarCodeScannerDialogPlugin.getScannedQrBarCode(
-                              context: context,
-                              onCode: (code) {},
-                            );
-                          },
-                          icon: const Icon(
-                            Icons.barcode_reader,
-                            color: Colors.black,
-                          ),
-                        )
-                      : null,
-                  prefixIcon: const Icon(
-                    Icons.search,
+              SizedBox(
+                height: context.getHeight(6),
+                child: TextFormField(
+                  controller: controller.controller,
+                  onChanged: (value) {
+                    if (value.isEmpty) return;
+                    controller.searchCodeOrder(value);
+                  },
+                
+                  style: const TextStyle(
                     color: Colors.black,
                   ),
-                  border: const OutlineInputBorder(),
-                  focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(
+                  // controller: text,
+                  decoration: InputDecoration(
+                    labelText: 'name',
+                    suffixIcon: context.isMobile
+                        ? IconButton(
+                            onPressed: () {
+                              final qrBarCodeScannerDialogPlugin =
+                                  QrBarCodeScannerDialog();
+                              qrBarCodeScannerDialogPlugin.getScannedQrBarCode(
+                                context: context,
+                                onCode: (code) {
+                                  controller.searchCodeOrder(code!);
+                                },
+                              );
+                            },
+                            icon: const Icon(
+                              Icons.barcode_reader,
+                              color: Colors.black,
+                            ),
+                          )
+                        : null,
+                    prefixIcon: const Icon(
+                      Icons.search,
+                      color: Colors.black,
+                    ),
+                    border: const OutlineInputBorder(),
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black,
+                      ),
+                    ),
+                    labelStyle: const TextStyle(
                       color: Colors.black,
                     ),
                   ),
-                  labelStyle: const TextStyle(
-                    color: Colors.black,
-                  ),
                 ),
               ),
-              SizedBox(
+              Container(
+                color: ColorUsed.whitesoft,
                 height: context.isMobile
-                    ? context.getHeight(69) -
-                        context.getAppBarHeightWithStatusBar()
-                    : context.getHeight(72),
+                    ? context.getHeight(66.1) 
+                    : context.getHeight(74),
                 child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: context.isMobile ? 2 : 4,
+                      crossAxisCount: context.isMobile ?1 : 4,
+                      childAspectRatio: context.isMobile ? 4 : 1.5,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+
                     ),
                     itemCount: controller.search.length,
                     itemBuilder: (BuildContext context, int index) {
                       return AllItems(
-                        name: controller.search[index].name,
-                        sale: controller.search[index].sale,
-                        onPressed: () async {
+                      () async {
                           if (controller.search.isEmpty) return;
                           log('message onClick  ${controller.search[index].id}');
                           await controller.deleteItem(
                             controller.search[index].id,
                             controller.search[index].sale,
                           );
-                          controller.update();
+                          // controller.update();
                           controller.getDataFromAccount();
                         },
+                        name: controller.search[index].name,
+                        sale: controller.search[index].sale,
+                       
                       );
                     }),
               ),
               Container(
                 color: ColorUsed.lightBlue,
                 height: context.getHeight(10),
+                
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -121,29 +126,30 @@ class _AccountOrdersState extends State<AccountOrders> {
                         fontSize: context.getFontSize(6),
                       ),
                     ),
-                    SizedBox(
-                      height: context.getHeight(6),
-                      width: context.getWidth(28),
-                      child: OutlinedButton(
-                        style: const ButtonStyle(
-                          backgroundColor: WidgetStatePropertyAll(Colors.white),
-                          foregroundColor: WidgetStatePropertyAll(Colors.black),
-                          shadowColor: WidgetStatePropertyAll(Colors.black),
-                          // overlayColor: WidgetStatePropertyAll(),
-                          // surfaceTintColor:
-                          //     WidgetStatePropertyAll(Colors.black),
-                        ),
-                        onPressed: () {
-                          controller.resultSell = 0.0;
-                          controller.deleteShared();
-                          controller.deleteAllAccount();
-                        },
-                        child: Text(
-                          'Delete All',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: context.getFontSize(5),
-                            fontWeight: FontWeight.bold,
+                    Padding(
+                      padding:  EdgeInsets.only(bottom: context.getHeight(1)),
+                      child: SizedBox(
+                        height: context.getHeight(6),
+                        width: context.getWidth(30),
+                        child: OutlinedButton(
+                          style: const ButtonStyle(
+                            backgroundColor: WidgetStatePropertyAll(Colors.white),
+                            foregroundColor: WidgetStatePropertyAll(Colors.black),
+                            shadowColor: WidgetStatePropertyAll(Colors.black),
+                           
+                          ),
+                          onPressed: () {
+                            controller.resultSell = 0.0;
+                            controller.deleteShared();
+                            controller.deleteAllAccount();
+                          },
+                          child: Text(
+                            'Delete All',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: context.getFontSize(5),
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),

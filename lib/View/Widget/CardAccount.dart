@@ -21,7 +21,7 @@ class CardAccount extends StatelessWidget {
                   return AllItems(
                     name: controller.search[index].name,
                     sale: controller.search[index].sale,
-                    onPressed: () async {
+                  () async {
                       // if (controller.search.isEmpty) {
                       //   return;
                       // }

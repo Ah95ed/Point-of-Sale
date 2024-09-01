@@ -14,6 +14,7 @@ import 'package:point_of_sell/View/Widget/ShareWidget/CustomMaterialButton.dart'
 import 'package:point_of_sell/View/Widget/storgeWidget/TableStoragr.dart';
 import 'package:point_of_sell/View/Widget/storgeWidget/TabsOnStorage.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
+import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 import '../../Widget/TextField.dart';
 
 class TheStorePage extends StatefulWidget {
@@ -62,9 +63,6 @@ class _TheStorePageState extends State<TheStorePage> {
         title: Text('The Store'.tr),
         centerTitle: true,
       ),
-      // extendBodyBehindAppBar: true,
-
-      // body: TableStoragr(),
       resizeToAvoidBottomInset: true,
       body: DefaultTabController(
           length: 2,
@@ -122,7 +120,7 @@ class EditItem extends StatelessWidget {
         Expanded(
           child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: context.isMobile ? 1 : 2,
+              crossAxisCount: context.isMobile ? 2 : 4,
             ),
             itemCount: 2,
             itemBuilder: (BuildContext context, int index) {
@@ -168,11 +166,45 @@ class AddItems extends StatelessWidget {
                     icons: Icons.shape_line,
                     text: name,
                   ),
-                  TextFieldCustom(
-                    name: 'code'.tr,
-                    icons: Icons.barcode_reader,
-                    text: code,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      controller: code,
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: ColorUsed.appBarColor,
+                          ),
+                        ),
+                        labelStyle: TextStyle(
+                          color: ColorUsed.appBarColor,
+                        ),
+                        labelText: 'code'.tr,
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                              final qrBarCodeScannerDialogPlugin =
+                                QrBarCodeScannerDialog();
+                            qrBarCodeScannerDialogPlugin.getScannedQrBarCode(
+                              context: context,
+                              onCode: (cod) {
+                              
+                                code.text = cod!;
+                                
+                              },
+                            );
+                          },
+                          icon: const Icon(Icons.qr_code_scanner_rounded),
+                        ),
+                        prefixIcon: const Icon(Icons.barcode_reader),
+                      ),
+                    ),
                   ),
+                  // TextFieldCustom(
+                  //   name: 'code'.tr,
+                  //   icons: IconButton(onPressed: () {}, icon: Icons.barcode_reader),
+                  //   text: code,
+                  // ),
                   TextFieldCustom(
                     name: "sale".tr,
                     icons: Icons.price_change,

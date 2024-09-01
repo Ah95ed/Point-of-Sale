@@ -73,7 +73,7 @@ class _UsersLiabilityCardState extends State<UsersLiabilityCard> {
                         ),
                         IconButton(
                           onPressed: () {
-                            Get.to(EditPage(id: record["ID"]));
+                            Get.to(EditPage(record["ID"]));
                           },
                           icon: const Icon(Icons.edit),
                         ),

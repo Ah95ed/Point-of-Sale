@@ -40,29 +40,25 @@ class DrawerAllApp extends StatelessWidget {
               SizedBox(
                 height: context.getHeight(4),
               ),
-                const Divider(),
+              const Divider(),
               ListTile(
-
                 leading: const Icon(Icons.shop),
                 title: Text('SalesInterface'.tr),
                 onTap: () {
                   Navigator.pop(context);
-                  Get.off(() => SalesInterface());
+                  Get.off(() => const SalesInterface());
                 },
-
               ),
-             const Divider(),
-               ListTile(
-
-              leading: const Icon(Icons.store),
-                      onTap: () {
-                        Navigator.pop(context);
-                        Get.off(() => TheStorePage());
-                      },
-                       title:  Text("store".tr),
-                
+              const Divider(),
+              ListTile(
+                leading: const Icon(Icons.store),
+                onTap: () {
+                  Navigator.pop(context);
+                  Get.off(() => const TheStorePage());
+                },
+                title: Text("store".tr),
               ),
-
+              const Divider(),
             ],
           );
         },

@@ -39,7 +39,7 @@ class CardView extends StatelessWidget {
                         return AllItems(
                           name: controller.items[index].name,
                           sale: controller.items[index].sale,
-                          onPressed: () {
+                          () {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {

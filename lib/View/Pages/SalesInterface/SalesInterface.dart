@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:point_of_sell/Control/HomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Pages/AccountOrders.dart';
+import 'package:point_of_sell/View/Widget/AllItems.dart';
 import 'package:point_of_sell/View/Widget/Mobile.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
 
@@ -16,14 +17,6 @@ class SalesInterface extends StatefulWidget {
 }
 
 class _SalesInterfaceState extends State<SalesInterface> {
-  HomeController c = Get.put(HomeController());
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    c.paginationData();
-  }
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -53,7 +46,7 @@ class _SalesInterfaceState extends State<SalesInterface> {
                 ),
                 SizedBox(
                   height: context.isMobile
-                      ? context.getHeight(92) -
+                      ? context.getHeight(100) -
                           context.getAppBarHeightWithStatusBar()
                       : context.getHeight(92),
                   width: context.getWidth(100),
@@ -75,23 +68,26 @@ class _SalesInterfaceState extends State<SalesInterface> {
 
 class ShowAllItem extends StatelessWidget {
   const ShowAllItem({super.key});
-  
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
+      init: HomeController(),
       builder: (c) {
         return GridView.builder(
           itemCount: c.items.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: context.isMobile ? 2 : 4,
+            crossAxisCount: context.isMobile ? 1 : 4,
+            childAspectRatio: context.isMobile ? 4 : 1.5,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
           ),
           itemBuilder: (context, index) {
-            return CustomCardView(
-              title: c.items[index].name,
+            return AllItems(
+              (){},
+              name: c.items[index].name,
               sale: c.items[index].sale,
-              buy: c.items[index].buy,
-              onTap: () {},
+              // onPressed: () {},
             );
           },
         );
@@ -106,21 +102,21 @@ class CustomCardView extends StatelessWidget {
   final String buy;
   final VoidCallback onTap;
 
-  const CustomCardView({
+  CustomCardView({
     super.key,
     required this.title,
     required this.sale,
     required this.buy,
     required this.onTap,
   });
-  final List<Color> c = const [
-    Color(0xFFAC9B88),
-    Color.fromARGB(255, 126, 118, 110),
-    Color.fromARGB(255, 238, 233, 183),
-    Color.fromARGB(255, 213, 147, 142),
-    Color.fromARGB(255, 250, 202, 157),
-    Color.fromARGB(255, 192, 183, 189),
-    Color.fromARGB(255, 199, 227, 221),
+  final List<Color> c = [
+    const Color(0xFFAC9B88),
+    const Color.fromARGB(255, 126, 118, 110),
+    const Color.fromARGB(255, 238, 233, 183),
+    const Color.fromARGB(255, 213, 147, 142),
+    const Color.fromARGB(255, 250, 202, 157),
+    const Color.fromARGB(255, 192, 183, 189),
+    const Color.fromARGB(255, 199, 227, 221),
   ];
   Color getRandomColor() {
     c.shuffle();
@@ -139,7 +135,7 @@ class CustomCardView extends StatelessWidget {
         width: context.getWidth(12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Colors.white70,
+          color: getRandomColor(),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
@@ -155,9 +151,13 @@ class CustomCardView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(10)),
-                child: Icon(Icons.code, size: context.getWidth(5)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(10),
+                ),
+                child: Icon(
+                  Icons.code,
+                  size: context.getWidth(5),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),

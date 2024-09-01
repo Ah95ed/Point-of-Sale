@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:point_of_sell/Helper/Log/Logger.dart';
+import 'package:point_of_sell/Helper/Service/Service.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/AccountOrdersDataBase.dart';
 import 'package:point_of_sell/View/Widget/AlertDialog.dart';
 import '../Model/Models/DataBaseApp/DataBaseSqflite.dart';
@@ -19,13 +21,10 @@ class AccountController extends GetxController {
   List<Items>? newResult = [];
   double resultSell = 0.0;
   double count = 0.0;
-  int i = 0;
+  late int i;
   TextEditingController? controller;
 
   static const String Result = 'Result';
-  final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
-  SharedPreferences? _prefs;
-
   @override
   void onInit() {
     controller = TextEditingController();
@@ -36,27 +35,27 @@ class AccountController extends GetxController {
   }
 
   getShared() async {
-    _prefs = await prefs;
-    if (_prefs!.getDouble('result') != null) {
-      resultSell = _prefs!.getDouble('result')!;
+    
+    if (sharep!.getDouble('result') != null) {
+      resultSell = sharep!.getDouble('result')!;
       update();
     }
   }
 
   void saveShared() async {
-    _prefs = await prefs;
-    _prefs!.setDouble('result', resultSell);
+ 
+    sharep!.setDouble('result', resultSell);
     log('message saved done  ___');
   }
 
+
   void deleteShared() async {
-    _prefs = await prefs;
-    _prefs!.remove('result');
+    sharep!.remove('result');
   }
 
   @override
   void onClose() {
-    // TODO: implement onClose
+    Log.log('close', 'AccountController');
     saveShared();
     super.onClose();
   }
@@ -69,9 +68,7 @@ class AccountController extends GetxController {
   final TextEditingController text = TextEditingController();
   Future<void> changeWidget() async {
     if (actionsicon.icon == Icons.search) {
-      // copy = search;
-      // search.clear();
-      // d = true;
+     
       actionsicon = const Icon(
         Icons.close,
         color: Colors.white,
@@ -142,11 +139,7 @@ class AccountController extends GetxController {
         .toList();
     if (newResult!.isEmpty) {
       Get.snackbar('title', 'empty', snackPosition: SnackPosition.BOTTOM);
-      // ScaffoldMessenger.of(Get.context!).showSnackBar(
-      //   const SnackBar(
-      //     content: Text('Empty'),
-      //   ),
-      // );
+
       controller!.clear();
       update();
       return;
@@ -156,15 +149,17 @@ class AccountController extends GetxController {
   }
 
   void addSaleAndupdatePrice() {
+    count = double.parse(text.text);
+   final sale_divider = count * double.parse(newResult![i].sale);
     account.insertInAccount(
       {
         DataBaseSqflite.name: newResult![i].name,
-        DataBaseSqflite.sale: newResult![i].sale,
+        DataBaseSqflite.sale: sale_divider.toString(),
         DataBaseSqflite.quantity: text.text,
       },
     );
-    count = double.parse(text.text);
-    resultSell += count * double.parse(newResult![i].sale);
+    
+    resultSell +=sale_divider;
     i++;
     controller!.clear();
 
@@ -181,7 +176,7 @@ class AccountController extends GetxController {
 
   Future<void> getDataFromAccount() async {
     var dataList = await account.getAllDataFromAccount();
-    var item =  dataList.map((i) {
+    var item = dataList.map((i) {
       return Items(
         name: i![DataBaseSqflite.name].toString(),
         code: i[DataBaseSqflite.codeItem].toString(),
@@ -193,12 +188,11 @@ class AccountController extends GetxController {
         date: i[DataBaseSqflite.date].toString(),
         time: i[DataBaseSqflite.time].toString(),
       );
-      
     }).toList();
-   
+
     search.clear();
     search.addAll(item);
-
+    update();
   }
 
   Future<void> insertInAccount(Map<String, dynamic> data) async {
@@ -213,13 +207,15 @@ class AccountController extends GetxController {
     if (resultSell <= 0.0) return;
     resultSell = resultSell - double.parse(sell);
 
-   await getDataFromAccount();
+    await getDataFromAccount();
     update();
   }
 
   @override
   void dispose() {
+    saveShared();
     controller!.dispose();
     super.dispose();
   }
+
 }

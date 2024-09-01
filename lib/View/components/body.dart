@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:point_of_sell/Helper/Log/Logger.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
 
 // import 'IconCompany.dart';
@@ -14,10 +15,10 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // double width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Container(
-        height: getHeight(100),
+        height: context.getHeight(100)
+         - context.getAppBarHeightWithStatusBar(),
         width: getWidth(100) ,
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -27,11 +28,9 @@ class Body extends StatelessWidget {
         ),
         child: Column(
           children: [
+           
             SizedBox(
-              height: height * 0.001,
-            ),
-            SizedBox(
-              height: height * 0.1,
+              height: context.getHeight(10),
               child: Text(
                 "Newport Beach, USA | PST",
                 style: Theme.of(context).textTheme.bodyLarge,
@@ -40,32 +39,10 @@ class Body extends StatelessWidget {
             const TimeInHourAndMinute(),
             // const Spacer(),
             SizedBox(
-              height: height * 0.7,
+              height: context.getHeight(60),
               child: const Clock(),
             ),
-            // const Spacer(),
-            // const IconCompany(),
-            // child: SingleChildScrollView(
-            //   scrollDirection: Axis.horizontal,
-            //   child: Row(
-            //     children: [
-            //       CountryCard(
-            //         country: "New York, USA",
-            //         timeZone: "+3 HRS | EST",
-            //         iconSrc: "assets/icons/Liberty.svg",
-            //         time: "9:20",
-            //         period: "PM",
-            //       ),
-            //       CountryCard(
-            //         country: "Sydney, AU",
-            //         timeZone: "+19 HRS | AEST",
-            //         iconSrc: "assets/icons/Sydney.svg",
-            //         time: "1:20",
-            //         period: "AM",
-            //       ),
-            //     ],
-            //   ),
-            // ),
+          
           ],
         ),
       ),
