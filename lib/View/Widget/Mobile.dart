@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Control/WelcomeController.dart';
+import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
+import 'package:point_of_sell/View/Pages/CustomerManagement/CustomerManagement.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/SalesInterface.dart';
 import 'package:point_of_sell/View/Pages/theStorage/TheStorePage.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
@@ -44,9 +46,11 @@ class DrawerAllApp extends StatelessWidget {
               ListTile(
                 leading: const Icon(Icons.shop),
                 title: Text('SalesInterface'.tr),
-                onTap: () {
+                onTap: ()  {
                   Navigator.pop(context);
-                  Get.off(() => const SalesInterface());
+                  Get.off(
+                    () => const SalesInterface(),
+                  );
                 },
               ),
               const Divider(),
@@ -54,9 +58,18 @@ class DrawerAllApp extends StatelessWidget {
                 leading: const Icon(Icons.store),
                 onTap: () {
                   Navigator.pop(context);
-                  Get.off(() => const TheStorePage());
+                  Get.off(() => const AddItems());
                 },
-                title: Text("store".tr),
+                title: Text(Language.AddItems.tr),
+              ),
+              const Divider(),
+                ListTile(
+                leading: const Icon(Icons.person_add),
+                onTap: () {
+                  Navigator.pop(context);
+                  Get.off(() => const CustomerManagement());
+                },
+                title: Text(Language.Customer.tr),
               ),
               const Divider(),
             ],

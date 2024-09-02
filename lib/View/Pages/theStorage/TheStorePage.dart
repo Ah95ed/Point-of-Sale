@@ -1,30 +1,56 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:point_of_sell/Control/HomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/DataBaseSqflite.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
-import 'package:point_of_sell/View/Pages/EditPage.dart';
-import 'package:point_of_sell/View/Pages/SalesInterface/SalesInterface.dart';
 import 'package:point_of_sell/View/Widget/Mobile.dart';
 import 'package:point_of_sell/View/Widget/SelectDate.dart';
-import 'package:intl/intl.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/CustomMaterialButton.dart';
 import 'package:point_of_sell/View/Widget/storgeWidget/TableStoragr.dart';
-import 'package:point_of_sell/View/Widget/storgeWidget/TabsOnStorage.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
 import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 import '../../Widget/TextField.dart';
 
-class TheStorePage extends StatefulWidget {
-  const TheStorePage({super.key});
+class AddItems extends StatefulWidget {
+  const AddItems({super.key});
 
   @override
-  State<TheStorePage> createState() => _TheStorePageState();
+  State<AddItems> createState() => _AddItemsState();
 }
 
-class _TheStorePageState extends State<TheStorePage> {
+class _AddItemsState extends State<AddItems> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      extendBody: true,
+      drawer: const DrawerAllApp(),
+      appBar: AppBar(
+        title: Text(Language.AddItems.tr),
+        centerTitle: true,
+      ),
+      resizeToAvoidBottomInset: true,
+      body: const SingleChildScrollView(
+        clipBehavior: Clip.none,
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
+        child: AddItemBody(),
+      ),
+      // body: AddItems(name: name, code: code, sale: sale, buy: buy, quantity: quantity, company: company, date: date),
+    );
+  }
+}
+
+class AddItemBody extends StatefulWidget {
+  const AddItemBody({
+    super.key,
+  });
+
+  @override
+  State<AddItemBody> createState() => _AddItemBodyState();
+}
+
+class _AddItemBodyState extends State<AddItemBody> {
   TextEditingController name = TextEditingController();
 
   TextEditingController code = TextEditingController();
@@ -56,105 +82,6 @@ class _TheStorePageState extends State<TheStorePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
-      drawer: const DrawerAllApp(),
-      appBar: AppBar(
-        title: Text('The Store'.tr),
-        centerTitle: true,
-      ),
-      resizeToAvoidBottomInset: true,
-      body: DefaultTabController(
-          length: 2,
-          child: SingleChildScrollView(
-            clipBehavior: Clip.none,
-            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: context.getHeight(10),
-                  child: TabBar(
-                    tabs: [
-                      Tab(icon: const Icon(Icons.add), text: Language.add.tr),
-                      Tab(
-                          icon: const Icon(Icons.person),
-                          text: Language.edit.tr),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: context.isMobile
-                      ? context.getHeight(90) -
-                          context.getAppBarHeightWithStatusBar()
-                      : context.getHeight(92),
-                  child: TabBarView(
-                    children: [
-                      AddItems(
-                          name: name,
-                          code: code,
-                          sale: sale,
-                          buy: buy,
-                          quantity: quantity,
-                          company: company,
-                          date: date),
-                      const EditItem(),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          )),
-      // body: AddItems(name: name, code: code, sale: sale, buy: buy, quantity: quantity, company: company, date: date),
-    );
-  }
-}
-
-class EditItem extends StatelessWidget {
-  const EditItem({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextFieldCustom(),
-        Expanded(
-          child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: context.isMobile ? 2 : 4,
-            ),
-            itemCount: 2,
-            itemBuilder: (BuildContext context, int index) {
-              return;
-            },
-          ),
-        )
-      ],
-    );
-  }
-}
-
-class AddItems extends StatelessWidget {
-  const AddItems({
-    super.key,
-    required this.name,
-    required this.code,
-    required this.sale,
-    required this.buy,
-    required this.quantity,
-    required this.company,
-    required this.date,
-  });
-
-  final TextEditingController name;
-  final TextEditingController code;
-  final TextEditingController sale;
-  final TextEditingController buy;
-  final TextEditingController quantity;
-  final TextEditingController company;
-  final TextEditingController date;
-
-  @override
-  Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
       init: HomeController(),
       builder: (controller) {
@@ -183,14 +110,12 @@ class AddItems extends StatelessWidget {
                         labelText: 'code'.tr,
                         suffixIcon: IconButton(
                           onPressed: () {
-                              final qrBarCodeScannerDialogPlugin =
+                            final qrBarCodeScannerDialogPlugin =
                                 QrBarCodeScannerDialog();
                             qrBarCodeScannerDialogPlugin.getScannedQrBarCode(
                               context: context,
                               onCode: (cod) {
-                              
                                 code.text = cod!;
-                                
                               },
                             );
                           },
@@ -200,11 +125,6 @@ class AddItems extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // TextFieldCustom(
-                  //   name: 'code'.tr,
-                  //   icons: IconButton(onPressed: () {}, icon: Icons.barcode_reader),
-                  //   text: code,
-                  // ),
                   TextFieldCustom(
                     name: "sale".tr,
                     icons: Icons.price_change,
@@ -258,8 +178,6 @@ class AddItems extends StatelessWidget {
                       company.clear();
                       quantity.clear();
                       date.clear();
-
-                      // controller.update();
                     },
                   ),
                 ],
@@ -329,7 +247,7 @@ class AddItems extends StatelessWidget {
                         ),
                       ),
                       CustomMaterialButton(
-                        title: 'Adders'.tr,
+                        title: 'Add'.tr,
                         onPressed: () {
                           controller.addItems(
                             {

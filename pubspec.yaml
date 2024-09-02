@@ -17,6 +17,7 @@ dependencies:
   get: 
   fluent_ui:
   qr_bar_code_scanner_dialog: 
+  device_preview: ^1.2.0
   flutter_svg:
   pdf: 
   permission_handler: 
@@ -26,11 +27,11 @@ dependencies:
   qr_flutter:
   barcode_widget:
   file_picker: 
-  # device_preview:
   tutorial_coach_mark:    # ! تشرح البرنامج
 
   path: any
   path_provider: any
+  intl: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

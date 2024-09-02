@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,30 +24,27 @@ class _SalesInterfaceState extends State<SalesInterface> {
         length: 2,
         child: Scaffold(
           drawer: context.isMobile ? const DrawerAllApp() : null,
-          appBar: context.isMobile ? AppBar() : null,
+          appBar: AppBar(
+            centerTitle: true,
+            title: TabBar(
+              tabs: [
+                Tab(
+                    icon: const Icon(Icons.home),
+                    text: Language.showAllItem.tr),
+                Tab(
+                  icon: const Icon(Icons.person),
+                  text: Language.sales.tr,
+                ),
+       
+              ],
+            ),
+          ),
           body: SingleChildScrollView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
             child: Column(
               children: [
                 SizedBox(
-                  height: context.getHeight(8),
-                  width: context.getWidth(100),
-                  child: TabBar(
-                    tabs: [
-                      Tab(
-                          icon: const Icon(Icons.home),
-                          text: Language.showAllItem.tr),
-                      Tab(
-                          icon: const Icon(Icons.person),
-                          text: Language.sales.tr),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: context.isMobile
-                      ? context.getHeight(100) -
-                          context.getAppBarHeightWithStatusBar()
-                      : context.getHeight(92),
+                  height: context.getHeight(100),
                   width: context.getWidth(100),
                   child: const TabBarView(
                     children: [
@@ -84,7 +80,7 @@ class ShowAllItem extends StatelessWidget {
           ),
           itemBuilder: (context, index) {
             return AllItems(
-              (){},
+              () {},
               name: c.items[index].name,
               sale: c.items[index].sale,
               // onPressed: () {},

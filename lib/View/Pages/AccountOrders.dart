@@ -1,9 +1,5 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:point_of_sell/Helper/Log/Logger.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
@@ -19,15 +15,18 @@ class AccountOrders extends StatefulWidget {
 }
 
 class _AccountOrdersState extends State<AccountOrders> {
-  final ch = Get.put(AccountController());
+  final ch = Get.put(
+    AccountController(),
+  );
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AccountController>(
       init: AccountController(),
       builder: (controller) {
-       controller.getDataFromAccount();
+        controller.getDataFromAccount();
         return SizedBox(
+          height: context.getHeight(100),
           child: Column(
             children: [
               SizedBox(
@@ -38,7 +37,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                     if (value.isEmpty) return;
                     controller.searchCodeOrder(value);
                   },
-                
+
                   style: const TextStyle(
                     color: Colors.black,
                   ),
@@ -81,40 +80,33 @@ class _AccountOrdersState extends State<AccountOrders> {
               ),
               Container(
                 color: ColorUsed.whitesoft,
-                height: context.isMobile
-                    ? context.getHeight(66.1) 
-                    : context.getHeight(74),
+                height: context.getHeight(73),
                 child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: context.isMobile ?1 : 4,
+                      crossAxisCount: context.isMobile ? 1 : 4,
                       childAspectRatio: context.isMobile ? 4 : 1.5,
                       mainAxisSpacing: 10,
                       crossAxisSpacing: 10,
-
                     ),
                     itemCount: controller.search.length,
                     itemBuilder: (BuildContext context, int index) {
                       return AllItems(
-                      () async {
+                        () async {
                           if (controller.search.isEmpty) return;
-                          log('message onClick  ${controller.search[index].id}');
                           await controller.deleteItem(
                             controller.search[index].id,
                             controller.search[index].sale,
                           );
-                          // controller.update();
                           controller.getDataFromAccount();
                         },
                         name: controller.search[index].name,
                         sale: controller.search[index].sale,
-                       
                       );
                     }),
               ),
               Container(
                 color: ColorUsed.lightBlue,
-                height: context.getHeight(10),
-                
+                height: context.getHeight(8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -127,16 +119,17 @@ class _AccountOrdersState extends State<AccountOrders> {
                       ),
                     ),
                     Padding(
-                      padding:  EdgeInsets.only(bottom: context.getHeight(1)),
+                      padding: EdgeInsets.only(bottom: context.getHeight(1)),
                       child: SizedBox(
-                        height: context.getHeight(6),
+                        height: context.getHeight(4),
                         width: context.getWidth(30),
                         child: OutlinedButton(
                           style: const ButtonStyle(
-                            backgroundColor: WidgetStatePropertyAll(Colors.white),
-                            foregroundColor: WidgetStatePropertyAll(Colors.black),
+                            backgroundColor:
+                                WidgetStatePropertyAll(Colors.white),
+                            foregroundColor:
+                                WidgetStatePropertyAll(Colors.black),
                             shadowColor: WidgetStatePropertyAll(Colors.black),
-                           
                           ),
                           onPressed: () {
                             controller.resultSell = 0.0;

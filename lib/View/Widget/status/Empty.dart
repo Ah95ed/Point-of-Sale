@@ -15,7 +15,7 @@ class Empty extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            ElevatedButton(onPressed: ()=>Get.to(TheStorePage()), child: const Text("Add New Item")),
+            ElevatedButton(onPressed: ()=>Get.to(const AddItems()), child: const Text("Add New Item")),
           ],
       ),
     );

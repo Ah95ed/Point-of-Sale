@@ -8,7 +8,6 @@ import 'package:point_of_sell/Model/Models/DataBaseApp/AccountOrdersDataBase.dar
 import 'package:point_of_sell/View/Widget/AlertDialog.dart';
 import '../Model/Models/DataBaseApp/DataBaseSqflite.dart';
 import '../Model/Models/Items.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountController extends GetxController {
   late DataBaseSqflite dataBaseSqflite;
@@ -150,16 +149,16 @@ class AccountController extends GetxController {
 
   void addSaleAndupdatePrice() {
     count = double.parse(text.text);
-   final sale_divider = count * double.parse(newResult![i].sale);
+   final saleDivider = count * double.parse(newResult![i].sale);
     account.insertInAccount(
       {
         DataBaseSqflite.name: newResult![i].name,
-        DataBaseSqflite.sale: sale_divider.toString(),
+        DataBaseSqflite.sale: saleDivider.toString(),
         DataBaseSqflite.quantity: text.text,
       },
     );
     
-    resultSell +=sale_divider;
+    resultSell +=saleDivider;
     i++;
     controller!.clear();
 

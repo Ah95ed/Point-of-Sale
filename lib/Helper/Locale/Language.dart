@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 
 class Language implements Translations {
@@ -16,19 +15,23 @@ class Language implements Translations {
   static const date = 'date';
   static const search = 'search';
   static const update_price = 'update_price';
+  static const AddItems = 'AddItems';
+  static const Customer = 'Customer';
   @override
   Map<String, Map<String, String>> get keys => {
         "ar": {
-          update : 'تحديث',
-          delete : 'حذف',
-          edit : 'تعديل',
-          update_price : 'تحديث جميع الأسعار',
-          search : 'بحث',
-          add : 'اضافة عنصر',
-          sales : 'البيع',
-          showAllItem :  'عرض جميع العناصر',
+          update: 'تحديث',
+          Customer : 'العملاء',
+          delete: 'حذف',
+          AddItems: 'اضافة عنصر',
+          edit: 'تعديل',
+          update_price: 'تحديث جميع الأسعار',
+          search: 'بحث',
+          add: 'اضافة عنصر',
+          sales: 'البيع',
+          showAllItem: 'عرض جميع العناصر',
           nameItem: 'الأسم :-',
-          saleItem : ' -: سعر البيع',
+          saleItem: ' -: سعر البيع',
           error: "خطأ",
           "SaleofPoint": "نقطة البيع",
           "add": "إضافة عنصر",
@@ -73,18 +76,19 @@ class Language implements Translations {
           'SalesInterface': 'واجهة المبيعات',
         },
         "en": {
-          update : 'Update',
-          delete : 'Delete',
-          edit : 'Edit',
-          update_price : 'Update All Price',
-          search : 'Search',
-          
-          add : 'Add Item',
-          sales : 'Sales',
-          showAllItem : 'Show All Item',
+          update: 'Update',
+          AddItems: 'Add Items',
+          delete: 'Delete',
+          Customer : 'Customer',
+          edit: 'Edit',
+          update_price: 'Update All Price',
+          search: 'Search',
+          add: 'Add Item',
+          sales: 'Sales',
+          showAllItem: 'Show All Item',
           nameItem: 'Name :-',
           error: 'Error',
-          saleItem : 'Sale Price :-',
+          saleItem: 'Sale Price :-',
           'SalesInterface': 'Sales Interface',
           "SaleofPoint": "Point Of Sale",
           "add": "Add Item",

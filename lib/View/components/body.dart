@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:point_of_sell/Helper/Log/Logger.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
 
 // import 'IconCompany.dart';
