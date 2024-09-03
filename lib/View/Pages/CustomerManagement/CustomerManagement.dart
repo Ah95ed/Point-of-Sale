@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
+import 'package:point_of_sell/View/Pages/CustomerManagement/screens/AddCustomer.dart';
 import 'package:point_of_sell/View/Widget/Mobile.dart';
 import 'package:point_of_sell/View/Widget/TextField.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
@@ -16,14 +17,15 @@ class CustomerManagement extends StatelessWidget {
       child: Scaffold(
         drawer: const DrawerAllApp(),
         appBar: AppBar(
-          title: const TabBar(
+          title: TabBar(
             tabs: [
               Tab(
-                text: "Customer",
-                icon: Icon(Icons.person),
+                text: "Customer".tr,
+                icon: const Icon(Icons.person),
               ),
               Tab(
-                text: "Add Customer",
+                text: Language.addCustomers.tr,
+                icon: const Icon(Icons.person_add),
               ),
             ],
           ),
@@ -31,9 +33,7 @@ class CustomerManagement extends StatelessWidget {
         body: TabBarView(
           children: [
             CustomersView(),
-            const Center(
-              child: Text('ahmed'),
-            ),
+            const AddCustomer(),
           ],
         ),
       ),
@@ -61,12 +61,12 @@ class CustomersView extends StatelessWidget {
             width: context.getWidth(100),
             child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 3 / 2,
-                    crossAxisSpacing: 1,
-                    mainAxisSpacing: 1,
-                    ),
-                itemCount: 10,
+                  crossAxisCount: 2,
+                  childAspectRatio: 3 / 2,
+                  crossAxisSpacing: 1,
+                  mainAxisSpacing: 1,
+                ),
+                itemCount: 18,
                 itemBuilder: (context, index) {
                   return const CardViewCustomers();
                 }),
