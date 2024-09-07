@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:path/path.dart';
+import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/LiabilityDataBase.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
@@ -30,13 +31,13 @@ class DataBaseSqflite {
     if (_database != null) {
       return _database;
     } else if (Platform.isWindows || Platform.isLinux) {
-      return windowsApp();
+      return await windowsApp();
     } else {
-      return  initDataBase();
+      return await mobileApp();
     }
   }
 
-  static Future<Database> initDataBase() async {
+  static Future<Database> mobileApp() async {
     var datPath = await getDatabasesPath();
     String path = join(datPath, DB_Name);
     return await openDatabase(
@@ -55,6 +56,13 @@ class DataBaseSqflite {
             ,$date TEXT )''',
         );
         await db.execute(
+          '''CREATE TABLE IF NOT EXISTS ${CustomersDatabase.tableCustomer} 
+          (${CustomersDatabase.id} INTEGER PRIMARY KEY AUTOINCREMENT  ,
+           ${CustomersDatabase.name} TEXT ,
+            ${CustomersDatabase.phone} TEXT
+            ,${CustomersDatabase.address} TEXT )''',
+        );
+        await db.execute(
           '''CREATE TABLE IF NOT EXISTS ${LiabilityDataBase.TableLiability} 
           ($id INTEGER PRIMARY KEY AUTOINCREMENT   , 
           ${LiabilityDataBase.user_id} TEXT ,
@@ -69,7 +77,8 @@ class DataBaseSqflite {
      ($id INTEGER PRIMARY KEY AUTOINCREMENT   ,
              ${LiabilityDataBase.TableLi_user_name} TEXT )
                              ''');
-        await db.execute('''
+        await db.execute(
+          '''
          CREATE TABLE IF NOT EXISTS
           $TableAccount (
            $id INTEGER PRIMARY KEY AUTOINCREMENT ,
@@ -77,7 +86,8 @@ class DataBaseSqflite {
              $sale TEXT  ,
               $quantity TEXT )
           
-          ''',);
+          ''',
+        );
       },
     );
   }
@@ -101,7 +111,13 @@ class DataBaseSqflite {
                 $company TEXT ,
             $date TEXT )''',
           );
-
+          await db.execute(
+            '''CREATE TABLE IF NOT EXISTS ${CustomersDatabase.tableCustomer} 
+          (${CustomersDatabase.id} INTEGER PRIMARY KEY AUTOINCREMENT  ,
+           ${CustomersDatabase.name} TEXT ,
+            ${CustomersDatabase.phone} TEXT
+            ,${CustomersDatabase.address} TEXT )''',
+          );
           await db.execute(
             '''CREATE TABLE IF NOT EXISTS ${LiabilityDataBase.TableLiability} 
           ($id INTEGER PRIMARY KEY AUTOINCREMENT   , 

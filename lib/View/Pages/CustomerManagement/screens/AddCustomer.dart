@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:point_of_sell/Control/CustomerController/CustomerController.dart';
+import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/CustomMaterialButton.dart';
 import 'package:point_of_sell/View/Widget/TextField.dart';
@@ -16,6 +18,8 @@ class _AddCustomerState extends State<AddCustomer> {
   final TextEditingController _name = TextEditingController();
   final TextEditingController _phone = TextEditingController();
   final TextEditingController _location = TextEditingController();
+
+  Customercontroller c = Get.put(Customercontroller());
 
   @override
   void dispose() {
@@ -55,7 +59,13 @@ class _AddCustomerState extends State<AddCustomer> {
             ),
             CustomMaterialButton(
               title: 'Add'.tr,
-              onPressed: () {},
+              onPressed: () {
+                c.insert({
+                  CustomersDatabase.name: _name.text,
+                  CustomersDatabase.phone: _phone.text,
+                  CustomersDatabase.address: _location.text
+                });
+              },
             ),
           ],
         ),

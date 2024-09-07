@@ -33,14 +33,6 @@ class AccountOrdersDataBase {
     );
   }
 
-  // Future<int> insertInResult(Map<String, dynamic> data) async {
-  //   _database = await database;
-  //   return _database!.insert(
-  //     TableResultSell,
-  //     data,
-  //     conflictAlgorithm: ConflictAlgorithm.replace,
-  //   );
-  // }
 
   Future<List<Map<String, dynamic>?>> getAllResult() async {
     _database = await database;

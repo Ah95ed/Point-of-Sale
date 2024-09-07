@@ -9,7 +9,7 @@ import 'package:point_of_sell/View/Widget/AlertDialog.dart';
 import '../Model/Models/DataBaseApp/DataBaseSqflite.dart';
 import '../Model/Models/Items.dart';
 
-class AccountController extends GetxController {
+class AccountController extends GetxController with WidgetsBindingObserver {
   late DataBaseSqflite dataBaseSqflite;
   late AccountOrdersDataBase account;
 
@@ -29,12 +29,13 @@ class AccountController extends GetxController {
     controller = TextEditingController();
     dataBaseSqflite = DataBaseSqflite();
     account = AccountOrdersDataBase();
-    getShared();
+    WidgetsBinding.instance.addObserver(this);
     super.onInit();
+    getShared();
+    Log.log('msg', 'sharep! = ${sharep!.getDouble('result')}');
   }
 
   getShared() async {
-    
     if (sharep!.getDouble('result') != null) {
       resultSell = sharep!.getDouble('result')!;
       update();
@@ -42,11 +43,9 @@ class AccountController extends GetxController {
   }
 
   void saveShared() async {
- 
     sharep!.setDouble('result', resultSell);
     log('message saved done  ___');
   }
-
 
   void deleteShared() async {
     sharep!.remove('result');
@@ -59,6 +58,16 @@ class AccountController extends GetxController {
     super.onClose();
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.detached) {
+      // حفظ البيانات هنا
+        sharep!.setDouble('result', resultSell); 
+      // saveShared();
+      log('message saved Done  __________________________ ');
+    }
+  }
+
   Widget title = const Text('Account');
   Icon actionsicon = const Icon(
     Icons.search,
@@ -67,7 +76,6 @@ class AccountController extends GetxController {
   final TextEditingController text = TextEditingController();
   Future<void> changeWidget() async {
     if (actionsicon.icon == Icons.search) {
-     
       actionsicon = const Icon(
         Icons.close,
         color: Colors.white,
@@ -96,10 +104,6 @@ class AccountController extends GetxController {
       );
       update();
     } else {
-      // search = copy;
-      // copy.clear();
-      // search.clear();
-      // d = false;
       actionsicon = const Icon(
         Icons.search,
         color: Colors.white,
@@ -149,7 +153,7 @@ class AccountController extends GetxController {
 
   void addSaleAndupdatePrice() {
     count = double.parse(text.text);
-   final saleDivider = count * double.parse(newResult![i].sale);
+    final saleDivider = count * double.parse(newResult![i].sale);
     account.insertInAccount(
       {
         DataBaseSqflite.name: newResult![i].name,
@@ -157,8 +161,8 @@ class AccountController extends GetxController {
         DataBaseSqflite.quantity: text.text,
       },
     );
-    
-    resultSell +=saleDivider;
+
+    resultSell += saleDivider;
     i++;
     controller!.clear();
 
@@ -216,5 +220,4 @@ class AccountController extends GetxController {
     controller!.dispose();
     super.dispose();
   }
-
 }

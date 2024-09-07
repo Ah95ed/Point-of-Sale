@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:point_of_sell/Helper/Log/Logger.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
@@ -15,9 +16,11 @@ class AccountOrders extends StatefulWidget {
 }
 
 class _AccountOrdersState extends State<AccountOrders> {
-  final ch = Get.put(
-    AccountController(),
-  );
+ 
+  // final ch = Get.put(
+  //   AccountController(),
+  // );
+  
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +28,7 @@ class _AccountOrdersState extends State<AccountOrders> {
       init: AccountController(),
       builder: (controller) {
         controller.getDataFromAccount();
+        
         return SizedBox(
           height: context.getHeight(100),
           child: Column(
@@ -80,7 +84,7 @@ class _AccountOrdersState extends State<AccountOrders> {
               ),
               Container(
                 color: ColorUsed.whitesoft,
-                height: context.getHeight(73),
+                height: context.getHeight(78),
                 child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: context.isMobile ? 1 : 4,

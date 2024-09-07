@@ -1,0 +1,1 @@
+ C:\\Users\\Ahmed\\StudioProjects\\point_of_sell\\.dart_tool\\flutter_build\\78c9b48df6225748f65420694e2c0597\\native_assets.yaml: 

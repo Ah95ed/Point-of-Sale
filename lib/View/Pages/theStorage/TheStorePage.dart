@@ -25,7 +25,7 @@ class _AddItemsState extends State<AddItems> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      drawer: const DrawerAllApp(),
+      drawer:context.isMobile ? const DrawerAllApp() : null,
       appBar: AppBar(
         title: Text(Language.AddItems.tr),
         centerTitle: true,
@@ -85,8 +85,7 @@ class _AddItemBodyState extends State<AddItemBody> {
     return GetBuilder<HomeController>(
       init: HomeController(),
       builder: (controller) {
-        return context.isMobile
-            ? Column(
+        return  Column(
                 children: [
                   TextFieldCustom(
                     name: 'itemName'.tr,
@@ -108,7 +107,7 @@ class _AddItemBodyState extends State<AddItemBody> {
                           color: ColorUsed.appBarColor,
                         ),
                         labelText: 'code'.tr,
-                        suffixIcon: IconButton(
+                        suffixIcon: context.isMobile ? IconButton(
                           onPressed: () {
                             final qrBarCodeScannerDialogPlugin =
                                 QrBarCodeScannerDialog();
@@ -120,7 +119,7 @@ class _AddItemBodyState extends State<AddItemBody> {
                             );
                           },
                           icon: const Icon(Icons.qr_code_scanner_rounded),
-                        ),
+                        ) : null,
                         prefixIcon: const Icon(Icons.barcode_reader),
                       ),
                     ),
@@ -181,108 +180,114 @@ class _AddItemBodyState extends State<AddItemBody> {
                     },
                   ),
                 ],
-              )
-            : Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextFieldCustom(
-                          name: 'itemName'.tr,
-                          icons: Icons.shape_line,
-                          text: name,
-                        ),
-                      ),
-                      Expanded(
-                        child: TextFieldCustom(
-                          name: 'code'.tr,
-                          icons: Icons.barcode_reader,
-                          text: code,
-                        ),
-                      ),
-                      Expanded(
-                        child: TextFieldCustom(
-                          name: "sale".tr,
-                          icons: Icons.price_change,
-                          text: sale,
-                        ),
-                      ),
-                      Expanded(
-                        child: TextFieldCustom(
-                          name: "buy".tr,
-                          icons: Icons.description,
-                          text: buy,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextFieldCustom(
-                          name: 'quantity'.tr,
-                          icons: Icons.description,
-                          text: quantity,
-                        ),
-                      ),
-                      Expanded(
-                        child: TextFieldCustom(
-                          name: 'company_name'.tr,
-                          icons: Icons.store_sharp,
-                          text: company,
-                        ),
-                      ),
-                      Expanded(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: TextFieldCustom(
-                                name: "date".tr,
-                                icons: Icons.date_range,
-                                text: date,
-                              ),
-                            ),
-                            SelectDate(dateCtrl: date),
-                          ],
-                        ),
-                      ),
-                      CustomMaterialButton(
-                        title: 'Add'.tr,
-                        onPressed: () {
-                          controller.addItems(
-                            {
-                              DataBaseSqflite.name: name.text,
-                              DataBaseSqflite.codeItem: code.text,
-                              DataBaseSqflite.sale: sale.text,
-                              DataBaseSqflite.buy: buy.text,
-                              DataBaseSqflite.quantity: quantity.text,
-                              DataBaseSqflite.date: date.text,
-                              DataBaseSqflite.company: company.text,
-                            },
-                          );
-                          name.clear();
-                          code.clear();
-                          sale.clear();
-                          buy.clear();
-                          company.clear();
-                          quantity.clear();
-                          date.clear();
-
-                          // controller.update();
-                        },
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: CardTableStorage(),
-                  ),
-                  // const Expanded(
-                  //   flex: 2,
-                  //   child: TabsOnStorage(),
-                  // ),
-                ],
               );
+            // : SizedBox(
+            //   child: Column(
+            //       children: [
+            //         SizedBox(
+            //           child: Row(
+            //             children: [
+            //               Expanded(
+            //                 child: TextFieldCustom(
+            //                   name: 'itemName'.tr,
+            //                   icons: Icons.shape_line,
+            //                   text: name,
+            //                 ),
+            //               ),
+            //               Expanded(
+            //                 child: TextFieldCustom(
+            //                   name: 'code'.tr,
+            //                   icons: Icons.barcode_reader,
+            //                   text: code,
+            //                 ),
+            //               ),
+            //               Expanded(
+            //                 child: TextFieldCustom(
+            //                   name: "sale".tr,
+            //                   icons: Icons.price_change,
+            //                   text: sale,
+            //                 ),
+            //               ),
+            //               Expanded(
+            //                 child: TextFieldCustom(
+            //                   name: "buy".tr,
+            //                   icons: Icons.description,
+            //                   text: buy,
+            //                 ),
+            //               ),
+            //             ],
+            //           ),
+            //         ),
+            //         SizedBox(
+            //           child: Row(
+            //             children: [
+            //               Expanded(
+            //                 child: TextFieldCustom(
+            //                   name: 'quantity'.tr,
+            //                   icons: Icons.description,
+            //                   text: quantity,
+            //                 ),
+            //               ),
+            //               Expanded(
+            //                 child: TextFieldCustom(
+            //                   name: 'company_name'.tr,
+            //                   icons: Icons.store_sharp,
+            //                   text: company,
+            //                 ),
+            //               ),
+            //               Expanded(
+            //                 child: Row(
+            //                   children: [
+            //                     Expanded(
+            //                       child: TextFieldCustom(
+            //                         name: "date".tr,
+            //                         icons: Icons.date_range,
+            //                         text: date,
+            //                       ),
+            //                     ),
+            //                     SelectDate(dateCtrl: date),
+            //                   ],
+            //                 ),
+            //               ),
+            //               CustomMaterialButton(
+            //                 title: 'Add'.tr,
+            //                 onPressed: () {
+            //                   controller.addItems(
+            //                     {
+            //                       DataBaseSqflite.name: name.text,
+            //                       DataBaseSqflite.codeItem: code.text,
+            //                       DataBaseSqflite.sale: sale.text,
+            //                       DataBaseSqflite.buy: buy.text,
+            //                       DataBaseSqflite.quantity: quantity.text,
+            //                       DataBaseSqflite.date: date.text,
+            //                       DataBaseSqflite.company: company.text,
+            //                     },
+            //                   );
+            //                   name.clear();
+            //                   code.clear();
+            //                   sale.clear();
+            //                   buy.clear();
+            //                   company.clear();
+            //                   quantity.clear();
+            //                   date.clear();
+                                  
+            //                   // controller.update();
+            //                 },
+            //               ),
+            //             ],
+            //           ),
+            //         ),
+            //         Expanded(
+            //           flex: 3,
+            //           child: CardTableStorage(),
+            //         ),
+            //         // const Expanded(
+            //         //   flex: 2,
+            //         //   child: TabsOnStorage(),
+            //         // ),
+            //       ],
+            //     ),
+            // );
       },
     );
   }

@@ -1,9 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Control/HomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
+import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Pages/AccountOrders.dart';
+import 'package:point_of_sell/View/Widget/AlertDialog.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
 import 'package:point_of_sell/View/Widget/Mobile.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
@@ -35,7 +36,6 @@ class _SalesInterfaceState extends State<SalesInterface> {
                   icon: const Icon(Icons.person),
                   text: Language.sales.tr,
                 ),
-       
               ],
             ),
           ),
@@ -70,24 +70,62 @@ class ShowAllItem extends StatelessWidget {
     return GetBuilder<HomeController>(
       init: HomeController(),
       builder: (c) {
-        return GridView.builder(
-          itemCount: c.items.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: context.isMobile ? 1 : 4,
-            childAspectRatio: context.isMobile ? 4 : 1.5,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
+        return Container(
+          color: ColorUsed.whitesoft,
+          height: context.getHeight(100),
+          child: GridView.builder(
+            itemCount: c.items.length,
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            physics: const ScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: context.isMobile ? 1 : 3,
+              childAspectRatio: context.isMobile ? 2 : 4,
+              mainAxisSpacing: 2,
+              crossAxisSpacing: 2,
+            ),
+            itemBuilder: (context, index) {
+              return AllItems(
+                () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => const CustomAlertDialog(),
+                  );
+                },
+                name: c.items[index].name,
+                sale: c.items[index].sale,
+                // onPressed: () {},
+              );
+            },
           ),
-          itemBuilder: (context, index) {
-            return AllItems(
-              () {},
-              name: c.items[index].name,
-              sale: c.items[index].sale,
-              // onPressed: () {},
-            );
-          },
         );
       },
+    );
+  }
+}
+
+class CustomAlertDialog extends StatelessWidget {
+  const CustomAlertDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Select'),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text('Delete'),
+        ),
+   
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text('Edit'),
+        ),
+      ],
     );
   }
 }
