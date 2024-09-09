@@ -43,28 +43,30 @@ class _AddCustomerState extends State<AddCustomer> {
               text: _name,
               icons: Icons.person,
               name: 'name'.tr,
-              input: TextInputType.text,
+              // input: TextInputType.text,
             ),
             TextFieldCustom(
               text: _phone,
               icons: Icons.phone,
               name: 'phone'.tr,
-              input: TextInputType.phone,
+              // input: TextInputType.phone,
             ),
             TextFieldCustom(
               icons: Icons.location_on,
               name: 'location'.tr,
-              input: TextInputType.text,
+              // input: TextInputType.text,
               text: _location,
             ),
             CustomMaterialButton(
               title: 'Add'.tr,
               onPressed: () {
-                c.insert({
-                  CustomersDatabase.name: _name.text,
-                  CustomersDatabase.phone: _phone.text,
-                  CustomersDatabase.address: _location.text
-                });
+                c.insert(
+                  {
+                    CustomersDatabase.name: _name.text,
+                    CustomersDatabase.phone: _phone.text,
+                    CustomersDatabase.address: _location.text
+                  },
+                );
               },
             ),
           ],

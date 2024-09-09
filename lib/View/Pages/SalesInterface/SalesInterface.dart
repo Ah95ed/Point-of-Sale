@@ -4,7 +4,6 @@ import 'package:point_of_sell/Control/HomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Pages/AccountOrders.dart';
-import 'package:point_of_sell/View/Widget/AlertDialog.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
 import 'package:point_of_sell/View/Widget/Mobile.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
@@ -18,13 +17,21 @@ class SalesInterface extends StatefulWidget {
 
 class _SalesInterfaceState extends State<SalesInterface> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Get.put(HomeController());
+  
+  }
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: context.getHeight(100),
       child: DefaultTabController(
         length: 2,
         child: Scaffold(
-          drawer: context.isMobile ? const DrawerAllApp() : null,
+          drawer: context.isMobile
+           ? const DrawerAllApp() : null,
           appBar: AppBar(
             centerTitle: true,
             title: TabBar(
@@ -68,7 +75,6 @@ class ShowAllItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
-      init: HomeController(),
       builder: (c) {
         return Container(
           color: ColorUsed.whitesoft,
@@ -80,7 +86,7 @@ class ShowAllItem extends StatelessWidget {
             physics: const ScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: context.isMobile ? 1 : 3,
-              childAspectRatio: context.isMobile ? 2 : 4,
+              childAspectRatio: context.isMobile ? 4 : 4,
               mainAxisSpacing: 2,
               crossAxisSpacing: 2,
             ),

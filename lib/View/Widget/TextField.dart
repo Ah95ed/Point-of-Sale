@@ -13,17 +13,15 @@ class TextFieldCustom extends StatelessWidget {
   });
   String? name;
   IconData? icons;
-  TextEditingController? text = TextEditingController();
+  TextEditingController? text;
   TextInputType? input;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: TextFormField(   
+      child: TextFormField(
         controller: text,
-        keyboardType: input == null 
-        ? TextInputType.text 
-        : TextInputType.number,
+        keyboardType: input == null ? TextInputType.text : TextInputType.number,
         decoration: InputDecoration(
           labelText: name,
           prefixIcon: Icon(
