@@ -13,7 +13,7 @@ class Customercontroller extends GetxController {
     super.onInit();
     model = CustomerModel();
     getCustomer();
-    Log.log('init state', 'init state -----------------------');
+    Log.log('init state');
   }
 
   Future<void> getCustomer() async {

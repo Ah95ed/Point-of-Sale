@@ -32,7 +32,7 @@ class AccountController extends GetxController with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     super.onInit();
     getShared();
-    Log.log('msg', 'sharep! = ${sharep!.getDouble('result')}');
+   
   }
 
   getShared() async {
@@ -53,7 +53,7 @@ class AccountController extends GetxController with WidgetsBindingObserver {
 
   @override
   void onClose() {
-    Log.log('close', 'AccountController');
+    Log.log('close');
     saveShared();
     super.onClose();
   }

@@ -7,7 +7,7 @@ import '../components/body.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
-  final c = Get.put(Languagecontroller());
+  final c = Get.put(LanguageController());
   @override
   Widget build(BuildContext context) {
     // we have to call this on our starting page

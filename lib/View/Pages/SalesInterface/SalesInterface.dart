@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:point_of_sell/Control/AccountController.dart';
 import 'package:point_of_sell/Control/HomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
+import 'package:point_of_sell/Helper/Log/Logger.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Pages/AccountOrders.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
 import 'package:point_of_sell/View/Widget/Mobile.dart';
+import 'package:point_of_sell/View/route/Navigatore/NavOBserver.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
 
 class SalesInterface extends StatefulWidget {
@@ -15,14 +18,15 @@ class SalesInterface extends StatefulWidget {
   State<SalesInterface> createState() => _SalesInterfaceState();
 }
 
-class _SalesInterfaceState extends State<SalesInterface> {
+class _SalesInterfaceState extends State<SalesInterface> with RouteAware {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+
     Get.put(HomeController());
-  
+    Get.put(AccountController());
   }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -30,8 +34,7 @@ class _SalesInterfaceState extends State<SalesInterface> {
       child: DefaultTabController(
         length: 2,
         child: Scaffold(
-          drawer: context.isMobile
-           ? const DrawerAllApp() : null,
+          drawer: context.isMobile ? const DrawerAllApp() : null,
           appBar: AppBar(
             centerTitle: true,
             title: TabBar(
@@ -124,7 +127,6 @@ class CustomAlertDialog extends StatelessWidget {
           },
           child: const Text('Delete'),
         ),
-   
         TextButton(
           onPressed: () {
             Navigator.pop(context);
