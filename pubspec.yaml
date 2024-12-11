@@ -6,7 +6,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.4.4 <4.0.0'
+  sdk: '>=3.5.4 <4.0.0'
 dependencies:
   flutter:
     sdk: flutter
@@ -16,22 +16,22 @@ dependencies:
   sqflite: 
   get: 
   fluent_ui:
-  qr_bar_code_scanner_dialog: 
-  device_preview: ^1.2.0
+  # qr_bar_code_scanner_dialog: 
+  device_preview:
   flutter_svg:
   pdf: 
   permission_handler: 
-  flutter_lints: 
-  google_fonts:
+  # flutter_lints: 
+  # google_fonts:
   shared_preferences: 
   qr_flutter:
   barcode_widget:
   file_picker: 
   tutorial_coach_mark:    # ! تشرح البرنامج
 
-  path: any
-  path_provider: any
-  intl: any
+  path: 
+  path_provider: 
+  intl: 
 dev_dependencies:
   flutter_test:
     sdk: flutter

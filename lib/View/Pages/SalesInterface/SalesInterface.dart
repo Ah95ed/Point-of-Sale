@@ -3,12 +3,10 @@ import 'package:get/get.dart';
 import 'package:point_of_sell/Control/AccountController.dart';
 import 'package:point_of_sell/Control/HomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
-import 'package:point_of_sell/Helper/Log/Logger.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Pages/AccountOrders.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
 import 'package:point_of_sell/View/Widget/Mobile.dart';
-import 'package:point_of_sell/View/route/Navigatore/NavOBserver.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
 
 class SalesInterface extends StatefulWidget {
@@ -22,7 +20,6 @@ class _SalesInterfaceState extends State<SalesInterface> with RouteAware {
   @override
   void initState() {
     super.initState();
-
     Get.put(HomeController());
     Get.put(AccountController());
   }
@@ -34,7 +31,9 @@ class _SalesInterfaceState extends State<SalesInterface> with RouteAware {
       child: DefaultTabController(
         length: 2,
         child: Scaffold(
-          drawer: context.isMobile ? const DrawerAllApp() : null,
+          drawer: context.isMobile
+           ? const DrawerAllApp()
+            : null,
           appBar: AppBar(
             centerTitle: true,
             title: TabBar(
@@ -50,7 +49,8 @@ class _SalesInterfaceState extends State<SalesInterface> with RouteAware {
             ),
           ),
           body: SingleChildScrollView(
-            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
+            keyboardDismissBehavior:
+             ScrollViewKeyboardDismissBehavior.manual,
             child: Column(
               children: [
                 SizedBox(

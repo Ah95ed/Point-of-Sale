@@ -38,7 +38,7 @@ class DrawerAllApp extends StatelessWidget {
         builder: (controller) {
           return ListView(
             padding: EdgeInsets.zero,
-            children: <Widget>[
+            children: [
               SizedBox(
                 height: context.getHeight(4),
               ),

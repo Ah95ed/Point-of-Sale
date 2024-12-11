@@ -8,9 +8,7 @@ import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Widget/Mobile.dart';
 import 'package:point_of_sell/View/Widget/SelectDate.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/CustomMaterialButton.dart';
-import 'package:point_of_sell/View/Widget/storgeWidget/TableStoragr.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
-import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 import '../../Widget/TextField.dart';
 
 class AddItems extends StatefulWidget {
@@ -109,14 +107,14 @@ class _AddItemBodyState extends State<AddItemBody> {
                         labelText: 'code'.tr,
                         suffixIcon: context.isMobile ? IconButton(
                           onPressed: () {
-                            final qrBarCodeScannerDialogPlugin =
-                                QrBarCodeScannerDialog();
-                            qrBarCodeScannerDialogPlugin.getScannedQrBarCode(
-                              context: context,
-                              onCode: (cod) {
-                                code.text = cod!;
-                              },
-                            );
+                            // final qrBarCodeScannerDialogPlugin =
+                            //     QrBarCodeScannerDialog();
+                            // qrBarCodeScannerDialogPlugin.getScannedQrBarCode(
+                            //   context: context,
+                            //   onCode: (cod) {
+                            //     code.text = cod!;
+                            //   },
+                            // );
                           },
                           icon: const Icon(Icons.qr_code_scanner_rounded),
                         ) : null,

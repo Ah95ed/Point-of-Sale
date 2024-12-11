@@ -5,13 +5,8 @@ import 'package:point_of_sell/Control/WelcomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Pages/CustomerManagement/CustomerManagement.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/SalesInterface.dart';
-import 'package:point_of_sell/View/Pages/Sellforcash/AddAccount.dart';
 import 'package:point_of_sell/View/Pages/theStorage/TheStorePage.dart';
-import 'package:point_of_sell/View/Pages/PayCash/PayCash.dart';
-import 'package:point_of_sell/View/Pages/SaleScreen/SaleScreen.dart';
-import 'package:point_of_sell/View/Pages/UpdatePrice.dart';
 import 'package:point_of_sell/View/Pages/home_screen.dart';
-import 'package:point_of_sell/View/Pages/the_purchasePage/purchase.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});

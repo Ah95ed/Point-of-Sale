@@ -18,12 +18,13 @@ class Language implements Translations {
   static const addCustomers = 'addCustomers';
   static const AddItems = 'AddItems';
   static const Customer = 'Customer';
+
   @override
   Map<String, Map<String, String>> get keys => {
         "ar": {
           update: 'تحديث',
-          addCustomers : 'اضافة عميل',
-          Customer : 'العملاء',
+          addCustomers: 'اضافة عميل',
+          Customer: 'العملاء',
           delete: 'حذف',
           AddItems: 'اضافة عنصر',
           edit: 'تعديل',
@@ -78,11 +79,11 @@ class Language implements Translations {
           'SalesInterface': 'واجهة المبيعات',
         },
         "en": {
-          addCustomers :'Add Customers',
+          addCustomers: 'Add Customers',
           update: 'Update',
           AddItems: 'Add Items',
           delete: 'Delete',
-          Customer : 'Customer',
+          Customer: 'Customer',
           edit: 'Edit',
           update_price: 'Update All Price',
           search: 'Search',

@@ -5,7 +5,6 @@ import 'package:point_of_sell/Helper/Service/Service.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
-import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 import '../../Control/AccountController.dart';
 
 // ignore: must_be_immutable
@@ -60,15 +59,15 @@ class _AccountOrdersState extends State<AccountOrders> {
                       suffixIcon: context.isMobile
                           ? IconButton(
                               onPressed: () {
-                                final qrBarCodeScannerDialogPlugin =
-                                    QrBarCodeScannerDialog();
-                                qrBarCodeScannerDialogPlugin
-                                    .getScannedQrBarCode(
-                                  context: context,
-                                  onCode: (code) {
-                                    controller.searchCodeOrder(code!);
-                                  },
-                                );
+                                // final qrBarCodeScannerDialogPlugin =
+                                    // QrBarCodeScannerDialog();
+                                // qrBarCodeScannerDialogPlugin
+                                //     .getScannedQrBarCode(
+                                //   context: context,
+                                //   onCode: (code) {
+                                //     controller.searchCodeOrder(code!);
+                                //   },
+                                // );
                               },
                               icon: const Icon(
                                 Icons.barcode_reader,
