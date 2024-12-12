@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Helper/Locale/LanguageController.dart';
-import 'package:point_of_sell/View/Widget/Mobile.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -11,15 +10,17 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       key: Scaffoldkey,
-      drawer: const DrawerAllApp(),
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
-      body: Center(
+      body:  Center(
         child: Image.asset(
-          'assets/image/show.png',
-        ),
-      ),
+                'assets/image/show.png',
+                fit: BoxFit.cover,
+                height: MediaQuery.sizeOf(context).height,
+                width: MediaQuery.sizeOf(context).width,
+                alignment: Alignment.center,
+              ),
+      )
+         
+     
     );
   }
 }

@@ -7,8 +7,9 @@ import 'package:point_of_sell/Helper/Locale/LanguageController.dart';
 import 'package:point_of_sell/Helper/Log/Logger.dart';
 import 'package:point_of_sell/Helper/Service/Service.dart';
 import 'package:point_of_sell/View/Pages/WelcomeScreen.dart';
+import 'package:point_of_sell/View/Widget/Mobile.dart';
 import 'package:point_of_sell/View/route/Route.dart';
-import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
+import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeBuilder.dart';
 
 Future<void> main() async {
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = Get.put(LanguageController());
     return SizeBuilder(
-      baseSize: const Size(360, 790),
+      baseSize: const Size(1920, 1080),
       height: context.screenHeight,
       width: context.screenWidth,
       child: GetMaterialApp(
@@ -62,7 +63,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         initialBinding: Appbinding(),
         getPages: RoutePage.routs,
-        home: const RunnerApp(),
+        home: context.isMobile ? const Mobile() : const RunnerApp(),
       ),
     );
   }
