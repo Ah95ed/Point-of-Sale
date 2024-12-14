@@ -5,8 +5,8 @@ import 'package:point_of_sell/Control/WelcomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Pages/CustomerManagement/CustomerManagement.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/SalesInterface.dart';
-import 'package:point_of_sell/View/Pages/theStorage/TheStorePage.dart';
 import 'package:point_of_sell/View/Pages/home_screen.dart';
+import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -20,8 +20,8 @@ class WelcomeScreen extends StatelessWidget {
           pane: NavigationPane(
             selected: controller.selecte,
             size: NavigationPaneSize(
-              openMaxWidth: Get.width * 0.15,
-              openMinWidth: Get.width * 0.11,
+              openMaxWidth: context.getHeight(200),
+              openMinWidth:context.getHeight(140) ,
             ),
             items: [
               PaneItem(
@@ -34,11 +34,11 @@ class WelcomeScreen extends StatelessWidget {
                 body: const SalesInterface(),
                 title: Text('SalesInterface'.tr),
               ),
-              PaneItem(
-                icon: const Icon(Icons.store),
-                body: const AddItems(),
-                title: Text("store".tr),
-              ),
+              // PaneItem(
+              //   icon: const Icon(Icons.store),
+              //   body: const AddItems(),
+              //   title: Text("store".tr),
+              // ),
               PaneItem(
                 title: Text(Language.Customer.tr),
                 icon: const Icon(Icons.price_change_sharp),

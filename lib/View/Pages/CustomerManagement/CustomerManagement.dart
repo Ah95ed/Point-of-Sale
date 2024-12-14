@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:point_of_sell/Control/CustomerController/CustomerController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
-import 'package:point_of_sell/View/Pages/CustomerManagement/screens/AddCustomer.dart';
 import 'package:point_of_sell/View/Widget/Mobile.dart';
 import 'package:point_of_sell/View/Widget/TextField.dart';
-import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
+import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
+import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 
 class CustomerManagement extends StatelessWidget {
   const CustomerManagement({super.key});
@@ -20,7 +20,7 @@ class CustomerManagement extends StatelessWidget {
           builder: (controller) {
             controller.getCustomer();
             return Scaffold(
-              drawer: context.isMobile ? const DrawerAllApp() : null,
+              drawer: DeviceUtils.isMobile(context) ? const DrawerAllApp() : null,
               appBar: AppBar(
                 title: TabBar(
                   tabs: [
@@ -40,7 +40,7 @@ class CustomerManagement extends StatelessWidget {
               body: TabBarView(
                 children: [
                   
-                  const AddCustomer(),
+                  // const AddCustomer(),
                   CustomersView(controller),
                 ],
               ),
@@ -73,7 +73,7 @@ class CustomersView extends StatelessWidget {
             width: context.getWidth(100),
             child: GridView.builder(
               gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: context.isMobile ? 1 : 3,
+                crossAxisCount: DeviceUtils.isMobile(context) ? 1 : 3,
                 childAspectRatio: 3,
                 crossAxisSpacing: 2,
                 mainAxisSpacing: 2,

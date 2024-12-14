@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
-import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
+import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 
 class CustomMaterialButton extends StatelessWidget {
   String? title;
@@ -17,10 +16,13 @@ class CustomMaterialButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.symmetric(horizontal:getWidth( 1),vertical: getHeight( 1)),
+      padding: EdgeInsets.symmetric(
+        horizontal: context.getWidth(1),
+        vertical: context.getHeight(1),
+      ),
       child: MaterialButton(
         height: context.getHeight(6),
-        minWidth:context.getWidth(2),
+        minWidth: context.getWidth(2),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4.0),
           side: const BorderSide(
@@ -32,7 +34,7 @@ class CustomMaterialButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           title!,
-          style:  TextStyle(
+          style: TextStyle(
             fontSize: context.getFontSize(8),
             fontWeight: FontWeight.bold,
           ),

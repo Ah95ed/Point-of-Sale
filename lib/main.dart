@@ -9,7 +9,8 @@ import 'package:point_of_sell/Helper/Service/Service.dart';
 import 'package:point_of_sell/View/Pages/WelcomeScreen.dart';
 import 'package:point_of_sell/View/Widget/Mobile.dart';
 import 'package:point_of_sell/View/route/Route.dart';
-import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
+import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
+import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeBuilder.dart';
 
 Future<void> main() async {
@@ -63,7 +64,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         initialBinding: Appbinding(),
         getPages: RoutePage.routs,
-        home: context.isMobile ? const Mobile() : const RunnerApp(),
+        home: DeviceUtils.isMobile(context) ? const Mobile() : const RunnerApp(),
       ),
     );
   }

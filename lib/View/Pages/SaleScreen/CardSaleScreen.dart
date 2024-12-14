@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
-import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
+import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 
 class CardSaleScreen extends StatelessWidget {
   CardSaleScreen({
@@ -18,38 +18,38 @@ class CardSaleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: ColorUsed.whitesoft,
-      height: getHeight(3),
+      height: context.getHeight(3),
       child: Expanded(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             TextCustomSale(
-              width: getWidth(4),
+              width: context.getWidth(4),
               text: 'id',
             ),
             TextCustomSale(
-              width: getWidth(50),
+              width: context.getWidth(50),
               text: 'name',
             ),
             TextCustomSale(
-              width: getWidth(30),
+              width: context.getWidth(30),
               text: 'barcode',
             ),
             TextCustomSale(
-              width: getWidth(20),
+              width: context.getWidth(20),
               text: 'pricesingle',
             ),
             TextCustomSale(
-              width: getWidth(15),
+              width: context.getWidth(15),
               text: 'count'.tr,
             ),
             TextCustomSale(
-              width: getWidth(20),
+              width: context.getWidth(20),
               text: 'allprice'.tr,
             ),
             Container(
               color: ColorUsed.blueDark,
-              width: getWidth(5),
+              width: context.getWidth(5),
               child: IconButton(
                 onPressed: () {},
                 icon: Icon(
@@ -75,7 +75,7 @@ class TextCustomSale extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      height: getHeight(2),
+      height: context.getHeight(2),
       decoration: BoxDecoration(
         color: ColorUsed.whiteBlue,
         borderRadius: const BorderRadius.vertical(
@@ -88,7 +88,7 @@ class TextCustomSale extends StatelessWidget {
           text!,
           style: TextStyle(
             color: Colors.black,
-            fontSize: getFontSize(6),
+            fontSize: context.getFontSize(6),
             fontWeight: FontWeight.bold,
           ),
         ),

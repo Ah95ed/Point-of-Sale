@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Control/HomeController.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
-import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/TextCustom.dart';
+import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 
 class CardShowData extends StatelessWidget {
   CardShowData({this.index, super.key});
@@ -16,25 +16,25 @@ class CardShowData extends StatelessWidget {
       children: [
         // ! ! Edit here to complete //
         TextCustom(
-          width: getWidth(50),
+          width: context.getWidth(50),
           text: controller.items[index!].name,
         ),
         TextCustom(
-          width: getWidth(20),
+          width: context.getWidth(20),
           text: "Ali",
         ),
         TextCustom(
-          width: getWidth(20),
+          width: context.getWidth(20),
           text: "Ali",
         ),
         Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: getWidth(4),
-            vertical: getHeight(2),
+            horizontal: context.getWidth(4),
+            vertical: context.getHeight(2),
           ),
           child: Container(
-            width: getWidth(10),
-            height: getHeight(6),
+            width: context.getWidth(10),
+            height: context.getHeight(6),
             decoration: BoxDecoration(
               color: ColorUsed.whitesoft,
               borderRadius: const BorderRadius.vertical(

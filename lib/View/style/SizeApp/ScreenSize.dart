@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeBuilder.dart';
 
 extension ScreenSize on BuildContext {
-  bool get isLandscape =>
+  bool get isLandscap=>
       MediaQuery.of(this).orientation == Orientation.landscape;
 
-  double get screenHeight => isLandscape
+  double get screenHeight => isLandscap
       ? MediaQuery.sizeOf(this).width
       : MediaQuery.sizeOf(this).height;
 
-  double get screenWidth => isLandscape
+  double get screenWidth => isLandscap
       ? MediaQuery.sizeOf(this).height
       : MediaQuery.sizeOf(this).width;
 

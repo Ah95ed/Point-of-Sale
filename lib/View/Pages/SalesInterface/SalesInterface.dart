@@ -4,10 +4,10 @@ import 'package:point_of_sell/Control/AccountController.dart';
 import 'package:point_of_sell/Control/HomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
-import 'package:point_of_sell/View/Pages/AccountOrders.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
 import 'package:point_of_sell/View/Widget/Mobile.dart';
-import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
+import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
+import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 
 class SalesInterface extends StatefulWidget {
   const SalesInterface({super.key});
@@ -27,13 +27,11 @@ class _SalesInterfaceState extends State<SalesInterface> with RouteAware {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: context.getHeight(100),
+      height: context.screenWidth,
       child: DefaultTabController(
         length: 2,
         child: Scaffold(
-          drawer: context.isMobile
-           ? const DrawerAllApp()
-            : null,
+          drawer: DeviceUtils.isMobile(context) ? const DrawerAllApp() : null,
           appBar: AppBar(
             centerTitle: true,
             title: TabBar(
@@ -49,17 +47,16 @@ class _SalesInterfaceState extends State<SalesInterface> with RouteAware {
             ),
           ),
           body: SingleChildScrollView(
-            keyboardDismissBehavior:
-             ScrollViewKeyboardDismissBehavior.manual,
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
             child: Column(
               children: [
                 SizedBox(
-                  height: context.getHeight(100),
-                  width: context.getWidth(100),
+                  height:context.screenWidth ,
+                  width:context.screenHeight ,
                   child: const TabBarView(
                     children: [
                       ShowAllItem(),
-                      AccountOrders(),
+                      // AccountOrders(),
                     ],
                   ),
                 ),
@@ -81,15 +78,21 @@ class ShowAllItem extends StatelessWidget {
       builder: (c) {
         return Container(
           color: ColorUsed.whitesoft,
-          height: context.getHeight(100),
+          height: context.screenWidth,
           child: GridView.builder(
-            itemCount: c.items.length,
+            itemCount: 14,
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
             physics: const ScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: context.isMobile ? 1 : 3,
-              childAspectRatio: context.isMobile ? 4 : 4,
+              crossAxisCount: DeviceUtils.valueDecider(
+                context,
+                onMobile: 1,
+                onTablet: 2,
+                onDesktop: 4,
+                others: 2,
+              ),
+              // childAspectRatio: context.isMobile ? 4 : 4,
               mainAxisSpacing: 2,
               crossAxisSpacing: 2,
             ),
@@ -101,8 +104,12 @@ class ShowAllItem extends StatelessWidget {
                     builder: (context) => const CustomAlertDialog(),
                   );
                 },
-                name: c.items[index].name,
-                sale: c.items[index].sale,
+                name: 'name',
+                sale: 'sale',
+               
+                // onTap: () {},
+                // name: c.items[index].name,
+                // sale: c.items[index].sale,
                 // onPressed: () {},
               );
             },

@@ -5,8 +5,7 @@ import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Pages/CustomerManagement/CustomerManagement.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/SalesInterface.dart';
-import 'package:point_of_sell/View/Pages/theStorage/TheStorePage.dart';
-import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
+import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 import '../Pages/home_screen.dart';
 
 class Mobile extends StatelessWidget {
@@ -58,7 +57,7 @@ class DrawerAllApp extends StatelessWidget {
                 leading: const Icon(Icons.store),
                 onTap: () {
                   Navigator.pop(context);
-                  Get.off(() => const AddItems());
+                  Get.off(() =>  HomeScreen());
                 },
                 title: Text(Language.AddItems.tr),
               ),
