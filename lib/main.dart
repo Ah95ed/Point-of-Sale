@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:get/get.dart';
-import 'package:point_of_sell/AppBinding.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Helper/Locale/LanguageController.dart';
 import 'package:point_of_sell/Helper/Log/Logger.dart';
@@ -48,24 +47,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = Get.put(LanguageController());
-    return SizeBuilder(
-      baseSize: const Size(1920, 1080),
-      height: context.screenHeight,
-      width: context.screenWidth,
-      child: GetMaterialApp(
-        navigatorKey: navigatorKey,
-        debugShowCheckedModeBanner: false,
-        locale: c.language,
-        translations: Language(),
-        // navigatorObservers: [
-        //   NavObserver.instance,
-        //   routeObserver,
-        // ],
-        initialRoute: '/',
-        initialBinding: Appbinding(),
-        getPages: RoutePage.routs,
-        home: DeviceUtils.isMobile(context) ? const Mobile() : const RunnerApp(),
-      ),
+    return GetMaterialApp(
+      navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false,
+      locale: c.language,
+      translations: Language(),
+      // navigatorObservers: [
+      //   NavObserver.instance,
+      //   routeObserver,
+      // ],
+      initialRoute: '/',
+      // initialBinding: Appbinding(),
+      getPages: RoutePage.routs,
+      home: DeviceUtils.isMobile(context) ? const Mobile() : const RunnerApp(),
     );
   }
 }
@@ -75,12 +69,17 @@ class RunnerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FluentApp(
-      showSemanticsDebugger: false,
-      debugShowCheckedModeBanner: false,
-      theme: FluentThemeData(),
-      scrollBehavior: const ScrollBehavior(),
-      home: const WelcomeScreen(),
+    return SizeBuilder(
+      baseSize: const Size(1920, 1080) ,
+      height: context.screenHeight,
+      width: context.screenWidth,
+      child: FluentApp(
+        showSemanticsDebugger: false,
+        debugShowCheckedModeBanner: false,
+        theme: FluentThemeData(),
+        scrollBehavior: const ScrollBehavior(),
+        home: const WelcomeScreen(),
+      ),
     );
   }
 }

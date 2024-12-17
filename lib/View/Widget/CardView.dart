@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../Control/HomeController.dart';
-import '../Pages/UpdateData.dart';
 import 'AllItems.dart';
 
 class CardView extends StatelessWidget {
@@ -52,21 +51,21 @@ class CardView extends StatelessWidget {
                                         TextButton(
                                           onPressed: () {
                                             Get.back();
-                                            Get.to(
-                                              UpdateData(
-                                                named: controller
-                                                    .items[index].name,
-                                                coded: controller
-                                                    .items[index].code,
-                                                saled: controller
-                                                    .items[index].sale,
-                                                buyt:
-                                                    controller.items[index].buy,
-                                                quan: controller
-                                                    .items[index].quantity,
-                                                id: controller.items[index].id,
-                                              ),
-                                            );
+                                            // Get.to(
+                                            //   UpdateData(
+                                            //     named: controller
+                                            //         .items[index].name,
+                                            //     coded: controller
+                                            //         .items[index].code,
+                                            //     saled: controller
+                                            //         .items[index].sale,
+                                            //     buyt:
+                                            //         controller.items[index].buy,
+                                            //     quan: controller
+                                            //         .items[index].quantity,
+                                            //     id: controller.items[index].id,
+                                            //   ),
+                                            // );
                                           },
                                           child: const Text(
                                             "S.of(context).edit",

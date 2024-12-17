@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
-import 'package:point_of_sell/View/Pages/HomeView.dart';
 import 'package:point_of_sell/View/Pages/SaleScreen/SaleScreen.dart';
-import 'package:point_of_sell/View/Pages/UpdatePrice.dart';
 import 'package:point_of_sell/View/Pages/WelcomeScreen.dart';
 
 class RoutePage {
@@ -12,9 +10,9 @@ class RoutePage {
   static const String salePage = '/SalesScreen';
 
   static List<GetPage> routs = [
-    GetPage(name: homeViewPage, page: () => HomeView()),
+    // GetPage(name: homeViewPage, page: () => HomeView()),
     GetPage(name: welcomePage, page: () => const WelcomeScreen()),
-    GetPage(name: updatePage, page: () => UpdatePrice()),
+    // GetPage(name: updatePage, page: () => UpdatePrice()),
     GetPage(name: salePage, page: () =>  const SaleScreen()),
   ];
 }
