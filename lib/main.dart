@@ -70,7 +70,7 @@ class RunnerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizeBuilder(
-      baseSize: const Size(1920, 1080) ,
+      baseSize: const Size(340, 720) ,
       height: context.screenHeight,
       width: context.screenWidth,
       child: FluentApp(

@@ -20,8 +20,8 @@ class WelcomeScreen extends StatelessWidget {
           pane: NavigationPane(
             selected: controller.selecte,
             size: NavigationPaneSize(
-              openMaxWidth: context.getHeight(200),
-              openMinWidth:context.getHeight(140) ,
+              openMaxWidth: context.sizeBuilder.width/3,
+              openMinWidth:context.sizeBuilder.width /4 ,
             ),
             items: [
               PaneItem(

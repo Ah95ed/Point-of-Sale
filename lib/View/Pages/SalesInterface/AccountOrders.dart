@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Control/AccountController.dart';
-import 'package:point_of_sell/Helper/Log/Logger.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 

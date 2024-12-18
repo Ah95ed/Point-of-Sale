@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:point_of_sell/Control/AccountController.dart';
 import 'package:point_of_sell/Control/HomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
-import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/AccountOrders.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
@@ -65,29 +64,36 @@ class ShowAllItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-        itemCount: 4,
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        physics: const ScrollPhysics(),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: DeviceUtils.valueDecider(
-            context,
-            onMobile: 1,
-            onTablet: 3,
-            onDesktop: 3,
-            others: 2,
-          ),
-          mainAxisSpacing: 5,
-          crossAxisSpacing: 5 ,
-        ),
-        itemBuilder: (context, index) {
-          return AllItems(
-            () {},
-            name: 'Ahmed shaker',
-            sale: '1200',
-          );
-        });
+    return SizeBuilder(
+      baseSize: const Size(200, 200),
+      height: context.getMinSize(200),
+      width: context.getMinSize(200),
+      child: Builder(builder: (context) {
+        return GridView.builder(
+            itemCount: 8,
+            shrinkWrap: true,
+            physics: const ScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: DeviceUtils.valueDecider(
+                context,
+                onMobile: 2,
+                onTablet: 3,
+                onDesktop: 4,
+                others: 2,
+              ),
+              childAspectRatio: 4,
+              crossAxisSpacing: 4,
+              mainAxisSpacing: 4,
+            ),
+            itemBuilder: (context, index) {
+              return AllItems(
+                () {},
+                name: 'Ahmed',
+                sale: '1000',
+              );
+            });
+      }),
+    );
   }
 }
 
