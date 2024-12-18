@@ -24,7 +24,7 @@ class AllItems extends StatelessWidget {
       elevation: 4,
       color: ColorUsed.whitesoft,
       child: Padding(
-        padding:  EdgeInsets.all(context.sizeBuilder.width/30),
+        padding:  EdgeInsets.all(context.getMinSize(2)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -35,14 +35,14 @@ class AllItems extends StatelessWidget {
                     Text(
                       Language.nameItem.tr,
                       style: TextStyle(
-                          fontSize: context.sizeBuilder.width/25,
+                          fontSize: context.getFontSize(6),
                           color: Colors.black,
-                          fontWeight: FontWeight.bold),
+                          fontWeight: FontWeight.bold,),
                     ),
                     Text(
                       name,
                       style: TextStyle(
-                          fontSize: context.sizeBuilder.width/25,
+                          fontSize: context.getFontSize(6),
                           color: Colors.black,
                           fontWeight: FontWeight.bold),
                     ),
@@ -53,14 +53,14 @@ class AllItems extends StatelessWidget {
                     Text(
                       Language.saleItem.tr,
                       style: TextStyle(
-                          fontSize:context.sizeBuilder.width/25,
+                          fontSize:context.getFontSize(6),
                           color: Colors.black,
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
                       sale,
                       style: TextStyle(
-                          fontSize:context.sizeBuilder.width/25,
+                          fontSize:context.getFontSize(6),
                           color: Colors.black,
                           fontWeight: FontWeight.bold),
                     ),

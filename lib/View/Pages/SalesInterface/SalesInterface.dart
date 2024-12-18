@@ -82,6 +82,7 @@ class ShowAllItem extends StatelessWidget {
                 others: 2,
               ),
               childAspectRatio: 4,
+
               crossAxisSpacing: 4,
               mainAxisSpacing: 4,
             ),
