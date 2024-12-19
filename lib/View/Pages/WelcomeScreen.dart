@@ -36,7 +36,7 @@ class WelcomeScreen extends StatelessWidget {
               ),
               // PaneItem(
               //   icon: const Icon(Icons.store),
-              //   body: const AddItems(),
+              //   // body: const AddItems(),
               //   title: Text("store".tr),
               // ),
               PaneItem(
