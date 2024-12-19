@@ -21,8 +21,8 @@ class _AccountOrdersState extends State<AccountOrders> {
     return GetBuilder<AccountController>(
       builder: (controller) {
         return SizedBox(
-          height: context.screenHeight,
-          width: context.screenWidth,
+          height:  context.screenWidth,
+          width:context.screenHeight,
           
           child: Column(
             children: [
@@ -76,76 +76,73 @@ class _AccountOrdersState extends State<AccountOrders> {
                   ),
                 ),
               ),
-              Container(
-                color: ColorUsed.whitesoft,
-                height: context.getHeight(350),
-                child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: DeviceUtils.isMobile(context) ? 1 : 4,
-                      childAspectRatio: DeviceUtils.isMobile(context) ? 4 : 1.5,
-                      mainAxisSpacing: 4,
-                      crossAxisSpacing: 4,
-                    ),
-                    itemCount: controller.search.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return AllItems(
-                        () async {
-                          if (controller.search.isEmpty) return;
-                          await controller.deleteItem(
-                            controller.search[index].id,
-                            controller.search[index].sale,
-                          );
-                          controller.getDataFromAccount();
-                        },
-                        name: controller.search[index].name,
-                        sale: controller.search[index].sale,
-                      );
-                    },
-                    ),
+              Expanded(
+                child: Container(
+                  color: ColorUsed.whitesoft,
+                  height: context.getHeight(350),
+                  child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: DeviceUtils.isMobile(context) ? 1 : 4,
+                        childAspectRatio: DeviceUtils.isMobile(context) ? 4 : 1.5,
+                        mainAxisSpacing: 4,
+                        crossAxisSpacing: 4,
+                      ),
+                      itemCount: controller.search.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return AllItems(
+                          () async {
+                            if (controller.search.isEmpty) return;
+                            await controller.deleteItem(
+                              controller.search[index].id,
+                              controller.search[index].sale,
+                            );
+                            controller.getDataFromAccount();
+                          },
+                          name: controller.search[index].name,
+                          sale: controller.search[index].sale,
+                        );
+                      },
+                      ),
+                ),
               ),
               
-              Expanded(
-                // color: ColorUsed.whiteBlue,
-                // height: context.getHeight(60) ,
-                
-                child: Container(
-                  color: ColorUsed.whiteBlue,
-                  height: context.getHeight(60),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Result : ${00} ',
+              Container(
+                color: ColorUsed.whiteBlue,
+                height: context.getHeight(40),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Result : ${00} ',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: context.getFontSize(12),
+                      ),
+                    ),
+                    OutlinedButton(
+                      style: const ButtonStyle(
+                        backgroundColor:
+                            WidgetStatePropertyAll(Colors.white),
+                        foregroundColor:
+                            WidgetStatePropertyAll(Colors.black),
+                        shadowColor: WidgetStatePropertyAll(Colors.black),
+                      ),
+                      onPressed: () {
+                        // controller.resultSell = 0.0;
+                        // controller.deleteShared();
+                        // controller.deleteAllAccount();
+                      },
+                      child: Text(
+                        'Delete All',
                         style: TextStyle(
                           color: Colors.black,
+                          fontSize: context.getFontSize(5),
                           fontWeight: FontWeight.bold,
-                          fontSize: context.getFontSize(12),
                         ),
                       ),
-                      OutlinedButton(
-                        style: const ButtonStyle(
-                          backgroundColor:
-                              WidgetStatePropertyAll(Colors.white),
-                          foregroundColor:
-                              WidgetStatePropertyAll(Colors.black),
-                          shadowColor: WidgetStatePropertyAll(Colors.black),
-                        ),
-                        onPressed: () {
-                          // controller.resultSell = 0.0;
-                          // controller.deleteShared();
-                          // controller.deleteAllAccount();
-                        },
-                        child: Text(
-                          'Delete All',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: context.getFontSize(5),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],
