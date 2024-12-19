@@ -1,7 +1,14 @@
 import 'dart:developer' as developer;
+import 'dart:developer';
 import 'package:flutter/foundation.dart';
 
 const _isDebug = kDebugMode;
+
+logSuccess(String msg) {
+  if (_isDebug) {
+    log(msg);
+  }
+}
 
 class Log {
   static void log(String msg) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Helper/Locale/LanguageController.dart';
+import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -14,8 +15,8 @@ class HomeScreen extends StatelessWidget {
         child: Image.asset(
                 'assets/image/show.png',
                 fit: BoxFit.cover,
-                height: MediaQuery.sizeOf(context).height,
-                width: MediaQuery.sizeOf(context).width,
+                height: context.screenWidth,
+                width: context.screenHeight,
                 alignment: Alignment.center,
               ),
       )

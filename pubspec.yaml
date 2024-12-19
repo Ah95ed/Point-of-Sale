@@ -6,7 +6,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.5.4 <4.0.0'
+  sdk: '>=3.4.4 <4.0.0'
 dependencies:
   flutter:
     sdk: flutter
@@ -16,7 +16,7 @@ dependencies:
   sqflite: 
   get: 
   fluent_ui:
-  # qr_bar_code_scanner_dialog: 
+  qr_bar_code_scanner_dialog: 
   device_preview:
   flutter_svg:
   pdf: 

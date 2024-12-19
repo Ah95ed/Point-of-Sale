@@ -4,10 +4,12 @@ import 'package:point_of_sell/Control/AccountController.dart';
 import 'package:point_of_sell/Control/HomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
-import 'package:point_of_sell/View/Pages/AccountOrders.dart';
+import 'package:point_of_sell/View/Pages/SalesInterface/AccountOrders.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
 import 'package:point_of_sell/View/Widget/Mobile.dart';
-import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
+import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
+import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
+import 'package:point_of_sell/View/style/SizeApp/SizeBuilder.dart';
 
 class SalesInterface extends StatefulWidget {
   const SalesInterface({super.key});
@@ -16,7 +18,7 @@ class SalesInterface extends StatefulWidget {
   State<SalesInterface> createState() => _SalesInterfaceState();
 }
 
-class _SalesInterfaceState extends State<SalesInterface> with RouteAware {
+class _SalesInterfaceState extends State<SalesInterface> {
   @override
   void initState() {
     super.initState();
@@ -26,46 +28,31 @@ class _SalesInterfaceState extends State<SalesInterface> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: context.getHeight(100),
-      child: DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          drawer: context.isMobile
-           ? const DrawerAllApp()
-            : null,
-          appBar: AppBar(
-            centerTitle: true,
-            title: TabBar(
-              tabs: [
-                Tab(
-                    icon: const Icon(Icons.home),
-                    text: Language.showAllItem.tr),
-                Tab(
-                  icon: const Icon(Icons.person),
-                  text: Language.sales.tr,
-                ),
-              ],
-            ),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        backgroundColor: ColorUsed.whitesoft,
+        drawer: DeviceUtils.isMobile(context) ? const DrawerAllApp() : null,
+        appBar: AppBar(
+          centerTitle: true,
+          title: TabBar(
+            tabs: [
+              Tab(
+                icon: const Icon(Icons.home),
+                text: Language.showAllItem.tr,
+              ),
+              Tab(
+                icon: const Icon(Icons.person),
+                text: Language.sales.tr,
+              ),
+            ],
           ),
-          body: SingleChildScrollView(
-            keyboardDismissBehavior:
-             ScrollViewKeyboardDismissBehavior.manual,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: context.getHeight(100),
-                  width: context.getWidth(100),
-                  child: const TabBarView(
-                    children: [
-                      ShowAllItem(),
-                      AccountOrders(),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+        ),
+        body: const TabBarView(
+          children: [
+            ShowAllItem(),
+            AccountOrders(),
+          ],
         ),
       ),
     );
@@ -77,38 +64,36 @@ class ShowAllItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<HomeController>(
-      builder: (c) {
-        return Container(
-          color: ColorUsed.whitesoft,
-          height: context.getHeight(100),
-          child: GridView.builder(
-            itemCount: c.items.length,
-            scrollDirection: Axis.vertical,
+    return SizeBuilder(
+      baseSize: const Size(200, 200),
+      height: context.getMinSize(200),
+      width: context.getMinSize(200),
+      child: Builder(builder: (context) {
+        return GridView.builder(
+            itemCount: 8,
             shrinkWrap: true,
             physics: const ScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: context.isMobile ? 1 : 3,
-              childAspectRatio: context.isMobile ? 4 : 4,
-              mainAxisSpacing: 2,
-              crossAxisSpacing: 2,
+              crossAxisCount: DeviceUtils.valueDecider(
+                context,
+                onMobile: 2,
+                onTablet: 3,
+                onDesktop: 4,
+                others: 2,
+              ),
+              childAspectRatio: 4,
+
+              crossAxisSpacing: 4,
+              mainAxisSpacing: 4,
             ),
             itemBuilder: (context, index) {
               return AllItems(
-                () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => const CustomAlertDialog(),
-                  );
-                },
-                name: c.items[index].name,
-                sale: c.items[index].sale,
-                // onPressed: () {},
+                () {},
+                name: 'Ahmed',
+                sale: '1000',
               );
-            },
-          ),
-        );
-      },
+            });
+      }),
     );
   }
 }

@@ -5,7 +5,7 @@ import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/CustomMaterialButton.dart';
 import 'package:point_of_sell/View/Widget/TextField.dart';
-import 'package:point_of_sell/View/style/SizeApp/SizeApp.dart';
+import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 
 class AddCustomer extends StatefulWidget {
   const AddCustomer({super.key});
@@ -32,7 +32,7 @@ class _AddCustomerState extends State<AddCustomer> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: context.onOpenKeyBorad()),
+      padding: const EdgeInsets.all(8.0),
       child: Container(
         color: ColorUsed.whitesoft,
         height: context.getHeight(100),
