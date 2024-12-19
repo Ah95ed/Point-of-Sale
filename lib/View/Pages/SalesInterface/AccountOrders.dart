@@ -113,7 +113,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Result : ${00} ',
+                      'Result : ${controller.resultSell} ',
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -129,9 +129,9 @@ class _AccountOrdersState extends State<AccountOrders> {
                         shadowColor: WidgetStatePropertyAll(Colors.black),
                       ),
                       onPressed: () {
-                        // controller.resultSell = 0.0;
-                        // controller.deleteShared();
-                        // controller.deleteAllAccount();
+                        controller.resultSell = 0.0;
+                        controller.deleteShared();
+                        controller.deleteAllAccount();
                       },
                       child: Text(
                         'Delete All',

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Control/WelcomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
+import 'package:point_of_sell/View/Pages/AddItems/TheStorePage.dart';
 import 'package:point_of_sell/View/Pages/CustomerManagement/CustomerManagement.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/SalesInterface.dart';
 import 'package:point_of_sell/View/Pages/home_screen.dart';
@@ -34,11 +35,11 @@ class WelcomeScreen extends StatelessWidget {
                 body: const SalesInterface(),
                 title: Text('SalesInterface'.tr),
               ),
-              // PaneItem(
-              //   icon: const Icon(Icons.store),
-              //   // body: const AddItems(),
-              //   title: Text("store".tr),
-              // ),
+              PaneItem(
+                icon: const Icon(Icons.store),
+                body: const AddItems(),
+                title: Text("store".tr),
+              ),
               PaneItem(
                 title: Text(Language.Customer.tr),
                 icon: const Icon(Icons.price_change_sharp),

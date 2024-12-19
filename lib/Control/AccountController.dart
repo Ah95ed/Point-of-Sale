@@ -32,7 +32,6 @@ class AccountController extends GetxController with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     super.onInit();
     getShared();
-   
   }
 
   getShared() async {
@@ -62,7 +61,7 @@ class AccountController extends GetxController with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.detached) {
       // حفظ البيانات هنا
-        sharep!.setDouble('result', resultSell); 
+      sharep!.setDouble('result', resultSell);
       // saveShared();
       log('message saved Done  __________________________ ');
     }
@@ -120,11 +119,11 @@ class AccountController extends GetxController with WidgetsBindingObserver {
   }
 
   Future<void> searchCodeOrder(String s) async {
-    order = List.from(search);
-    log('message $s');
+    // order = List.from(search);
 
     i = 0;
-    List<Map<String, dynamic>>? result = await account.searchBarCodeOrder(s);
+    List<Map<String, dynamic>>? result = 
+    await account.searchBarCodeOrder(s);
     newResult = result
         .map(
           (item) => Items(
@@ -141,9 +140,13 @@ class AccountController extends GetxController with WidgetsBindingObserver {
         )
         .toList();
     if (newResult!.isEmpty) {
-      Get.snackbar('title', 'empty', snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar(
+        'title',
+        'empty',
+        snackPosition: SnackPosition.TOP,
+      );
 
-      controller!.clear();
+      // controller!.clear();
       update();
       return;
     }

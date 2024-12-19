@@ -33,7 +33,6 @@ class AccountOrdersDataBase {
     );
   }
 
-
   Future<List<Map<String, dynamic>?>> getAllResult() async {
     _database = await database;
     return await _database!.query(TableResultSell);
@@ -64,7 +63,9 @@ class AccountOrdersDataBase {
     return await _database!.query(TableAccount, columns: [sale]);
   }
 
-  Future<List<Map<String, dynamic>>> searchBarCodeOrder(String barCode) async {
+  Future<List<Map<String, dynamic>>> searchBarCodeOrder(
+    String barCode,
+  ) async {
     _database = await database;
     final List<Map<String, dynamic>> results = await _database!.query(
       DataBaseSqflite.TableName,

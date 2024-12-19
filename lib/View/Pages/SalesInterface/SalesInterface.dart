@@ -22,7 +22,7 @@ class _SalesInterfaceState extends State<SalesInterface> {
   @override
   void initState() {
     super.initState();
-    Get.put(HomeController());
+    // Get.put(HomeController());
     Get.put(AccountController());
   }
 
@@ -64,36 +64,47 @@ class ShowAllItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizeBuilder(
-      baseSize: const Size(200, 200),
-      height: context.getMinSize(200),
-      width: context.getMinSize(200),
-      child: Builder(builder: (context) {
-        return GridView.builder(
-            itemCount: 8,
-            shrinkWrap: true,
-            physics: const ScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: DeviceUtils.valueDecider(
-                context,
-                onMobile: 2,
-                onTablet: 3,
-                onDesktop: 4,
-                others: 2,
-              ),
-              childAspectRatio: 4,
-
-              crossAxisSpacing: 4,
-              mainAxisSpacing: 4,
-            ),
-            itemBuilder: (context, index) {
-              return AllItems(
-                () {},
-                name: 'Ahmed',
-                sale: '1000',
+    return GetBuilder<HomeController>(
+      init: HomeController(),
+      builder: (controller) {
+        return SizeBuilder(
+          baseSize: const Size(200, 200),
+          height: context.getMinSize(200),
+          width: context.getMinSize(200),
+          child: Builder(
+            builder: (context) {
+              return GridView.builder(
+                itemCount: controller.items.length,
+                shrinkWrap: true,
+                physics: const ScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: DeviceUtils.valueDecider(
+                    context,
+                    onMobile: 2,
+                    onTablet: 3,
+                    onDesktop: 4,
+                    others: 2,
+                  ),
+                  childAspectRatio: 4,
+                  crossAxisSpacing: 4,
+                  mainAxisSpacing: 4,
+                ),
+                itemBuilder: (context, index) {
+                  return AllItems(
+                    () {
+                      controller.deleteItem(
+                        controller.items[index].id,
+                      );
+                    },
+                    name: controller.items[index].name,
+                    sale: controller.items[index].sale,
+                  );
+                },
               );
-            });
-      }),
+            },
+          ),
+        );
+      },
     );
   }
 }
