@@ -25,7 +25,9 @@ class AccountController extends GetxController with WidgetsBindingObserver {
 
   static const String Result = 'Result';
   @override
+
   void onInit() {
+    
     controller = TextEditingController();
     dataBaseSqflite = DataBaseSqflite();
     account = AccountOrdersDataBase();

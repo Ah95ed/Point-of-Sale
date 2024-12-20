@@ -27,7 +27,7 @@ dependencies:
   qr_flutter:
   barcode_widget:
   file_picker: 
-  tutorial_coach_mark:    # ! تشرح البرنامج
+  # tutorial_coach_mark:    # ! تشرح البرنامج
 
   path: 
   path_provider: 

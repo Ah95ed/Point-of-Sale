@@ -21,8 +21,8 @@ class CustomMaterialButton extends StatelessWidget {
         vertical: context.getHeight(1),
       ),
       child: MaterialButton(
-        height: context.getHeight(6),
-        minWidth: context.getWidth(2),
+        height: context.getHeight(12),
+        minWidth: context.getWidth(20),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4.0),
           side: const BorderSide(
@@ -35,7 +35,7 @@ class CustomMaterialButton extends StatelessWidget {
         child: Text(
           title!,
           style: TextStyle(
-            fontSize: context.getFontSize(8),
+            fontSize: context.getFontSize(12),
             fontWeight: FontWeight.bold,
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 
 class SelectDate extends StatelessWidget {
   final TextEditingController dateCtrl;
@@ -8,9 +9,11 @@ class SelectDate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+   
       onPressed: () => date(context),
-      icon: const Icon(
+      icon: Icon(
         Icons.date_range,
+  size: context.getMinSize(18),
       ),
     );
   }

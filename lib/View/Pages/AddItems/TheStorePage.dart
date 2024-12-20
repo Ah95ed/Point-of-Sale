@@ -151,19 +151,20 @@ class _AddItemBodyState extends State<AddItemBody> {
               Row(
                 children: [
                   Expanded(
+                    flex: 3,
                     child: TextFieldCustom(
                       name: "date".tr,
                       icons: Icons.date_range,
                       text: date,
                     ),
                   ),
-                  SelectDate(dateCtrl: date),
+                  Expanded(flex: 1, child: SelectDate(dateCtrl: date)),
                 ],
               ),
               CustomMaterialButton(
                 title: 'Add'.tr,
-                onPressed: () {
-                  controller.addItems(
+                onPressed: () async {
+                  await controller.addItems(
                     {
                       DataBaseSqflite.name: name.text,
                       DataBaseSqflite.codeItem: code.text,

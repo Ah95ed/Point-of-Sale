@@ -5,7 +5,10 @@ import 'package:point_of_sell/Control/WelcomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Pages/AddItems/TheStorePage.dart';
 import 'package:point_of_sell/View/Pages/CustomerManagement/CustomerManagement.dart';
+import 'package:point_of_sell/View/Pages/SalesInterface/AccountOrders.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/SalesInterface.dart';
+import 'package:point_of_sell/View/Pages/Sellforcash/AddAccount.dart';
+import 'package:point_of_sell/View/Pages/UpdatePrice/UpdatePrice.dart';
 import 'package:point_of_sell/View/Pages/home_screen.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 
@@ -55,21 +58,21 @@ class WelcomeScreen extends StatelessWidget {
               //   icon: const Icon(Icons.view_agenda),
               //   body: const PayCash(),
               // ),
-              // PaneItem(
-              //   icon: const Icon(Icons.account_balance),
-              //   body: const AccountOrders(),
-              //   title: const Text("AccountOrders"),
-              // ),
-              // PaneItem(
-              //   icon: const Icon(Icons.update_sharp),
-              //   body: UpdatePrice(),
-              //   title: const Text("UpdatePrice"),
-              // ),
-              // PaneItem(
-              //   icon: const Icon(Icons.add_sharp),
-              //   body: AddAccount(),
-              //   title: const Text("AddAccount"),
-              // ),
+              PaneItem(
+                icon: const Icon(Icons.account_balance),
+                body: const AccountOrders(),
+                title: const Text("AccountOrders"),
+              ),
+              PaneItem(
+                icon: const Icon(Icons.update_sharp),
+                body: UpdatePrice(),
+                title: const Text("UpdatePrice"),
+              ),
+              PaneItem(
+                icon: const Icon(Icons.add_sharp),
+                body: AddAccount(),
+                title: const Text("AddAccount"),
+              ),
             ],
             onChanged: (value) {
               controller.selected(value);

@@ -42,13 +42,11 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  static final GlobalKey<NavigatorState> navigatorKey =
-      GlobalKey<NavigatorState>();
+
   @override
   Widget build(BuildContext context) {
     final c = Get.put(LanguageController());
     return GetMaterialApp(
-      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       locale: c.language,
       translations: Language(),
