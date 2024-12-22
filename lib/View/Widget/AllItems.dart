@@ -73,7 +73,7 @@ class AllItems extends StatelessWidget {
             icon: Icon(
               Icons.delete,
               color: const Color.fromARGB(255, 219, 15, 0),
-              size: context.sizeBuilder.width/15,
+              size: context.getMinSize(14),
             ),
                       ),
           ],

@@ -57,7 +57,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       // initialBinding: Appbinding(),
       getPages: RoutePage.routs,
-      home: DeviceUtils.isMobile(context) ? const Mobile() : const RunnerApp(),
+      home: DeviceUtils.isMobile(context) 
+      ? const Mobile() : const RunnerApp(),
     );
   }
 }

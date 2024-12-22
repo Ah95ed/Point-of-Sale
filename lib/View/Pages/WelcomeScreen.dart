@@ -9,6 +9,7 @@ import 'package:point_of_sell/View/Pages/SalesInterface/AccountOrders.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/SalesInterface.dart';
 import 'package:point_of_sell/View/Pages/Sellforcash/AddAccount.dart';
 import 'package:point_of_sell/View/Pages/UpdatePrice/UpdatePrice.dart';
+import 'package:point_of_sell/View/Pages/chat.dart';
 import 'package:point_of_sell/View/Pages/home_screen.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 
@@ -53,16 +54,12 @@ class WelcomeScreen extends StatelessWidget {
               //   icon: const Icon(Icons.view_agenda),
               //   body: const Purchase(),
               // ),
-              // PaneItem(
-              //   title: const Text('Pay Cash'),
-              //   icon: const Icon(Icons.view_agenda),
-              //   body: const PayCash(),
-              // ),
               PaneItem(
-                icon: const Icon(Icons.account_balance),
-                body: const AccountOrders(),
-                title: const Text("AccountOrders"),
+                title: const Text('Pay Cash'),
+                icon: const Icon(Icons.view_agenda),
+                body: const ChatGPT(),
               ),
+           
               PaneItem(
                 icon: const Icon(Icons.update_sharp),
                 body: UpdatePrice(),

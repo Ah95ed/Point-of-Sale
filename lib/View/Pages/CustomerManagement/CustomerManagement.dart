@@ -55,7 +55,7 @@ class CustomersView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // c.getCustomer();
+    c.getCustomer();
     return Column(
       children: [
         TextFieldCustom(
@@ -72,7 +72,7 @@ class CustomersView extends StatelessWidget {
                 onMobile: 2,
                 onTablet: 3,
                 onDesktop: 4,
-                others:2,
+                others: 2,
               ),
               childAspectRatio: 2,
               crossAxisSpacing: 2,
@@ -89,15 +89,15 @@ class CustomersView extends StatelessWidget {
                       Radius.circular(10),
                     ),
                   ),
-                  child: const Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('c.customers![index].name!'),
-                      Divider(),
-                      Text('c.customers![index].phone!'),
-                      Divider(),
-                      Text('c.customers![index].address!'),
+                      Text(c.customers![index].name!),
+                      const Divider(),
+                      Text(c.customers![index].phone!),
+                      const Divider(),
+                      Text(c.customers![index].address!),
                     ],
                   ));
             },

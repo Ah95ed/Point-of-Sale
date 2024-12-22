@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Control/AccountController.dart';
+import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
@@ -24,25 +25,45 @@ class _AccountOrdersState extends State<AccountOrders> {
       builder: (controller) {
         return Column(
           children: [
-            Expanded(
-              child: TextFormField(
-                readOnly: true,
-                controller: controller.text,
-                decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                    onPressed: ()  {
-                      
-                    },
-                    icon: const Icon(
-                      Icons.qr_code_scanner,
-                      color: Colors.white,
-                    )
-                  )
+            TextFormField(
+                 onChanged: (value) {
+                    if (value.isEmpty) return;
+                    logWarning('message  $value');
+                    controller.searchCodeOrder(value);
+                  },
+              // readOnly: true,
+              controller: controller.controller,
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                hintText: 'Search'.tr,
+                hintStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: context.getFontSize(10),
                 ),
-
-                
+               
+                 suffixIcon: DeviceUtils.isMobile(context)
+                        ? IconButton(
+                            onPressed: () {
+                              final qrBarCodeScannerDialogPlugin =
+                                  QrBarCodeScannerDialog();
+                              qrBarCodeScannerDialogPlugin
+                                  .getScannedQrBarCode(
+                                context: context,
+                                onCode: (code) {
+                                  controller.searchCodeOrder(code!);
+                                },
+                              );
+                            },
+                            icon: const Icon(
+                              Icons.barcode_reader,
+                              color: Colors.black,
+                            ),
+                          )
+                        : null,
+               
+                )
               ),
-            ),
+            
            Expanded(
               child: Container(
                 color: ColorUsed.whitesoft,
@@ -50,7 +71,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                 child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: DeviceUtils.isMobile(context) ? 1 : 4,
-                      childAspectRatio: DeviceUtils.isMobile(context) ? 4 : 1.5,
+                      childAspectRatio:4,
                       mainAxisSpacing: 4,
                       crossAxisSpacing: 4,
                     ),
