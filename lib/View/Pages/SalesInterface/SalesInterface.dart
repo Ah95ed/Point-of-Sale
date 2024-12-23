@@ -5,6 +5,7 @@ import 'package:point_of_sell/Control/HomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/AccountOrders.dart';
+import 'package:point_of_sell/View/Pages/UpdatePrice/UpdatePrice.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
 import 'package:point_of_sell/View/Widget/Mobile.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
@@ -29,7 +30,7 @@ class _SalesInterfaceState extends State<SalesInterface> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         backgroundColor: ColorUsed.whitesoft,
         drawer: DeviceUtils.isMobile(context) ? const DrawerAllApp() : null,
@@ -45,13 +46,18 @@ class _SalesInterfaceState extends State<SalesInterface> {
                 icon: const Icon(Icons.person),
                 text: Language.sales.tr,
               ),
+              const Tab(
+                icon: Icon(Icons.update),
+                text: 'Update Prcice',
+              ),
             ],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            ShowAllItem(),
-            AccountOrders(),
+            const ShowAllItem(),
+            const AccountOrders(),
+            UpdatePrice(),
           ],
         ),
       ),

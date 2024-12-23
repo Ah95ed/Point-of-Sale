@@ -7,5 +7,6 @@ Future<void> initService() async {
   sharep = await SharedPreferences.getInstance();
   if (Platform.isWindows || Platform.isLinux) {
     databaseFactory = databaseFactoryFfi;
+
   }
 }

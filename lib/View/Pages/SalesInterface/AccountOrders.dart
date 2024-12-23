@@ -25,49 +25,52 @@ class _AccountOrdersState extends State<AccountOrders> {
       builder: (controller) {
         return Column(
           children: [
-            TextFormField(
-                 onChanged: (value) {
-                    if (value.isEmpty) return;
-                    logWarning('message  $value');
-                    controller.searchCodeOrder(value);
-                  },
-              // readOnly: true,
-              controller: controller.controller,
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(),
-                hintText: 'Search'.tr,
-                hintStyle: TextStyle(
-                  color: Colors.black,
-                  fontSize: context.getFontSize(10),
+            SizedBox(
+              height: context.getHeight(22),
+              child: TextFormField(
+                   onChanged: (value) {
+                      if (value.isEmpty) return;
+                      logWarning('message  $value');
+                      controller.searchCodeOrder(value);
+                    },
+                // readOnly: true,
+                controller: controller.controller,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  hintText: 'Search'.tr,
+                  hintStyle: TextStyle(
+                    color: Colors.black,
+                    fontSize: context.getFontSize(10),
+                  ),
+                 
+                   suffixIcon: DeviceUtils.isMobile(context)
+                          ? IconButton(
+                              onPressed: () {
+                                final qrBarCodeScannerDialogPlugin =
+                                    QrBarCodeScannerDialog();
+                                qrBarCodeScannerDialogPlugin
+                                    .getScannedQrBarCode(
+                                  context: context,
+                                  onCode: (code) {
+                                    controller.searchCodeOrder(code!);
+                                  },
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.barcode_reader,
+                                color: Colors.black,
+                              ),
+                            )
+                          : null,
+                 
+                  )
                 ),
-               
-                 suffixIcon: DeviceUtils.isMobile(context)
-                        ? IconButton(
-                            onPressed: () {
-                              final qrBarCodeScannerDialogPlugin =
-                                  QrBarCodeScannerDialog();
-                              qrBarCodeScannerDialogPlugin
-                                  .getScannedQrBarCode(
-                                context: context,
-                                onCode: (code) {
-                                  controller.searchCodeOrder(code!);
-                                },
-                              );
-                            },
-                            icon: const Icon(
-                              Icons.barcode_reader,
-                              color: Colors.black,
-                            ),
-                          )
-                        : null,
-               
-                )
-              ),
+            ),
             
            Expanded(
               child: Container(
                 color: ColorUsed.whitesoft,
-                height: context.getHeight(350),
+                // height: context.getHeight(350),
                 child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: DeviceUtils.isMobile(context) ? 1 : 4,
@@ -96,9 +99,9 @@ class _AccountOrdersState extends State<AccountOrders> {
             
             Container(
               color: ColorUsed.whiteBlue,
-              height: context.getHeight(40),
+              height: context.getHeight(35),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
                     'Result : ${controller.resultSell} ',

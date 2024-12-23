@@ -5,11 +5,8 @@ import 'package:point_of_sell/Control/WelcomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Pages/AddItems/TheStorePage.dart';
 import 'package:point_of_sell/View/Pages/CustomerManagement/CustomerManagement.dart';
-import 'package:point_of_sell/View/Pages/SalesInterface/AccountOrders.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/SalesInterface.dart';
 import 'package:point_of_sell/View/Pages/Sellforcash/AddAccount.dart';
-import 'package:point_of_sell/View/Pages/UpdatePrice/UpdatePrice.dart';
-import 'package:point_of_sell/View/Pages/chat.dart';
 import 'package:point_of_sell/View/Pages/home_screen.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 
@@ -49,27 +46,28 @@ class WelcomeScreen extends StatelessWidget {
                 icon: const Icon(Icons.price_change_sharp),
                 body: const CustomerManagement(),
               ),
+             
               // PaneItem(
               //   title: const Text('The Purchase'),
               //   icon: const Icon(Icons.view_agenda),
               //   body: const Purchase(),
               // ),
-              PaneItem(
-                title: const Text('Pay Cash'),
-                icon: const Icon(Icons.view_agenda),
-                body: const ChatGPT(),
-              ),
+              // PaneItem(
+              //   title: const Text('Pay Cash'),
+              //   icon: const Icon(Icons.view_agenda),
+              //   body: const ChatGPT(),
+              // ),
            
-              PaneItem(
-                icon: const Icon(Icons.update_sharp),
-                body: UpdatePrice(),
-                title: const Text("UpdatePrice"),
-              ),
-              PaneItem(
-                icon: const Icon(Icons.add_sharp),
-                body: AddAccount(),
-                title: const Text("AddAccount"),
-              ),
+              // PaneItem(
+              //   icon: const Icon(Icons.update_sharp),
+              //   body: UpdatePrice(),
+              //   title: const Text("UpdatePrice"),
+              // ),
+              // PaneItem(
+              //   icon: const Icon(Icons.add_sharp),
+              //   body: AddAccount(),
+              //   title:  Text("AddAccount".tr),
+              // ),
             ],
             onChanged: (value) {
               controller.selected(value);
