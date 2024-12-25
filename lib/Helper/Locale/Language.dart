@@ -20,6 +20,7 @@ class Language implements Translations {
   static const Customer = 'Customer';
   static const AddAccount = 'AddAccount';
 
+
   @override
   Map<String, Map<String, String>> get keys => {
         "ar": {

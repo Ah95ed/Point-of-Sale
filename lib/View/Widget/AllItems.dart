@@ -18,26 +18,32 @@ class AllItems extends StatelessWidget {
   });
 
   @override
-
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
+      
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(context.getMinSize(4)),
+
+      ),
       color: ColorUsed.whitesoft,
       child: Padding(
-        padding:  EdgeInsets.all(context.getMinSize(2)),
+        padding: EdgeInsets.all(context.getMinSize(2)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
+               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Row(
                   children: [
                     Text(
                       Language.nameItem.tr,
                       style: TextStyle(
-                          fontSize: context.getFontSize(6),
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,),
+                        fontSize: context.getFontSize(6),
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     Text(
                       name,
@@ -53,14 +59,14 @@ class AllItems extends StatelessWidget {
                     Text(
                       Language.saleItem.tr,
                       style: TextStyle(
-                          fontSize:context.getFontSize(6),
+                          fontSize: context.getFontSize(6),
                           color: Colors.black,
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
                       sale,
                       style: TextStyle(
-                          fontSize:context.getFontSize(6),
+                          fontSize: context.getFontSize(6),
                           color: Colors.black,
                           fontWeight: FontWeight.bold),
                     ),
@@ -69,13 +75,13 @@ class AllItems extends StatelessWidget {
               ],
             ),
             IconButton(
-            onPressed: onPressed,
-            icon: Icon(
-              Icons.delete,
-              color: const Color.fromARGB(255, 219, 15, 0),
-              size: context.getMinSize(14),
+              onPressed: onPressed,
+              icon: Icon(
+                Icons.more_horiz_rounded,
+                color: Colors.black,
+                size: context.getMinSize(14),
+              ),
             ),
-                      ),
           ],
         ),
       ),

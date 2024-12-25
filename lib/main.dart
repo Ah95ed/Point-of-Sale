@@ -31,7 +31,7 @@ Future<void> main() async {
     ) =>
         Log.err(
       error,
-      'main',
+      'At The Main',
       stack,
     ),
   );

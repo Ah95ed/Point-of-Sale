@@ -5,6 +5,7 @@ import 'package:point_of_sell/Control/HomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/AccountOrders.dart';
+import 'package:point_of_sell/View/Pages/UpdateData/UpdateData.dart';
 import 'package:point_of_sell/View/Pages/UpdatePrice/UpdatePrice.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
 import 'package:point_of_sell/View/Widget/Mobile.dart';
@@ -88,7 +89,7 @@ class ShowAllItem extends StatelessWidget {
                     context,
                     onMobile: 2,
                     onTablet: 3,
-                    onDesktop: 4,
+                    onDesktop: 3,
                     others: 2,
                   ),
                   childAspectRatio: 4,
@@ -98,8 +99,21 @@ class ShowAllItem extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return AllItems(
                     () {
-                      controller.deleteItem(
-                        controller.items[index].id,
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return  CustomAlertDialog({
+                            'id': controller.items[index].id,
+                            'name': controller.items[index].name,
+                            'sale': controller.items[index].sale,
+                            'buy': controller.items[index].buy,
+                            'quantity': controller.items[index].quantity,
+                            'date': controller.items[index].date,
+                            'code': controller.items[index].code,
+                            'company': controller.items[index].company,
+                            
+                            });
+                        },
                       );
                     },
                     name: controller.items[index].name,
@@ -116,7 +130,10 @@ class ShowAllItem extends StatelessWidget {
 }
 
 class CustomAlertDialog extends StatelessWidget {
-  const CustomAlertDialog({super.key});
+   CustomAlertDialog( this.data,{super.key} );
+   final Map<String,dynamic> data;
+
+   HomeController c  = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -126,14 +143,33 @@ class CustomAlertDialog extends StatelessWidget {
         TextButton(
           onPressed: () {
             Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return UpdateData(
+                    named: data['name'],
+                    coded: data['code'],
+                    saled: data['sale'],
+                    buyt: data['buy'],
+                    quan: data['quantity'],
+                    id: data['id'],
+                    dated: data['date'],
+                    company: data['company'],
+
+                  );
+                },
+              ),
+            );
           },
-          child: const Text('Delete'),
+          child: Text(Language.edit.tr),
         ),
         TextButton(
           onPressed: () {
+            c.deleteItem(data['id']);
             Navigator.pop(context);
           },
-          child: const Text('Edit'),
+          child: Text(Language.delete.tr),
         ),
       ],
     );

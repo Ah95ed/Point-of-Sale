@@ -6,7 +6,6 @@ import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Pages/AddItems/TheStorePage.dart';
 import 'package:point_of_sell/View/Pages/CustomerManagement/CustomerManagement.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/SalesInterface.dart';
-import 'package:point_of_sell/View/Pages/Sellforcash/AddAccount.dart';
 import 'package:point_of_sell/View/Pages/home_screen.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 

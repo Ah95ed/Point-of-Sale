@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:point_of_sell/Helper/Log/Logger.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/DataBaseSqflite.dart';
 import 'package:point_of_sell/Model/Models/Items.dart';
 import 'package:point_of_sell/Model/Models/Pdf/PdfApi.dart';
@@ -16,8 +16,6 @@ class HomeController extends GetxController {
   int limit = 20;
   late DataBaseSqflite dataBaseSqflite;
 
-  
-
   @override
   void onInit() {
     dataBaseSqflite = DataBaseSqflite();
@@ -28,7 +26,7 @@ class HomeController extends GetxController {
   Future<void> addItems(
     Map<String, dynamic> data,
   ) async {
-   await dataBaseSqflite.insert(data);
+    await dataBaseSqflite.insert(data);
     items.clear();
     paginationData();
     update();
@@ -72,6 +70,7 @@ class HomeController extends GetxController {
   Future<void> deleteItem(String id) async {
     items.clear();
     await dataBaseSqflite.delete(id);
+    // logSuccess(' deleteItem --- $r');
     paginationData();
     update();
   }
