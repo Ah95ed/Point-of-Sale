@@ -15,6 +15,7 @@ dependencies:
   sqflite_common_ffi: 
   sqflite: 
   get: 
+  csv:
   fluent_ui:
   qr_bar_code_scanner_dialog: 
   device_preview:

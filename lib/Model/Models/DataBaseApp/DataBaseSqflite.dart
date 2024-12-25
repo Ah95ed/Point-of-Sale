@@ -185,6 +185,14 @@ ${LiabilityDataBase.TableLi_user}
 
     return result.toList();
   }
+  Future<List<Map<String, dynamic>?>> getAllData() async {
+    Database? db = await databasesq;
+    var result = await db!.rawQuery(
+      'SELECT * FROM $TableName',
+    );
+
+    return result.toList();
+  }
 
   // delete
   Future<int> delete(String id) async {

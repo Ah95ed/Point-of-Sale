@@ -34,13 +34,13 @@ class HomeController extends GetxController {
 
   void paginationData() async {
     if (items.isEmpty) {
-      getPData();
+      getData();
     }
     controller.addListener(
       () async {
         if (controller.position.pixels == controller.position.maxScrollExtent) {
           isLaodingMore = true;
-          getPData();
+          getData();
           skip = skip + limit;
           isLaodingMore = false;
         }
@@ -48,7 +48,7 @@ class HomeController extends GetxController {
     );
   }
 
-  Future<void> getPData() async {
+  Future<void> getData() async {
     var dataList = await dataBaseSqflite.getAllUser(skip, limit);
     var item = dataList
         .map((i) => Items(
