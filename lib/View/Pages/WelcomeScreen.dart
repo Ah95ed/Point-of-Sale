@@ -5,6 +5,7 @@ import 'package:point_of_sell/Control/WelcomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Pages/AddItems/TheStorePage.dart';
 import 'package:point_of_sell/View/Pages/CustomerManagement/CustomerManagement.dart';
+import 'package:point_of_sell/View/Pages/ExportAndImport/ExportAndImport.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/SalesInterface.dart';
 import 'package:point_of_sell/View/Pages/home_screen.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
@@ -46,11 +47,11 @@ class WelcomeScreen extends StatelessWidget {
                 body: const CustomerManagement(),
               ),
              
-              // PaneItem(
-              //   title: const Text('The Purchase'),
-              //   icon: const Icon(Icons.view_agenda),
-              //   body: const Purchase(),
-              // ),
+              PaneItem(
+                title:  Text(Language.ExportAndimport.tr),
+                icon: const Icon(Icons.explore_outlined),
+                body:  ExportAndImport(),
+              ),
               // PaneItem(
               //   title: const Text('Pay Cash'),
               //   icon: const Icon(Icons.view_agenda),

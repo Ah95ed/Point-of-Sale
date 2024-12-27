@@ -152,6 +152,7 @@ TextEditingController company = TextEditingController();
                       DataBaseSqflite.sale: sale.text,
                       DataBaseSqflite.buy: buy.text,
                       DataBaseSqflite.quantity: quantity.text,
+                      DataBaseSqflite.company: company.text,
                       DataBaseSqflite.date: date.text,
                     }, widget.id);
                     widget.named = "";
@@ -167,6 +168,7 @@ TextEditingController company = TextEditingController();
                     sale.clear();
                     buy.clear();
                     quantity.clear();
+                    company.clear();
                     date.clear();
                   },
                   child: Text(

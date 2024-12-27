@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:point_of_sell/Control/ExportAndImport/ExportAndImport.dart';
 
 class Language implements Translations {
   static const error = 'error';
@@ -19,11 +20,16 @@ class Language implements Translations {
   static const AddItems = 'AddItems';
   static const Customer = 'Customer';
   static const AddAccount = 'AddAccount';
+  static const ExportAndimport = 'ExportAndImport';
+  static const export = 'export';
+  static const import = 'import';
 
 
   @override
   Map<String, Map<String, String>> get keys => {
         "ar": {
+          export: 'تصدير',
+          import: 'استيراد',
           AddAccount : 'اضافة حساب',
           update: 'تحديث',
           addCustomers: 'اضافة عميل',
@@ -39,6 +45,7 @@ class Language implements Translations {
           nameItem: 'الأسم :-',
           saleItem: ' -: سعر البيع',
           error: "خطأ",
+          ExportAndimport : 'تصدير واستيراد',
           "SaleofPoint": "نقطة البيع",
           "add": "إضافة عنصر",
           "itemName": "اسم العنصر",
@@ -82,6 +89,9 @@ class Language implements Translations {
           'SalesInterface': 'واجهة المبيعات',
         },
         "en": {
+          export: 'Export',
+          import: 'Import',
+          ExportAndimport : 'Export And Import',
           AddAccount :'Add Account',
           addCustomers: 'Add Customers',
           update: 'Update',
