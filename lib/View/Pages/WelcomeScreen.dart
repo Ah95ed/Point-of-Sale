@@ -1,9 +1,10 @@
+
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Control/WelcomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
-import 'package:point_of_sell/View/Pages/AddItems/TheStorePage.dart';
+import 'package:point_of_sell/View/Pages/AddItems/AddItems.dart';
 import 'package:point_of_sell/View/Pages/CustomerManagement/CustomerManagement.dart';
 import 'package:point_of_sell/View/Pages/ExportAndImport/ExportAndImport.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/SalesInterface.dart';
@@ -15,6 +16,7 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return GetBuilder<WelcomeController>(
       init: WelcomeController(),
       builder: (controller) {
@@ -22,9 +24,10 @@ class WelcomeScreen extends StatelessWidget {
           pane: NavigationPane(
             selected: controller.selecte,
             size: NavigationPaneSize(
-              openMaxWidth: context.sizeBuilder.width/3,
-              openMinWidth:context.sizeBuilder.width /4 ,
+              openMaxWidth: context.sizeBuilder.width / 3,
+              openMinWidth: context.sizeBuilder.width / 4,
             ),
+            
             items: [
               PaneItem(
                 title: Text('welcomescreen'.tr),
@@ -46,18 +49,19 @@ class WelcomeScreen extends StatelessWidget {
                 icon: const Icon(Icons.price_change_sharp),
                 body: const CustomerManagement(),
               ),
-             
+
               PaneItem(
-                title:  Text(Language.ExportAndimport.tr),
+                title: Text(Language.ExportAndimport.tr),
                 icon: const Icon(Icons.explore_outlined),
-                body:  ExportAndImport(),
+                body: ExportAndImport(),
+                enabled: true,
               ),
               // PaneItem(
               //   title: const Text('Pay Cash'),
               //   icon: const Icon(Icons.view_agenda),
               //   body: const ChatGPT(),
               // ),
-           
+
               // PaneItem(
               //   icon: const Icon(Icons.update_sharp),
               //   body: UpdatePrice(),

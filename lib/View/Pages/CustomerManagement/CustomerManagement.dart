@@ -20,8 +20,8 @@ class CustomerManagement extends StatelessWidget {
           builder: (controller) {
             // controller.getCustomer();
             return Scaffold(
-              drawer:
-                  DeviceUtils.isMobile(context) ? const DrawerAllApp() : null,
+              // drawer:
+              //     DeviceUtils.isMobile(context) ? const DrawerAllApp() : null,
               appBar: AppBar(
                 title: TabBar(
                   tabs: [

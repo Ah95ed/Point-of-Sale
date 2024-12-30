@@ -11,7 +11,7 @@ import 'package:point_of_sell/View/Widget/ShareWidget/CustomMaterialButton.dart'
 import 'package:point_of_sell/View/Widget/TextField.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
-import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
+// import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 
 class AddItems extends StatefulWidget {
   const AddItems({super.key});
@@ -25,7 +25,7 @@ class _AddItemsState extends State<AddItems> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      drawer: DeviceUtils.isMobile(context) ? const DrawerAllApp() : null,
+      // drawer: DeviceUtils.isMobile(context) ? const DrawerAllApp() : null,
       appBar: AppBar(
         title: Text(Language.AddItems.tr),
         centerTitle: true,
@@ -112,14 +112,14 @@ class _AddItemBodyState extends State<AddItemBody> {
                     suffixIcon: DeviceUtils.isMobile(context)
                         ? IconButton(
                             onPressed: () {
-                              final qrBarCodeScannerDialogPlugin =
-                                  QrBarCodeScannerDialog();
-                              qrBarCodeScannerDialogPlugin.getScannedQrBarCode(
-                                context: context,
-                                onCode: (cod) {
-                                  code.text = cod!;
-                                },
-                              );
+                              // final qrBarCodeScannerDialogPlugin =
+                              //     QrBarCodeScannerDialog();
+                              // qrBarCodeScannerDialogPlugin.getScannedQrBarCode(
+                              //   context: context,
+                              //   onCode: (cod) {
+                              //     code.text = cod!;
+                              //   },
+                              // );
                             },
                             icon: const Icon(Icons.qr_code_scanner_rounded),
                           )

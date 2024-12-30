@@ -17,7 +17,7 @@ dependencies:
   get: 
   csv:
   fluent_ui:
-  qr_bar_code_scanner_dialog: 
+  # qr_bar_code_scanner_dialog: 
   device_preview:
   flutter_svg:
   pdf: 

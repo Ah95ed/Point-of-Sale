@@ -5,6 +5,8 @@ import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Helper/Locale/LanguageController.dart';
 import 'package:point_of_sell/Helper/Log/Logger.dart';
 import 'package:point_of_sell/Helper/Service/Service.dart';
+import 'package:point_of_sell/View/Pages/SaleScreen/SaleScreen.dart';
+import 'package:point_of_sell/View/Pages/SalesInterface/SalesInterface.dart';
 import 'package:point_of_sell/View/Pages/WelcomeScreen.dart';
 import 'package:point_of_sell/View/Widget/Mobile.dart';
 import 'package:point_of_sell/View/route/Route.dart';
@@ -55,10 +57,16 @@ class MyApp extends StatelessWidget {
       //   routeObserver,
       // ],
       initialRoute: '/',
+      routes: RoutePage.routes,
       // initialBinding: Appbinding(),
-      getPages: RoutePage.routs,
-      home: DeviceUtils.isMobile(context) 
-      ? const Mobile() : const RunnerApp(),
+
+      home: DeviceUtils.isMobile(context)
+          ? SizeBuilder(
+              baseSize: const Size(360, 690),
+              height: context.screenHeight,
+              width: context.screenWidth,
+              child: Mobile(),
+            ): const RunnerApp(),
     );
   }
 }
@@ -69,7 +77,7 @@ class RunnerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizeBuilder(
-      baseSize: const Size(340, 720) ,
+      baseSize: const Size(340, 720),
       height: context.screenHeight,
       width: context.screenWidth,
       child: FluentApp(

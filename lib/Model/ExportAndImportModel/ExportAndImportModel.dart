@@ -71,11 +71,6 @@ class ExportAndImportModel {
           List<String> date = element.split(',');
            List<String> company = element.split(',');
             List<String> id = element.split(',');
-          // if (int.parse(id[6].toString()) == 1) {
-          //   // paginationData();
-          //   logSuccess('message import success');
-          // }
-         
         await _database.insert({
             DataBaseSqflite.name: name[0],
             DataBaseSqflite.codeItem: code[1],

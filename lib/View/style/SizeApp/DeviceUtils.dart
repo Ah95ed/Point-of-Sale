@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 
 class DeviceUtils {
-  static bool isMobile(BuildContext context) =>
-   context.screenHeight < 600;
+  static bool isMobile(BuildContext context) => context.screenWidth < 600;
 
   static bool isTablet(BuildContext context) =>
       context.screenWidth >= 600 && context.screenHeight < 1200;
 
   static bool isDesktop(BuildContext context) => context.screenHeight >= 1200;
 
-  static T valueDecider<T>(BuildContext context,
-       { required T onMobile, T? onTablet, T? onDesktop ,T? others}) {
+  static T valueDecider<T>(
+    BuildContext context, {
+    required T onMobile,
+    T? onTablet,
+    T? onDesktop,
+    T? others,
+  }) {
     if (isMobile(context)) {
       return onMobile;
     } else if (isTablet(context) && onTablet != null) {

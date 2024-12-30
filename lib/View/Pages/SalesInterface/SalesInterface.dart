@@ -34,7 +34,7 @@ class _SalesInterfaceState extends State<SalesInterface> {
       length: 3,
       child: Scaffold(
         backgroundColor: ColorUsed.whitesoft,
-        drawer: DeviceUtils.isMobile(context) ? const DrawerAllApp() : null,
+        
         appBar: AppBar(
           centerTitle: true,
           title: TabBar(

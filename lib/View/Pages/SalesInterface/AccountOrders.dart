@@ -6,7 +6,7 @@ import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
-import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
+// import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 
 // ignore: must_be_immutable
 class AccountOrders extends StatefulWidget {
@@ -46,15 +46,15 @@ class _AccountOrdersState extends State<AccountOrders> {
                    suffixIcon: DeviceUtils.isMobile(context)
                           ? IconButton(
                               onPressed: () {
-                                final qrBarCodeScannerDialogPlugin =
-                                    QrBarCodeScannerDialog();
-                                qrBarCodeScannerDialogPlugin
-                                    .getScannedQrBarCode(
-                                  context: context,
-                                  onCode: (code) {
-                                    controller.searchCodeOrder(code!);
-                                  },
-                                );
+                                // final qrBarCodeScannerDialogPlugin =
+                                //     QrBarCodeScannerDialog();
+                                // qrBarCodeScannerDialogPlugin
+                                //     .getScannedQrBarCode(
+                                //   context: context,
+                                //   onCode: (code) {
+                                //     controller.searchCodeOrder(code!);
+                                //   },
+                                // );
                               },
                               icon: const Icon(
                                 Icons.barcode_reader,

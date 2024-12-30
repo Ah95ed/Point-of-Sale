@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:point_of_sell/Control/ExportAndImport/ExportAndImport.dart';
 
 class Language implements Translations {
   static const error = 'error';

@@ -10,7 +10,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Widget/TextField.dart';
 import 'package:point_of_sell/View/Widget/storgeWidget/storge_additional.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+// import 'package:qr_flutter/qr_flutter.dart';
 
 class TabsOnStorage extends StatelessWidget {
   const TabsOnStorage({super.key});
@@ -97,14 +97,14 @@ class _GenerateCodeState extends State<GenerateCode> {
             width: width / 4,
             child: Column(
               children: [
-                RepaintBoundary(
-                  key: _globalKey1,
-                  child: QrImageView(
-                    data: text.text,
-                    size: 180.0,
-                    version: QrVersions.auto,
-                  ),
-                ),
+                // RepaintBoundary(
+                //   key: _globalKey1,
+                //   child: QrImageView(
+                //     data: text.text,
+                //     size: 180.0,
+                //     version: QrVersions.auto,
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: OutlinedButton(
