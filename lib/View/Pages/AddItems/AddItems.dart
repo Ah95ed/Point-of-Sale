@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:point_of_sell/Control/HomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/DataBaseSqflite.dart';
@@ -11,6 +12,10 @@ import 'package:point_of_sell/View/Widget/ShareWidget/CustomMaterialButton.dart'
 import 'package:point_of_sell/View/Widget/TextField.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
+import 'package:simple_barcode_scanner/barcode_appbar.dart';
+import 'package:simple_barcode_scanner/enum.dart';
+import 'package:simple_barcode_scanner/screens/io_device.dart';
+import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 // import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 
 class AddItems extends StatefulWidget {
@@ -80,6 +85,22 @@ class _AddItemBodyState extends State<AddItemBody> {
     super.dispose();
   }
 
+// String? res =  SimpleBarcodeScanner.scanBarcode(
+//                   context,
+//                   barcodeAppBar: const BarcodeAppBar(
+//                     appBarTitle: 'Test',
+//                     centerTitle: false,
+//                     enableBackButton: true,
+//                     backButtonIcon: Icon(Icons.arrow_back_ios),
+//                   ),
+//                   isShowFlashIcon: true,
+//                   delayMillis: 2000,
+//                   cameraFace: CameraFace.front,
+//                 );
+//                 setState(() {
+//                   result = res as String;
+//                 });
+  String? result;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
@@ -112,14 +133,32 @@ class _AddItemBodyState extends State<AddItemBody> {
                     suffixIcon: DeviceUtils.isMobile(context)
                         ? IconButton(
                             onPressed: () {
-                              // final qrBarCodeScannerDialogPlugin =
-                              //     QrBarCodeScannerDialog();
-                              // qrBarCodeScannerDialogPlugin.getScannedQrBarCode(
-                              //   context: context,
-                              //   onCode: (cod) {
-                              //     code.text = cod!;
-                              //   },
-                              // );
+                              showDialog(
+                                context: context,
+                                builder: (_) {
+                                  Permission.camera.request();
+                                  return AlertDialog(
+                                    content: SizedBox(
+                                        width: 200,
+                                        height: 200,
+                                        child: SimpleBarcodeScanner(
+                                          scaleHeight: 200,
+                                          scaleWidth: 400,
+                                          onScanned: (code) {
+                                            setState(() {
+                                              result = code;
+                                            });
+                                          },
+                                          continuous: true,
+                                          onBarcodeViewCreated:
+                                              (BarcodeViewController
+                                                  controller) {
+                                            // this.controller = controller;
+                                          },
+                                        )),
+                                  );
+                                },
+                              );
                             },
                             icon: const Icon(Icons.qr_code_scanner_rounded),
                           )
