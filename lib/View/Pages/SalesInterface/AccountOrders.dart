@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:point_of_sell/Control/AccountController.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
+import 'package:point_of_sell/View/style/SizeApp/SizeBuilder.dart';
+import 'package:simple_barcode_scanner/screens/barcode_controller.dart';
+import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 // import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 
 // ignore: must_be_immutable
@@ -16,6 +20,7 @@ class AccountOrders extends StatefulWidget {
   State<AccountOrders> createState() => _AccountOrdersState();
 }
 
+String? result;
 
 class _AccountOrdersState extends State<AccountOrders> {
   @override
@@ -28,75 +33,92 @@ class _AccountOrdersState extends State<AccountOrders> {
             SizedBox(
               height: context.getHeight(22),
               child: TextFormField(
-                   onChanged: (value) {
-                      if (value.isEmpty) return;
-                      logWarning('message  $value');
-                      controller.searchCodeOrder(value);
-                    },
-                // readOnly: true,
-                controller: controller.controller,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  hintText: 'Search'.tr,
-                  hintStyle: TextStyle(
-                    color: Colors.black,
-                    fontSize: context.getFontSize(10),
-                  ),
-                 
-                   suffixIcon: DeviceUtils.isMobile(context)
-                          ? IconButton(
-                              onPressed: () {
-                                // final qrBarCodeScannerDialogPlugin =
-                                //     QrBarCodeScannerDialog();
-                                // qrBarCodeScannerDialogPlugin
-                                //     .getScannedQrBarCode(
-                                //   context: context,
-                                //   onCode: (code) {
-                                //     controller.searchCodeOrder(code!);
-                                //   },
-                                // );
-                              },
-                              icon: const Icon(
-                                Icons.barcode_reader,
-                                color: Colors.black,
-                              ),
-                            )
-                          : null,
-                 
-                  )
-                ),
+                  onChanged: (value) {
+                    if (value.isEmpty) return;
+                    logWarning('message  $value');
+                    controller.searchCodeOrder(value);
+                  },
+                  // readOnly: true,
+                  controller: controller.controller,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    hintText: 'Search'.tr,
+                    hintStyle: TextStyle(
+                      color: Colors.black,
+                      fontSize: context.getFontSize(10),
+                    ),
+                    suffixIcon: DeviceUtils.isMobile(context)
+                        ? IconButton(
+                            onPressed: () async {
+                              final perm = await Permission.camera.request();
+                              if (await perm.isGranted) {
+                                showDialog(
+                                  context: context,
+                                  builder: (_) {
+                                    return AlertDialog(
+                                      content: SizedBox(
+                                        width: context.screenWidth,
+                                        height: context.screenHeight / 2,
+                                        child: SimpleBarcodeScanner(
+                                          scaleHeight: context.screenHeight,
+                                          scaleWidth:
+                                              context.screenHeight / 1.2,
+                                          onScanned: (code) {
+                                            setState(() {
+                                              result = code;
+                                            });
+                                          },
+                                          continuous: true,
+                                          onBarcodeViewCreated:
+                                              (BarcodeViewController
+                                                  c) {
+                                                    
+                                            // this.controller = controller;
+                                          },
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              }
+                            },
+                            icon: const Icon(
+                              Icons.qr_code_scanner_rounded,
+                              color: Colors.black,
+                            ),
+                          )
+                        : null,
+                  )),
             ),
-            
-           Expanded(
+            Expanded(
               child: Container(
                 color: ColorUsed.whitesoft,
                 // height: context.getHeight(350),
                 child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: DeviceUtils.isMobile(context) ? 1 : 4,
-                      childAspectRatio:4,
-                      mainAxisSpacing: 4,
-                      crossAxisSpacing: 4,
-                    ),
-                    itemCount: controller.search.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return AllItems(
-                        () async {
-                          if (controller.search.isEmpty) return;
-                          await controller.deleteItem(
-                            controller.search[index].id,
-                            controller.search[index].sale,
-                          );
-                          controller.getDataFromAccount();
-                        },
-                        name: controller.search[index].name,
-                        sale: controller.search[index].sale,
-                      );
-                    },
-                    ),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: DeviceUtils.isMobile(context) ? 1 : 4,
+                    childAspectRatio: 4,
+                    mainAxisSpacing: 4,
+                    crossAxisSpacing: 4,
+                  ),
+                  itemCount: controller.search.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return AllItems(
+                      () async {
+                        if (controller.search.isEmpty) return;
+                        await controller.deleteItem(
+                          controller.search[index].id,
+                          controller.search[index].sale,
+                        );
+                        controller.getDataFromAccount();
+                      },
+                      name: controller.search[index].name,
+                      sale: controller.search[index].sale,
+                    );
+                  },
+                ),
               ),
             ),
-            
             Container(
               color: ColorUsed.whiteBlue,
               height: context.getHeight(35),
@@ -113,10 +135,8 @@ class _AccountOrdersState extends State<AccountOrders> {
                   ),
                   OutlinedButton(
                     style: const ButtonStyle(
-                      backgroundColor:
-                          WidgetStatePropertyAll(Colors.white),
-                      foregroundColor:
-                          WidgetStatePropertyAll(Colors.black),
+                      backgroundColor: WidgetStatePropertyAll(Colors.white),
+                      foregroundColor: WidgetStatePropertyAll(Colors.black),
                       shadowColor: WidgetStatePropertyAll(Colors.black),
                     ),
                     onPressed: () {

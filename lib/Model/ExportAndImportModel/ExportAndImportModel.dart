@@ -15,7 +15,9 @@ class ExportAndImportModel {
   }
 
   Future<void> exportData(BuildContext context) async {
-    List t = [];
+    PermissionStatus status = await Permission.storage.request();
+    if (!status.isGranted) {
+       List t = [];
     final data = await _database.getAllData();
     final ls = data.map((row) {
       t.add(row![DataBaseSqflite.name]);
@@ -44,6 +46,8 @@ class ExportAndImportModel {
           } );
       return;
     }
+    }
+   
     logError('message export error');
   }
 

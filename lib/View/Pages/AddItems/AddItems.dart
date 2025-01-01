@@ -12,6 +12,7 @@ import 'package:point_of_sell/View/Widget/ShareWidget/CustomMaterialButton.dart'
 import 'package:point_of_sell/View/Widget/TextField.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
+import 'package:point_of_sell/View/style/SizeApp/SizeBuilder.dart';
 import 'package:simple_barcode_scanner/barcode_appbar.dart';
 import 'package:simple_barcode_scanner/enum.dart';
 import 'package:simple_barcode_scanner/screens/io_device.dart';
@@ -31,10 +32,12 @@ class _AddItemsState extends State<AddItems> {
     return Scaffold(
       extendBody: true,
       // drawer: DeviceUtils.isMobile(context) ? const DrawerAllApp() : null,
-      appBar: AppBar(
-        title: Text(Language.AddItems.tr),
-        centerTitle: true,
-      ),
+      appBar: DeviceUtils.isMobile(context)
+          ? null
+          : AppBar(
+              title: Text(Language.AddItems.tr),
+              centerTitle: true,
+            ),
       resizeToAvoidBottomInset: true,
       body: const SingleChildScrollView(
         clipBehavior: Clip.none,
@@ -132,21 +135,22 @@ class _AddItemBodyState extends State<AddItemBody> {
                     labelText: 'code'.tr,
                     suffixIcon: DeviceUtils.isMobile(context)
                         ? IconButton(
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (_) {
-                                  Permission.camera.request();
-                                  return AlertDialog(
-                                    content: SizedBox(
-                                        width: 200,
-                                        height: 200,
+                            onPressed: () async {
+                              final perm = await Permission.camera.request();
+                              if (await perm.isGranted) {
+                                showDialog(
+                                  context: context,
+                                  builder: (_) {
+                                    return AlertDialog(
+                                      content: SizedBox(
+                                        width: context.screenWidth,
+                                        height: context.screenHeight / 2,
                                         child: SimpleBarcodeScanner(
-                                          scaleHeight: 200,
-                                          scaleWidth: 400,
+                                          scaleHeight: context.screenHeight,
+                                          scaleWidth: context.screenHeight / 1.2,
                                           onScanned: (code) {
                                             setState(() {
-                                              result = code;
+                                              this.code.text = code;
                                             });
                                           },
                                           continuous: true,
@@ -155,10 +159,12 @@ class _AddItemBodyState extends State<AddItemBody> {
                                                   controller) {
                                             // this.controller = controller;
                                           },
-                                        )),
-                                  );
-                                },
-                              );
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              }
                             },
                             icon: const Icon(Icons.qr_code_scanner_rounded),
                           )

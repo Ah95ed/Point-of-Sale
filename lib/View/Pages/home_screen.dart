@@ -8,18 +8,7 @@ class HomeScreen extends StatelessWidget {
   final Scaffoldkey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    // return Scaffold(
-        // key: Scaffoldkey,
-        // drawer: const DrawerApp(),
-        // appBar: AppBar(
-        //   title: const Text('SaleofPoint'),
-        //   leading: IconButton(
-        //     icon: const Icon(Icons.menu),
-        //     onPressed: () {
-        //       Scaffoldkey.currentState!.openDrawer();
-        //     },
-        //   ),
-        // ),
+    
         return Center(
           child: Image.asset(
             'assets/image/show.png',

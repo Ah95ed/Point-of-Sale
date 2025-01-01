@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:get/get.dart';
+import 'package:point_of_sell/Exaple.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Helper/Locale/LanguageController.dart';
 import 'package:point_of_sell/Helper/Log/Logger.dart';
@@ -65,8 +66,9 @@ class MyApp extends StatelessWidget {
               baseSize: const Size(360, 690),
               height: context.screenHeight,
               width: context.screenWidth,
-              child: Mobile(),
-            ): const RunnerApp(),
+              child:  Mobile(),
+            )
+          : const RunnerApp(),
     );
   }
 }

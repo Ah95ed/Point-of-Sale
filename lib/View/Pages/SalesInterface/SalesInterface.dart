@@ -25,7 +25,7 @@ class _SalesInterfaceState extends State<SalesInterface> {
   void initState() {
     super.initState();
     // Get.put(HomeController());
-    Get.put(AccountController());
+    // Get.put(AccountController());
   }
 
   @override

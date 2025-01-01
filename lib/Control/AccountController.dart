@@ -9,7 +9,7 @@ import 'package:point_of_sell/View/Widget/AlertDialog.dart';
 import '../Model/Models/DataBaseApp/DataBaseSqflite.dart';
 import '../Model/Models/Items.dart';
 
-class AccountController extends GetxController with WidgetsBindingObserver {
+class AccountController extends GetxController  {
   late DataBaseSqflite dataBaseSqflite;
   late AccountOrdersDataBase account;
 
@@ -31,7 +31,7 @@ class AccountController extends GetxController with WidgetsBindingObserver {
     controller = TextEditingController();
     dataBaseSqflite = DataBaseSqflite();
     account = AccountOrdersDataBase();
-    WidgetsBinding.instance.addObserver(this);
+    // WidgetsBinding.instance.addObserver(this);
     super.onInit();
     getShared();
   }
