@@ -4,5 +4,6 @@
     "dart.flutterHotReloadOnSave": "all",
     "dart.hotReloadOnSave": "all",
     "files.autoSaveWhenNoErrors": true,
-    "dart.flutterGenerateLocalizationsOnSave": "all"
+    "dart.flutterGenerateLocalizationsOnSave": "all",
+    "git.ignoreLimitWarning": true
 }
