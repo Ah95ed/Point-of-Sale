@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:csv/csv.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/DataBaseSqflite.dart';
@@ -15,11 +17,9 @@ class ExportAndImportModel {
   }
 
   Future<void> exportData(BuildContext context) async {
-    PermissionStatus status = await Permission.storage.request();
-    if (!status.isGranted) {
-       List t = [];
+    List t = [];
     final data = await _database.getAllData();
-    final ls = data.map((row) {
+    final ls = await data.map((row) {
       t.add(row![DataBaseSqflite.name]);
       t.add(row[DataBaseSqflite.codeItem]);
       t.add(row[DataBaseSqflite.buy]);
@@ -31,34 +31,33 @@ class ExportAndImportModel {
       return t.toList();
     }).toList();
 
-    await Permission.storage.request();
-    await Permission.manageExternalStorage.request();
-    final p = await Permission.accessMediaLocation.request();
+    String? csvString = const ListToCsvConverter().convert(ls);
+    // السماح للمستخدم بتحديد المسار
+    String? savePath = await FilePicker.platform.saveFile(
+     
+      dialogTitle: 'اختر مسار حفظ الملف',
+      type: FileType.custom,
+     
+    );
 
-    if (p.isGranted) {
-      String? result = await FilePicker.platform.getDirectoryPath();
-      final file = File('$result/data.csv');
-      String? csvString = const ListToCsvConverter().convert(ls);
-      await file
-          .writeAsString(csvString)
-          .whenComplete((){
-            logSuccess('message export success');
-          } );
-      return;
+    if (savePath != null) {
+      // حفظ الملف في المسار الذي اختاره المستخدم
+      File exportFile = File(savePath);
+      await exportFile.writeAsString(csvString).whenComplete(() {
+        logSuccess('message export success');
+      });
     }
+    else {
+      logError('message export error');
     }
-   
-    logError('message export error');
   }
-
 
   Future<void> importData() async {
     await Permission.storage.request();
     await Permission.manageExternalStorage.request();
     final p = await Permission.accessMediaLocation.request();
     if (p.isGranted) {
-      FilePickerResult? result = await 
-      FilePicker.platform.pickFiles(
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.any,
       );
 
@@ -73,9 +72,9 @@ class ExportAndImportModel {
           List<String> sell = element.split(',');
           List<String> quant = element.split(',');
           List<String> date = element.split(',');
-           List<String> company = element.split(',');
-            List<String> id = element.split(',');
-        await _database.insert({
+          List<String> company = element.split(',');
+          List<String> id = element.split(',');
+          await _database.insert({
             DataBaseSqflite.name: name[0],
             DataBaseSqflite.codeItem: code[1],
             DataBaseSqflite.buy: buy[2],
@@ -85,11 +84,8 @@ class ExportAndImportModel {
             DataBaseSqflite.company: company[6],
             DataBaseSqflite.id: id[7],
           });
-          
-         }
-         
         }
       }
     }
   }
-
+}

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:point_of_sell/Control/MobileContrller/MobileContrller.dart';
 import 'package:point_of_sell/Control/WelcomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
@@ -36,12 +38,10 @@ class MobileScreen extends StatefulWidget {
 class _MobileScreenState extends State<MobileScreen> {
   final Scaffoldkey = GlobalKey<ScaffoldState>();
 
-  int index = 0;
-
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<WelcomeController>(
-      init: WelcomeController(),
+    return GetBuilder<MobileContrller>(
+      init: MobileContrller(),
       builder: (c) {
         return PopScope(
           canPop: false,
@@ -61,6 +61,7 @@ class _MobileScreenState extends State<MobileScreen> {
                     TextButton(
                       onPressed: () {
                         Navigator.pop(context);
+                        SystemNavigator.pop();
                       },
                       child: const Text('Yes'),
                     ),
@@ -70,127 +71,84 @@ class _MobileScreenState extends State<MobileScreen> {
             );
           },
           child: Scaffold(
-              key: Scaffoldkey,
-              drawer: Drawer(
-                backgroundColor: ColorUsed.whitesoft,
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    SizedBox(
-                      height: context.getHeight(20),
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.store),
-                      onTap: () {
-                        Scaffoldkey.currentState!.closeDrawer();
-                        c.selected(0);
-                      },
-                      title: Text('Home'.tr),
-                    ),
-                    const Divider(),
-                    ListTile(
-                      leading: const Icon(Icons.shop),
-                      title: Text('SalesInterface'.tr),
-                      onTap: () {
-                        Scaffoldkey.currentState!.closeDrawer();
-                        c.selected(1);
-                      },
-                    ),
-                    const Divider(),
-                    ListTile(
-                      leading: const Icon(Icons.store),
-                      onTap: () {
-                        Scaffoldkey.currentState!.closeDrawer();
-                         c.selected(2);
-                      },
-                      title: Text(Language.AddItems.tr),
-                    ),
-                    const Divider(),
-                    ListTile(
-                      leading: const Icon(Icons.person_add),
-                      onTap: () {
-                          Scaffoldkey.currentState!.closeDrawer();
-                        c.selected(3);
-                      },
-                      title: Text(Language.Customer.tr),
-                    ),
-                    const Divider(),
-                    ListTile(
-                      leading: const Icon(Icons.explore_outlined),
-                      onTap: () {
-                        Scaffoldkey.currentState!.closeDrawer();
-                        c.selected(4);
-                      },
-                      title: Text(Language.ExportAndimport.tr),
-                    ),
-                    // const Divider(),
-                  ],
-                ),
-              ),
-              appBar: AppBar(
-                centerTitle: true,
-                title: const Text('Point of Sell'),
-                leading: IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () {
-                    logSuccess('message');
-                    Scaffoldkey.currentState!.openDrawer();
-                  },
-                ),
-              ),
-              body: IndexedStack(
-                index: c.selecte,
+            key: Scaffoldkey,
+            drawer: Drawer(
+              backgroundColor: ColorUsed.whitesoft,
+              child: ListView(
+                padding: EdgeInsets.zero,
                 children: [
-                  Navigator(
-                    onGenerateRoute: (settings) {
-                      return MaterialPageRoute(
-                        builder: (context) {
-                          return HomeScreen();
-                        },
-                      );
+                  SizedBox(
+                    height: context.getHeight(20),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.store),
+                    onTap: () {
+                      Scaffoldkey.currentState!.closeDrawer();
+                      c.changeIndex(0);
+                    },
+                    title: Text('Home'.tr),
+                  ),
+                  const Divider(),
+                  ListTile(
+                    leading: const Icon(Icons.shop),
+                    title: Text('SalesInterface'.tr),
+                    onTap: () {
+                      Scaffoldkey.currentState!.closeDrawer();
+                      c.changeIndex(1);
                     },
                   ),
-                  Navigator(
-                    onGenerateRoute: (settings) {
-                      return MaterialPageRoute(
-                        builder: (context) {
-                          return const SalesInterface();
-                        },
-                      );
+                  const Divider(),
+                  ListTile(
+                    leading: const Icon(Icons.store),
+                    onTap: () {
+                      Scaffoldkey.currentState!.closeDrawer();
+                      c.changeIndex(2);
                     },
+                    title: Text(Language.AddItems.tr),
                   ),
-                  Navigator(
-                    onGenerateRoute: (settings) {
-                      return MaterialPageRoute(
-                        builder: (context) {
-                          return const AddItems();
-                        },
-                      );
+                  const Divider(),
+                  ListTile(
+                    leading: const Icon(Icons.person_add),
+                    onTap: () {
+                      Scaffoldkey.currentState!.closeDrawer();
+                      c.changeIndex(3);
                     },
+                    title: Text(Language.Customer.tr),
                   ),
-                  Navigator(
-                    onGenerateRoute: (settings) {
-                      return MaterialPageRoute(
-                        builder: (context) {
-                          return const CustomerManagement();
-                        },
-                      );
+                  const Divider(),
+                  ListTile(
+                    leading: const Icon(Icons.explore_outlined),
+                    onTap: () {
+                      Scaffoldkey.currentState!.closeDrawer();
+                      c.changeIndex(4);
                     },
+                    title: Text(Language.ExportAndimport.tr),
                   ),
-                  Navigator(
-                    onGenerateRoute: (settings) {
-                      return MaterialPageRoute(
-                        builder: (context) {
-                          return ExportAndImport();
-                        },
-                      );
-                    },
-                  ),
-                  // HomeScreen(),
-                  // const SalesInterface(),
-                  // const CustomerManagement(),
+                  const Divider(),
+                  // ListTile(
+                  //   leading: const Icon(Icons.explore_outlined),
+                  //   onTap: () {
+                  //     Scaffoldkey.currentState!.closeDrawer();
+                  //     c.changeIndex(5);
+                  //   },
+                  //   title: Text(Language.AddAccount.tr),
+                  // ),
+                  // const Divider(),
                 ],
-              )),
+              ),
+            ),
+            appBar: AppBar(
+              centerTitle: true,
+              title: const Text('Point of Sell'),
+              leading: IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () {
+                  Scaffoldkey.currentState!.openDrawer();
+                },
+              ),
+            ),
+            body: c.addNav[0],
+          ),
         );
       },
     );

@@ -18,11 +18,9 @@ class CustomerManagement extends StatelessWidget {
       child: GetBuilder<Customercontroller>(
           init: Customercontroller(),
           builder: (controller) {
-            // controller.getCustomer();
+       
             return Scaffold(
-              // drawer:
-              //     DeviceUtils.isMobile(context) ? const DrawerAllApp() : null,
-              appBar: AppBar(
+               appBar: AppBar(
                 title: TabBar(
                   tabs: [
                     Tab(
@@ -62,7 +60,7 @@ class CustomersView extends StatelessWidget {
           name: 'name'.tr,
           icons: Icons.search,
           text: _search,
-          input: TextInputType.text,
+        
         ),
         Expanded(
           child: GridView.builder(

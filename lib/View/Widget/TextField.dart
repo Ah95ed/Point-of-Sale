@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../Colors/Colors.dart';
 
 // ignore: must_be_immutable
-class TextFieldCustom extends StatelessWidget {
+class TextFieldCustom extends StatefulWidget {
   TextFieldCustom({
     super.key,
     this.name,
@@ -15,17 +15,30 @@ class TextFieldCustom extends StatelessWidget {
   IconData? icons;
   TextEditingController? text;
   TextInputType? input;
+
+  @override
+  State<TextFieldCustom> createState() => _TextFieldCustomState();
+}
+
+class _TextFieldCustomState extends State<TextFieldCustom> {
+  @override
+  void dispose() {
+    super.dispose();
+    widget.text!.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
-        controller: text,
-        keyboardType: input == null ? TextInputType.text : TextInputType.number,
+        controller: widget.text,
+        keyboardType:
+            widget.input == null ? TextInputType.text : TextInputType.number,
         decoration: InputDecoration(
-          labelText: name,
+          labelText: widget.name,
           prefixIcon: Icon(
-            icons,
+            widget.icons,
             color: ColorUsed.appBarColor,
           ),
           border: const OutlineInputBorder(),
