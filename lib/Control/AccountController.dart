@@ -21,7 +21,7 @@ class AccountController extends GetxController  {
   double resultSell = 0.0;
   double count = 0.0;
   late int i;
-  TextEditingController? controller;
+  late TextEditingController controller;
 
   static const String Result = 'Result';
   @override
@@ -169,7 +169,7 @@ class AccountController extends GetxController  {
 
     resultSell += saleDivider;
     i++;
-    controller!.clear();
+    controller.clear();
 
     search.addAll(newResult!);
     newResult!.clear();
@@ -222,7 +222,7 @@ class AccountController extends GetxController  {
   @override
   void dispose() {
     saveShared();
-    controller!.dispose();
+    controller.dispose();
     super.dispose();
   }
 }

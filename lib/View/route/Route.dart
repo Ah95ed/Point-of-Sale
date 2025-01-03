@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:point_of_sell/View/Pages/AddItems/AddItems.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/SalesInterface.dart';
-import 'package:point_of_sell/View/Pages/UpdateData/UpdateData.dart';
 import 'package:point_of_sell/View/Pages/WelcomeScreen.dart';
 import 'package:point_of_sell/View/Pages/home_screen.dart';
 

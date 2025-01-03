@@ -40,7 +40,7 @@ class AllItems extends StatelessWidget {
                     Text(
                       Language.nameItem.tr,
                       style: TextStyle(
-                        fontSize: context.getFontSize(6),
+                        fontSize: context.getFontSize(12),
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
@@ -48,7 +48,7 @@ class AllItems extends StatelessWidget {
                     Text(
                       name,
                       style: TextStyle(
-                          fontSize: context.getFontSize(6),
+                          fontSize: context.getFontSize(12),
                           color: Colors.black,
                           fontWeight: FontWeight.bold),
                     ),
@@ -59,14 +59,14 @@ class AllItems extends StatelessWidget {
                     Text(
                       Language.saleItem.tr,
                       style: TextStyle(
-                          fontSize: context.getFontSize(6),
+                          fontSize: context.getFontSize(12),
                           color: Colors.black,
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
                       sale,
                       style: TextStyle(
-                          fontSize: context.getFontSize(6),
+                          fontSize: context.getFontSize(12),
                           color: Colors.black,
                           fontWeight: FontWeight.bold),
                     ),
@@ -79,7 +79,7 @@ class AllItems extends StatelessWidget {
               icon: Icon(
                 Icons.more_horiz_rounded,
                 color: Colors.black,
-                size: context.getMinSize(14),
+                size: context.getMinSize(18),
               ),
             ),
           ],

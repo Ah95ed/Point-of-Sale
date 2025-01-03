@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/DataBaseSqflite.dart';
 import 'package:point_of_sell/Model/Models/Items.dart';
-import 'package:point_of_sell/Model/Models/Pdf/PdfApi.dart';
 
 class HomeController extends GetxController {
-  final nameFile = TextEditingController();
+  // final nameFile = TextEditingController();
   List<Items> items = [];
   List<Items> copy = [];
   bool isLaodingMore = false;
-  ScrollController controller = ScrollController();
+  late ScrollController controller;
   int skip = 0;
   int limit = 20;
   late DataBaseSqflite dataBaseSqflite;
 
   @override
   void onInit() {
+    controller = ScrollController();
     dataBaseSqflite = DataBaseSqflite();
     paginationData();
     super.onInit();
+  }
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   Future<void> addItems(
@@ -176,45 +180,45 @@ class HomeController extends GetxController {
     update();
   }
 
-  void save() async {
-    if (await Permission.storage.request().isGranted) {
-      var items = "Shopping list\n"
-          "---------------\n";
-      var total = 0.0;
-      for (var index = 0; index < this.items.length; index++) {
-        var element = this.items[index];
-        items += "Product No. $index\n"
-            "Product Name: ${element.name}\n"
-            "Product  Price: ${element.sale}\n"
-            "---------------\n";
-        try {
-          total += int.parse(element.sale);
-        } catch (_) {}
-      }
-      items += "---------------\n\n"
-          "Total Summation: $total\n";
-      await PdfApi.generateCenteredText(items, nameFile.text);
-      Get.dialog(const AlertDialog(
-        actions: [CloseButton()],
-        content: Text("The receipt is saved in your Downloads folder."),
-      ));
-    } else {
-      await Get.dialog(AlertDialog(
-        actions: [
-          const CloseButton(),
-          TextButton(onPressed: () => permission(), child: const Text("Ok"))
-        ],
-        content: const Text("Please agree to permission to store files"),
-      ));
-    }
-  }
+  // void save() async {
+  //   if (await Permission.storage.request().isGranted) {
+  //     var items = "Shopping list\n"
+  //         "---------------\n";
+  //     var total = 0.0;
+  //     for (var index = 0; index < this.items.length; index++) {
+  //       var element = this.items[index];
+  //       items += "Product No. $index\n"
+  //           "Product Name: ${element.name}\n"
+  //           "Product  Price: ${element.sale}\n"
+  //           "---------------\n";
+  //       try {
+  //         total += int.parse(element.sale);
+  //       } catch (_) {}
+  //     }
+  //     items += "---------------\n\n"
+  //         "Total Summation: $total\n";
+  //     await PdfApi.generateCenteredText(items, nameFile.text);
+  //     Get.dialog(const AlertDialog(
+  //       actions: [CloseButton()],
+  //       content: Text("The receipt is saved in your Downloads folder."),
+  //     ));
+  //   } else {
+  //     await Get.dialog(AlertDialog(
+  //       actions: [
+  //         const CloseButton(),
+  //         TextButton(onPressed: () => permission(), child: const Text("Ok"))
+  //       ],
+  //       content: const Text("Please agree to permission to store files"),
+  //     ));
+  //   }
+  // }
 
-  permission() async {
-    var status = await Permission.storage.status;
-    if (status.isDenied) {}
+  // permission() async {
+  //   var status = await Permission.storage.status;
+  //   if (status.isDenied) {}
 
-    if (await Permission.storage.isRestricted) {
-      // The OS restricts access, for example, because of parental controls.
-    }
-  }
+  //   if (await Permission.storage.isRestricted) {
+  //     // The OS restricts access, for example, because of parental controls.
+  //   }
+  // }
 }

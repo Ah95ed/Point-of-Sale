@@ -7,8 +7,6 @@ import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
-import 'package:point_of_sell/View/style/SizeApp/SizeBuilder.dart';
-import 'package:simple_barcode_scanner/screens/barcode_controller.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 // import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 
@@ -20,7 +18,7 @@ class AccountOrders extends StatefulWidget {
   State<AccountOrders> createState() => _AccountOrdersState();
 }
 
-String? result;
+// String? result;
 
 class _AccountOrdersState extends State<AccountOrders> {
   @override
@@ -31,7 +29,7 @@ class _AccountOrdersState extends State<AccountOrders> {
         return Column(
           children: [
             SizedBox(
-              height: context.getHeight(22),
+              height: context.getHeight(30),
               child: TextFormField(
                   onChanged: (value) {
                     if (value.isEmpty) return;
@@ -45,7 +43,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                     hintText: 'Search'.tr,
                     hintStyle: TextStyle(
                       color: Colors.black,
-                      fontSize: context.getFontSize(10),
+                      fontSize: context.getFontSize(12),
                     ),
                     suffixIcon: DeviceUtils.isMobile(context)
                         ? IconButton(
@@ -65,7 +63,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                                               context.screenHeight / 1.2,
                                           onScanned: (code) {
                                             setState(() {
-                                              result = code;
+                                              // result = code;
                                             });
                                           },
                                           continuous: true,
@@ -96,7 +94,8 @@ class _AccountOrdersState extends State<AccountOrders> {
                 // height: context.getHeight(350),
                 child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: DeviceUtils.isMobile(context) ? 1 : 4,
+                    crossAxisCount: DeviceUtils.isMobile(context)
+                     ? 1 : 4,
                     childAspectRatio: 4,
                     mainAxisSpacing: 4,
                     crossAxisSpacing: 4,
@@ -121,7 +120,7 @@ class _AccountOrdersState extends State<AccountOrders> {
             ),
             Container(
               color: ColorUsed.whiteBlue,
-              height: context.getHeight(35),
+              height: context.getHeight(38),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -148,7 +147,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                       'Delete All',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: context.getFontSize(5),
+                        fontSize: context.getFontSize(10 ),
                         fontWeight: FontWeight.bold,
                       ),
                     ),

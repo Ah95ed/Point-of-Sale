@@ -1,10 +1,8 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:csv/csv.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/DataBaseSqflite.dart';
@@ -40,17 +38,12 @@ class ExportAndImportModel {
      
     );
 
-    if (savePath != null) {
-      // حفظ الملف في المسار الذي اختاره المستخدم
-      File exportFile = File(savePath);
-      await exportFile.writeAsString(csvString).whenComplete(() {
-        logSuccess('message export success');
-      });
+    // حفظ الملف في المسار الذي اختاره المستخدم
+    File exportFile = File(savePath!);
+    await exportFile.writeAsString(csvString).whenComplete(() {
+      logSuccess('message export success');
+    });
     }
-    else {
-      logError('message export error');
-    }
-  }
 
   Future<void> importData() async {
     await Permission.storage.request();

@@ -5,35 +5,52 @@ import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 import '../../Colors/Colors.dart';
 import '../../Widget/TextField.dart';
 
-class UpdatePrice extends StatelessWidget {
+class UpdatePrice extends StatefulWidget {
   UpdatePrice({super.key});
-  TextEditingController Sale = TextEditingController();
 
-  TextEditingController Buy = TextEditingController();
+  @override
+  State<UpdatePrice> createState() => _UpdatePriceState();
+}
+
+class _UpdatePriceState extends State<UpdatePrice> {
+  // final c = Get.lazyPut( () => HomeController());
   // HomeController controller = Get.find(); //!
-  final controller = Get.put(HomeController());
+  // // final controller = Get.put(HomeController());
+  late TextEditingController Sale;
+
+  late TextEditingController Buy;
+  @override
+  void initState() {
+    Sale = TextEditingController();
+    Buy = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    Sale.dispose();
+    Buy.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('update_price'.tr),
-      ),
-      body: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                flex: 4,
-                child: TextFieldCustom(
+        appBar: AppBar(
+          title: Text('update_price'.tr),
+        ),
+        body: GetBuilder<HomeController>(
+          init: HomeController(),
+          builder: (controller) {
+            return Column(
+              children: [
+                TextFieldCustom(
                   name: 'sale_price'.tr,
-                  icons: Icons.person,
+                  icons: Icons.price_change,
                   text: Sale,
                 ),
-              ),
-              Expanded(
-                flex: 1,
-                child: OutlinedButton(
+                OutlinedButton(
                   onPressed: () async {
                     await controller.updateSalePrice(
                       double.parse(Sale.text),
@@ -45,29 +62,28 @@ class UpdatePrice extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: ColorUsed.appBarColor,
-                      fontSize:  context.getFontSize(8),
+                      fontSize: context.getFontSize(14),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-           SizedBox(
-            height:  context.getHeight(18),
-          ),
-          Row(
-            children: [
-              Expanded(
-                flex: 4,
-                child: TextFieldCustom(
+                SizedBox(
+                  height: context.getHeight(32),
+                ),
+                Divider(
+                  color: ColorUsed.appBarColor,
+                  thickness: 1,
+                  endIndent: context.getWidth(16),
+                  indent: context.getWidth(16),
+                ),
+                SizedBox(
+                  height: context.getHeight(32),
+                ),
+                TextFieldCustom(
                   name: 'buy_price'.tr,
                   icons: Icons.price_change,
                   text: Buy,
                 ),
-              ),
-              Expanded(
-                flex: 1,
-                child: OutlinedButton(
+                OutlinedButton(
                   onPressed: () async {
                     await controller.updateBuyPrice(
                       double.parse(Buy.text),
@@ -79,15 +95,13 @@ class UpdatePrice extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: ColorUsed.appBarColor,
-                      fontSize: context.getFontSize(8),
+                      fontSize: context.getFontSize(14),
                     ),
                   ),
-                ),
-              ),
-            ],
-          )
-        ],
-      ),
-    );
+                )
+              ],
+            );
+          },
+        ));
   }
 }

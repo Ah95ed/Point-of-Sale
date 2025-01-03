@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:point_of_sell/View/Widget/Mobile.dart';
+import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
-  // final c = Get.put(LanguageController());
   final Scaffoldkey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -12,7 +11,7 @@ class HomeScreen extends StatelessWidget {
         return Center(
           child: Image.asset(
             'assets/image/show.png',
-            fit: BoxFit.cover,
+            fit: DeviceUtils.isMobile(context) ? BoxFit.contain:BoxFit.cover,
             height: context.screenWidth,
             width: context.screenHeight,
             alignment: Alignment.center,

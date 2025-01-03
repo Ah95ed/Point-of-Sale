@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:point_of_sell/Control/AccountController.dart';
 import 'package:point_of_sell/Control/HomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
@@ -8,7 +7,6 @@ import 'package:point_of_sell/View/Pages/SalesInterface/AccountOrders.dart';
 import 'package:point_of_sell/View/Pages/UpdateData/UpdateData.dart';
 import 'package:point_of_sell/View/Pages/UpdatePrice/UpdatePrice.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
-import 'package:point_of_sell/View/Widget/Mobile.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeBuilder.dart';
@@ -34,10 +32,10 @@ class _SalesInterfaceState extends State<SalesInterface> {
       length: 3,
       child: Scaffold(
         backgroundColor: ColorUsed.whitesoft,
-        
         appBar: AppBar(
           centerTitle: true,
           title: TabBar(
+            // isScrollable: true,
             tabs: [
               Tab(
                 icon: const Icon(Icons.home),
@@ -87,7 +85,7 @@ class ShowAllItem extends StatelessWidget {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: DeviceUtils.valueDecider(
                     context,
-                    onMobile: 2,
+                    onMobile: 1,
                     onTablet: 3,
                     onDesktop: 3,
                     others: 2,
@@ -102,7 +100,7 @@ class ShowAllItem extends StatelessWidget {
                       showDialog(
                         context: context,
                         builder: (context) {
-                          return  CustomAlertDialog({
+                          return CustomAlertDialog({
                             'id': controller.items[index].id,
                             'name': controller.items[index].name,
                             'sale': controller.items[index].sale,
@@ -111,8 +109,7 @@ class ShowAllItem extends StatelessWidget {
                             'date': controller.items[index].date,
                             'code': controller.items[index].code,
                             'company': controller.items[index].company,
-                            
-                            });
+                          });
                         },
                       );
                     },
@@ -130,10 +127,10 @@ class ShowAllItem extends StatelessWidget {
 }
 
 class CustomAlertDialog extends StatelessWidget {
-   CustomAlertDialog( this.data,{super.key} );
-   final Map<String,dynamic> data;
+  CustomAlertDialog(this.data, {super.key});
+  final Map<String, dynamic> data;
 
-   HomeController c  = Get.find();
+  HomeController c = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +153,6 @@ class CustomAlertDialog extends StatelessWidget {
                     id: data['id'],
                     dated: data['date'],
                     company: data['company'],
-
                   );
                 },
               ),

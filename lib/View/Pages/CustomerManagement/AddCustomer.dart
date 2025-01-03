@@ -15,18 +15,25 @@ class AddCustomer extends StatefulWidget {
 }
 
 class _AddCustomerState extends State<AddCustomer> {
-  final TextEditingController _name = TextEditingController();
-  final TextEditingController _phone = TextEditingController();
-  final TextEditingController _location = TextEditingController();
+   late TextEditingController _name;
+   late TextEditingController _phone;
+  late  TextEditingController _location;
 
   Customercontroller c = Get.put(Customercontroller());
+  @override
+  void initState() {
+  _name = TextEditingController();
+  _phone = TextEditingController();
+  _location = TextEditingController();
+     super.initState();
+  }
 
   @override
   void dispose() {
-    super.dispose();
     _name.dispose();
     _phone.dispose();
     _location.dispose();
+    super.dispose();
   }
 
   @override

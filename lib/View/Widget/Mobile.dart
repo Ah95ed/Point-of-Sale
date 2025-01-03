@@ -2,20 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Control/MobileContrller/MobileContrller.dart';
-import 'package:point_of_sell/Control/WelcomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
-import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
-import 'package:point_of_sell/View/Pages/AddItems/AddItems.dart';
-import 'package:point_of_sell/View/Pages/CustomerManagement/CustomerManagement.dart';
-import 'package:point_of_sell/View/Pages/ExportAndImport/ExportAndImport.dart';
-import 'package:point_of_sell/View/Pages/SalesInterface/SalesInterface.dart';
-import 'package:point_of_sell/View/Pages/Sellforcash/AddAccount.dart';
-import 'package:point_of_sell/View/Pages/WelcomeScreen.dart';
-import 'package:point_of_sell/View/Pages/home_screen.dart';
-import 'package:point_of_sell/View/Widget/DrawerApp/DrawerApp.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
-import 'package:point_of_sell/View/style/SizeApp/SizeBuilder.dart';
 
 class Mobile extends StatelessWidget {
   Mobile({super.key});
@@ -28,14 +17,9 @@ class Mobile extends StatelessWidget {
   }
 }
 
-class MobileScreen extends StatefulWidget {
+class MobileScreen extends StatelessWidget {
   MobileScreen({super.key});
 
-  @override
-  State<MobileScreen> createState() => _MobileScreenState();
-}
-
-class _MobileScreenState extends State<MobileScreen> {
   final Scaffoldkey = GlobalKey<ScaffoldState>();
 
   @override

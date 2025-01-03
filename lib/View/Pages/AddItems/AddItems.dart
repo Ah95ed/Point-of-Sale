@@ -6,16 +6,11 @@ import 'package:point_of_sell/Control/HomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/DataBaseSqflite.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
-import 'package:point_of_sell/View/Widget/Mobile.dart';
 import 'package:point_of_sell/View/Widget/SelectDate.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/CustomMaterialButton.dart';
 import 'package:point_of_sell/View/Widget/TextField.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
-import 'package:point_of_sell/View/style/SizeApp/SizeBuilder.dart';
-import 'package:simple_barcode_scanner/barcode_appbar.dart';
-import 'package:simple_barcode_scanner/enum.dart';
-import 'package:simple_barcode_scanner/screens/io_device.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 // import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 
@@ -31,7 +26,6 @@ class _AddItemsState extends State<AddItems> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      // drawer: DeviceUtils.isMobile(context) ? const DrawerAllApp() : null,
       appBar: DeviceUtils.isMobile(context)
           ? null
           : AppBar(
@@ -44,7 +38,7 @@ class _AddItemsState extends State<AddItems> {
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
         child: AddItemBody(),
       ),
-      // body: AddItems(name: name, code: code, sale: sale, buy: buy, quantity: quantity, company: company, date: date),
+     
     );
   }
 }
@@ -59,22 +53,34 @@ class AddItemBody extends StatefulWidget {
 }
 
 class _AddItemBodyState extends State<AddItemBody> {
-  TextEditingController name = TextEditingController();
+  late TextEditingController name;
 
-  TextEditingController code = TextEditingController();
+  late TextEditingController code;
 
-  TextEditingController sale = TextEditingController();
+  late TextEditingController sale;
 
-  TextEditingController buy = TextEditingController();
+  late TextEditingController buy;
 
-  TextEditingController quantity = TextEditingController();
+  late TextEditingController quantity;
+  late TextEditingController company;
 
-  // Company
-  TextEditingController company = TextEditingController();
+  late TextEditingController date;
+  
 
-  TextEditingController date = TextEditingController(
-    text: (DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now()).toString()),
-  );
+  @override
+  void initState() {
+    name = TextEditingController();
+    code = TextEditingController();
+    sale = TextEditingController();
+    buy = TextEditingController();
+    quantity = TextEditingController();
+    company = TextEditingController();
+    date = TextEditingController(
+      text:
+          (DateFormat('yyyy-MM-dd - kk:mm').format(DateTime.now()).toString()),
+    );
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -88,21 +94,6 @@ class _AddItemBodyState extends State<AddItemBody> {
     super.dispose();
   }
 
-// String? res =  SimpleBarcodeScanner.scanBarcode(
-//                   context,
-//                   barcodeAppBar: const BarcodeAppBar(
-//                     appBarTitle: 'Test',
-//                     centerTitle: false,
-//                     enableBackButton: true,
-//                     backButtonIcon: Icon(Icons.arrow_back_ios),
-//                   ),
-//                   isShowFlashIcon: true,
-//                   delayMillis: 2000,
-//                   cameraFace: CameraFace.front,
-//                 );
-//                 setState(() {
-//                   result = res as String;
-//                 });
   String? result;
   @override
   Widget build(BuildContext context) {
@@ -147,7 +138,8 @@ class _AddItemBodyState extends State<AddItemBody> {
                                         height: context.screenHeight / 2,
                                         child: SimpleBarcodeScanner(
                                           scaleHeight: context.screenHeight,
-                                          scaleWidth: context.screenHeight / 1.2,
+                                          scaleWidth:
+                                              context.screenHeight / 1.2,
                                           onScanned: (code) {
                                             setState(() {
                                               this.code.text = code;
