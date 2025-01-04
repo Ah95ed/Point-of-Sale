@@ -3,6 +3,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Helper/Locale/LanguageController.dart';
+import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/Helper/Log/Logger.dart';
 import 'package:point_of_sell/Helper/Service/Service.dart';
 import 'package:point_of_sell/View/Pages/WelcomeScreen.dart';
@@ -29,11 +30,10 @@ Future<void> main() async {
       error,
       stack,
     ) =>
-        Log.err(
-      error,
-      'At The Main',
-      stack,
+    logError(
+      'error ${error}/n At The Main ${stack}',
     ),
+   
   );
   // if it's not on the web, windows or android, load the accent color
 }

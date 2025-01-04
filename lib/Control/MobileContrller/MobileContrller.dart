@@ -29,7 +29,7 @@ class MobileContrller extends GetxController {
     Navigator(
       key: GlobalKey<NavigatorState>(),
       onGenerateRoute: (route) => MaterialPageRoute(
-        builder: (context) => const CustomerManagement(),
+        builder: (context) =>  CustomerManagement(),
       ),
     ),
     Navigator(
@@ -42,10 +42,10 @@ class MobileContrller extends GetxController {
   late List<Navigator> addNav = [navigators[0]];
   int i = 0;
 
-  void changeIndex(int index) {
+  Future<void> changeIndex(int index) async {
     i = index;
     addNav.clear();
-    addNav.add(navigators[index]);
+    addNav = [ navigators[index]];
     update();
   }
 }

@@ -17,4 +17,7 @@ class CustomerModel {
   Future<void> insertCustomers(Map<String, String> data) async {
     result = await _database.insertCustomers(data);
   }
+  Future<List<Map<String, dynamic>>> searchCustomer(String name) async {
+   return _database.searchCustomer(name);
+  }
 }

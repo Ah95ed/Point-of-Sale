@@ -131,6 +131,8 @@ class MobileScreen extends StatelessWidget {
                 },
               ),
             ),
+          
+            
             body: c.addNav[0],
           ),
         );

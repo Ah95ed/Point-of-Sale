@@ -13,7 +13,6 @@ import 'package:point_of_sell/View/style/SizeApp/SizeBuilder.dart';
 
 class SalesInterface extends StatefulWidget {
   const SalesInterface({super.key});
-
   @override
   State<SalesInterface> createState() => _SalesInterfaceState();
 }
@@ -22,8 +21,6 @@ class _SalesInterfaceState extends State<SalesInterface> {
   @override
   void initState() {
     super.initState();
-    // Get.put(HomeController());
-    // Get.put(AccountController());
   }
 
   @override
@@ -35,7 +32,6 @@ class _SalesInterfaceState extends State<SalesInterface> {
         appBar: AppBar(
           centerTitle: true,
           title: TabBar(
-            // isScrollable: true,
             tabs: [
               Tab(
                 icon: const Icon(Icons.home),
@@ -96,20 +92,22 @@ class ShowAllItem extends StatelessWidget {
                 ),
                 itemBuilder: (context, index) {
                   return AllItems(
-                    () {
-                      showDialog(
+                    () async {
+                      await showDialog(
                         context: context,
                         builder: (context) {
-                          return CustomAlertDialog({
-                            'id': controller.items[index].id,
-                            'name': controller.items[index].name,
-                            'sale': controller.items[index].sale,
-                            'buy': controller.items[index].buy,
-                            'quantity': controller.items[index].quantity,
-                            'date': controller.items[index].date,
-                            'code': controller.items[index].code,
-                            'company': controller.items[index].company,
-                          });
+                          return CustomAlertDialog(
+                            {
+                              'id': controller.items[index].id,
+                              'name': controller.items[index].name,
+                              'sale': controller.items[index].sale,
+                              'buy': controller.items[index].buy,
+                              'quantity': controller.items[index].quantity,
+                              'date': controller.items[index].date,
+                              'code': controller.items[index].code,
+                              'company': controller.items[index].company,
+                            },
+                          );
                         },
                       );
                     },
@@ -134,40 +132,42 @@ class CustomAlertDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Select'),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return UpdateData(
-                    named: data['name'],
-                    coded: data['code'],
-                    saled: data['sale'],
-                    buyt: data['buy'],
-                    quan: data['quantity'],
-                    id: data['id'],
-                    dated: data['date'],
-                    company: data['company'],
-                  );
-                },
-              ),
-            );
-          },
-          child: Text(Language.edit.tr),
-        ),
-        TextButton(
-          onPressed: () {
-            c.deleteItem(data['id']);
-            Navigator.pop(context);
-          },
-          child: Text(Language.delete.tr),
-        ),
-      ],
+    return Center(
+      child: AlertDialog(
+        title: const Text('Select'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return UpdateData(
+                      named: data['name'],
+                      coded: data['code'],
+                      saled: data['sale'],
+                      buyt: data['buy'],
+                      quan: data['quantity'],
+                      id: data['id'],
+                      dated: data['date'],
+                      company: data['company'],
+                    );
+                  },
+                ),
+              );
+            },
+            child: Text(Language.edit.tr),
+          ),
+          TextButton(
+            onPressed: () {
+              c.deleteItem(data['id']);
+              Navigator.pop(context);
+            },
+            child: Text(Language.delete.tr),
+          ),
+        ],
+      ),
     );
   }
 }

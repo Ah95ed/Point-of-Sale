@@ -47,7 +47,7 @@ class WelcomeScreen extends StatelessWidget {
               PaneItem(
                 title: Text(Language.Customer.tr),
                 icon: const Icon(Icons.price_change_sharp),
-                body: const CustomerManagement(),
+                body:  CustomerManagement(),
               ),
 
               PaneItem(

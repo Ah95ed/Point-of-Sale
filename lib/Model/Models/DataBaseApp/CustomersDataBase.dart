@@ -36,4 +36,12 @@ class CustomersDatabase {
     _database = await database;
     return await _database!.query(tableCustomer);
   }
+  Future<List<Map<String, dynamic>>> searchCustomer(String q) async {
+    _database = await database;
+    return await _database!.query(
+      tableCustomer,
+      where: '$name LIKE ?',
+      whereArgs: ['%$q%'],
+    );
+  }
 }

@@ -54,7 +54,7 @@ class AccountController extends GetxController  {
 
   @override
   void onClose() {
-    Log.log('close');
+    // Log.log('close');
     saveShared();
     super.onClose();
   }

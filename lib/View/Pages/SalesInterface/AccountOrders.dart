@@ -29,64 +29,67 @@ class _AccountOrdersState extends State<AccountOrders> {
         return Column(
           children: [
             SizedBox(
-              height: context.getHeight(30),
-              child: TextFormField(
-                  onChanged: (value) {
-                    if (value.isEmpty) return;
-                    logWarning('message  $value');
-                    controller.searchCodeOrder(value);
-                  },
-                  // readOnly: true,
-                  controller: controller.controller,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    hintText: 'Search'.tr,
-                    hintStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: context.getFontSize(12),
-                    ),
-                    suffixIcon: DeviceUtils.isMobile(context)
-                        ? IconButton(
-                            onPressed: () async {
-                              final perm = await Permission.camera.request();
-                              if (await perm.isGranted) {
-                                showDialog(
-                                  context: context,
-                                  builder: (_) {
-                                    return AlertDialog(
-                                      content: SizedBox(
-                                        width: context.screenWidth,
-                                        height: context.screenHeight / 2,
-                                        child: SimpleBarcodeScanner(
-                                          scaleHeight: context.screenHeight,
-                                          scaleWidth:
-                                              context.screenHeight / 1.2,
-                                          onScanned: (code) {
-                                            setState(() {
-                                              // result = code;
-                                            });
-                                          },
-                                          continuous: true,
-                                          onBarcodeViewCreated:
-                                              (BarcodeViewController
-                                                  c) {
-                                                    
-                                            // this.controller = controller;
-                                          },
+              height: context.getHeight(40),
+              child: Padding(
+                padding:  EdgeInsets.all(context.getMinSize(4)),
+                child: TextFormField(
+                    onChanged: (value) {
+                      if (value.isEmpty) return;
+                      logWarning('message  $value');
+                      controller.searchCodeOrder(value);
+                    },
+                    // readOnly: true,
+                    controller: controller.controller,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      hintText: 'Search'.tr,
+                      hintStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: context.getFontSize(12),
+                      ),
+                      suffixIcon: DeviceUtils.isMobile(context)
+                          ? IconButton(
+                              onPressed: () async {
+                                final perm = await Permission.camera.request();
+                                if (await perm.isGranted) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (_) {
+                                      return AlertDialog(
+                                        content: SizedBox(
+                                          width: context.screenWidth,
+                                          height: context.screenHeight / 2,
+                                          child: SimpleBarcodeScanner(
+                                            scaleHeight: context.screenHeight,
+                                            scaleWidth:
+                                                context.screenHeight / 1.2,
+                                            onScanned: (code) {
+                                              setState(() {
+                                                // result = code;
+                                              });
+                                            },
+                                            continuous: true,
+                                            onBarcodeViewCreated:
+                                                (BarcodeViewController
+                                                    c) {
+                                                      
+                                              // this.controller = controller;
+                                            },
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              }
-                            },
-                            icon: const Icon(
-                              Icons.qr_code_scanner_rounded,
-                              color: Colors.black,
-                            ),
-                          )
-                        : null,
-                  )),
+                                      );
+                                    },
+                                  );
+                                }
+                              },
+                              icon: const Icon(
+                                Icons.qr_code_scanner_rounded,
+                                color: Colors.black,
+                              ),
+                            )
+                          : null,
+                    )),
+              ),
             ),
             Expanded(
               child: Container(
@@ -122,7 +125,6 @@ class _AccountOrdersState extends State<AccountOrders> {
               color: ColorUsed.whiteBlue,
               height: context.getHeight(38),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
                     'Result : ${controller.resultSell} ',

@@ -66,8 +66,8 @@ class _AddCustomerState extends State<AddCustomer> {
             ),
             CustomMaterialButton(
               title: 'Add'.tr,
-              onPressed: () {
-                c.insert(
+              onPressed: () async {
+               await c.insert(
                   {
                     CustomersDatabase.name: _name.text,
                     CustomersDatabase.phone: _phone.text,
