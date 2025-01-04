@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:csv/csv.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_file_dialog/flutter_file_dialog.dart';
+import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/DataBaseSqflite.dart';
@@ -28,22 +30,41 @@ class ExportAndImportModel {
       t.add(row[DataBaseSqflite.id]);
       return t.toList();
     }).toList();
-
-    String? csvString = const ListToCsvConverter().convert(ls);
-    // السماح للمستخدم بتحديد المسار
-    String? savePath = await FilePicker.platform.saveFile(
-     
-      dialogTitle: 'اختر مسار حفظ الملف',
-      type: FileType.custom,
-     
+    final params = OpenFileDialogParams(
+      dialogType: OpenFileDialogType.document,
     );
-
-    // حفظ الملف في المسار الذي اختاره المستخدم
-    File exportFile = File(savePath!);
+    DirectoryLocation? result = await FlutterFileDialog.pickDirectory();
+ 
+    String? csvString = const ListToCsvConverter().convert(ls);
+    File exportFile = File(result.toString());
     await exportFile.writeAsString(csvString).whenComplete(() {
       logSuccess('message export success');
     });
+    //   logSuccess('message export success');
+    if (result != null) {
+      logSuccess('Selected folder path: $result');
+    } else {
+      logError('No folder selected');
     }
+    // if (ls.isEmpty) {
+    //   logWarning('message export empty');
+    //   return;
+    // }
+
+    // String? csvString = const ListToCsvConverter().convert(ls);
+    // // السماح للمستخدم بتحديد المسار
+    // logWarning('message export empty 1');
+    // String savePath = await FilePicker.platform.getDirectoryPath(
+    //   dialogTitle: 'Hi '
+    // ) ?? '';
+    // logWarning('message export empty 2');
+    // // حفظ الملف في المسار الذي اختاره المستخدم
+    // File exportFile = File(savePath);
+    // await exportFile.writeAsString(csvString).whenComplete(() async {
+    //   logSuccess('message export success');
+    // });
+    // logWarning('message export empty 3');
+  }
 
   Future<void> importData() async {
     await Permission.storage.request();

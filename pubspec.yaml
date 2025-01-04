@@ -16,13 +16,14 @@ dependencies:
   sqflite: 
   get: 
   csv:
+  flutter_file_dialog: 
   fluent_ui:
   # qr_bar_code_scanner_dialog:
   simple_barcode_scanner: 
   device_preview:
   flutter_svg:
   pdf: 
-  permission_handler: 
+  # permission_handler: 
   # flutter_lints: 
   # google_fonts:
   shared_preferences: 
