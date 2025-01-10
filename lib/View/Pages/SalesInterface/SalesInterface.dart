@@ -128,7 +128,7 @@ class CustomAlertDialog extends StatelessWidget {
   CustomAlertDialog(this.data, {super.key});
   final Map<String, dynamic> data;
 
-  HomeController c = Get.find();
+  // HomeController c = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +161,7 @@ class CustomAlertDialog extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              c.deleteItem(data['id']);
+              // c.deleteItem(data['id']);
               Navigator.pop(context);
             },
             child: Text(Language.delete.tr),

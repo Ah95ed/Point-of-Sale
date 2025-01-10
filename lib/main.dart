@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Helper/Locale/LanguageController.dart';
@@ -7,6 +8,7 @@ import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/Helper/Service/Service.dart';
 import 'package:point_of_sell/View/Pages/WelcomeScreen.dart';
 import 'package:point_of_sell/View/Widget/Mobile.dart';
+import 'package:point_of_sell/View/route/Navigatore/NavOBserver.dart';
 import 'package:point_of_sell/View/route/Route.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
@@ -29,15 +31,14 @@ Future<void> main() async {
       error,
       stack,
     ) =>
-    logError(
+        logError(
       'error ${error}/n At The Main ${stack}',
     ),
-   
   );
   // if it's not on the web, windows or android, load the accent color
 }
 
-// RouteObserver<Route> routeObserver = RouteObserver();
+RouteObserver<Route> routeObserver = RouteObserver();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -49,12 +50,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       locale: c.language,
       translations: Language(),
-      // navigatorObservers: [
-      //   NavObserver.instance,
-      //   routeObserver,
-      // ],
+      navigatorObservers: [
+        NavObserver.instance,
+        routeObserver,
+      ],
       initialRoute: '/',
       routes: RoutePage.routes,
+
       // initialBinding: Appbinding(),
 
       home: DeviceUtils.isMobile(context)

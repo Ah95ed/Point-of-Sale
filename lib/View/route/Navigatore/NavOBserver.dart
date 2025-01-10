@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:point_of_sell/Helper/Log/LogApp.dart';
 
 class NavObserver extends NavigatorObserver {
   NavObserver._();
@@ -6,28 +7,46 @@ class NavObserver extends NavigatorObserver {
   static final NavObserver _singleton = NavObserver._();
 
   static NavObserver get instance => _singleton;
- 
+  ValueNotifier<List<Route>> routeName = ValueNotifier<List<Route>>([]);
 
-  @override
-  void didPush(Route route, Route? previousRoute) {
-    super.didPush(route, previousRoute);
-  }
+  void addPage(Route name) {
+    logError('message add page');
+    if (name != null && routeName.value.isNotEmpty) {
+      final List<Route> list = List.from(routeName.value);
+      list.add(name);
+      routeName.value = list;
+      // routeName.value.add(name);
+    }
 
-  @override
-  void didPop(Route route, Route? previousRoute) {
-    super.didPop(route, previousRoute);
-  }
+    void removePage(Route name) {
+      logSuccess('message remove page');
+      if (name != null && routeName.value.isNotEmpty) {
+        final List<Route> list = List.from(routeName.value);
+        list.remove(name);
+        routeName.value = list;
+      }
+    }
 
-  @override
-  void didRemove(Route route, Route? previousRoute) {
-    // TODO: implement didRemove
-    super.didRemove(route, previousRoute);
-  }
+    @override
+    void didPush(Route route, Route? previousRoute) {
+      addPage(route);
+      super.didPush(route, previousRoute);
+    }
 
-  @override
-  void didReplace({Route? newRoute, Route? oldRoute}) {
-    // TODO: implement didReplace
-    super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
+    @override
+    void didPop(Route route, Route? previousRoute) {
+      removePage(route);
+      super.didPop(route, previousRoute);
+    }
+
+    @override
+    void didRemove(Route route, Route? previousRoute) {
+      super.didRemove(route, previousRoute);
+    }
+
+    @override
+    void didReplace({Route? newRoute, Route? oldRoute}) {
+      super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
+    }
   }
-  
 }

@@ -16,48 +16,46 @@ class ExportAndImportModel {
 
   Future<void> exportData(BuildContext context) async {
     await Permission.accessMediaLocation.request();
-    // var status = await Permission.storage.request();
+    final storage = await Permission.storage.request();
+
     var status = await Permission.manageExternalStorage.request();
-     List t = [];
-      final data = await _database.getAllData();
-      final ls = await data.map((row) {
-        t.add(row![DataBaseSqflite.name]);
-        t.add(row[DataBaseSqflite.codeItem]);
-        t.add(row[DataBaseSqflite.buy]);
-        t.add(row[DataBaseSqflite.sale]);
-        t.add(row[DataBaseSqflite.quantity]);
-        t.add(row[DataBaseSqflite.date]);
-        t.add(row[DataBaseSqflite.company]);
-        t.add(row[DataBaseSqflite.id]);
-        return t.toList();
-      }).toList();
+    List t = [];
+    final data = await _database.getAllData();
+    final ls = await data.map((row) {
+      t.add(row![DataBaseSqflite.name]);
+      t.add(row[DataBaseSqflite.codeItem]);
+      t.add(row[DataBaseSqflite.buy]);
+      t.add(row[DataBaseSqflite.sale]);
+      t.add(row[DataBaseSqflite.quantity]);
+      t.add(row[DataBaseSqflite.date]);
+      t.add(row[DataBaseSqflite.company]);
+      t.add(row[DataBaseSqflite.id]);
+      return t.toList();
+    }).toList();
 
-    if (status.isGranted) {
+    if (status.isGranted || storage.isGranted) {
       String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
-
-      if (selectedDirectory != null) {
-        String filePath = '$selectedDirectory/output.csv';
-
-        // Sample CSV data
-        
-
-        String csvString = const ListToCsvConverter().convert(ls);
-
-        // Save CSV to the selected path
-        File file = File(filePath);
-        await file.writeAsString(csvString).whenComplete(() {
-          logSuccess('CSV saved at: $filePath');
-        });
-        logSuccess('CSV saved at: $filePath');
-      } else {
-        print('Directory selection canceled.');
+      // ignore: unnecessary_null_comparison
+      if (selectedDirectory!.isEmpty && selectedDirectory == null) {
+        logWarning('message select is empty');
+        return;
       }
+      String filePath = '$selectedDirectory/output.csv';
+
+      // Sample CSV data
+
+      String csvString = const ListToCsvConverter().convert(ls);
+
+      // Save CSV to the selected path
+      File file = File(filePath);
+      await file.writeAsString(csvString).whenComplete(() {
+        logSuccess('CSV saved at: $filePath');
+      });
+      logSuccess('CSV saved at: $filePath');
     } else {
       logError('Storage permission denied.');
       return;
     }
-
-    
 
     //   if (ls.isEmpty) {
     //     logWarning('message export empty');
