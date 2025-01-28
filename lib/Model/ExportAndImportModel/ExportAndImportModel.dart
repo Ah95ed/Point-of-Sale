@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
+import 'package:point_of_sell/Helper/Native/NativeComnucation.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/DataBaseSqflite.dart';
 
 class ExportAndImportModel {
@@ -15,10 +16,10 @@ class ExportAndImportModel {
   }
 
   Future<void> exportData(BuildContext context) async {
-    await Permission.accessMediaLocation.request();
-    final storage = await Permission.storage.request();
+    // await Permission.accessMediaLocation.request();
+    // final storage = await Permission.storage.request();
 
-    var status = await Permission.manageExternalStorage.request();
+    // var status = await Permission.manageExternalStorage.request();
     List t = [];
     final data = await _database.getAllData();
     final ls = await data.map((row) {
@@ -32,30 +33,31 @@ class ExportAndImportModel {
       t.add(row[DataBaseSqflite.id]);
       return t.toList();
     }).toList();
+    String? selectedDirectory = await NativeComnucation().runJavaCode();
 
-    if (status.isGranted || storage.isGranted) {
-      String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
-      // ignore: unnecessary_null_comparison
-      if (selectedDirectory!.isEmpty && selectedDirectory == null) {
-        logWarning('message select is empty');
-        return;
-      }
-      String filePath = '$selectedDirectory/output.csv';
+    // if (status.isGranted || storage.isGranted) {
+    //   String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
+    //   // ignore: unnecessary_null_comparison
+    //   if (selectedDirectory!.isEmpty && selectedDirectory == null) {
+    //     logWarning('message select is empty');
+    //     return;
+    //   }
+    //   String filePath = '$selectedDirectory/output.csv';
 
       // Sample CSV data
 
       String csvString = const ListToCsvConverter().convert(ls);
 
       // Save CSV to the selected path
-      File file = File(filePath);
+      File file = File(selectedDirectory);
       await file.writeAsString(csvString).whenComplete(() {
-        logSuccess('CSV saved at: $filePath');
+        logSuccess('CSV saved at: $selectedDirectory');
       });
-      logSuccess('CSV saved at: $filePath');
-    } else {
-      logError('Storage permission denied.');
-      return;
-    }
+      logSuccess('CSV saved at: $selectedDirectory');
+    // } else {
+    //   logError('Storage permission denied.');
+    //   return;
+    // }
 
     //   if (ls.isEmpty) {
     //     logWarning('message export empty');
