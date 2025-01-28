@@ -10,7 +10,8 @@ import android.net.Uri
 
 class MainActivity: FlutterActivity() {
     private var resultChannel: MethodChannel.Result? = null
-    private val Channel = "com.example.app/channel"
+    private val Channel = "com.Native.app/openStorage"
+    private val REQUEST_CODE = 100
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
@@ -24,8 +25,8 @@ class MainActivity: FlutterActivity() {
                     type = "csv/write"
                     putExtra(Intent.EXTRA_TITLE, "my.csv")
                 }
-                println("Ahmed00  _______")
-                startActivityForResult(intent, 123)
+   
+                startActivityForResult(intent, REQUEST_CODE)
             
            
         }
@@ -36,7 +37,7 @@ class MainActivity: FlutterActivity() {
  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
 
-    if (requestCode == 123) {
+    if (requestCode == REQUEST_CODE) {
         if (resultCode == RESULT_OK) {
             val uri = data?.data // الحصول على Uri الملف المختار
             resultChannel?.success(uri.toString()) // إرساله إلى Flutter
@@ -45,18 +46,6 @@ class MainActivity: FlutterActivity() {
         }
         resultChannel = null // إعادة الضبط
     }
-    // when (requestCode) {
-    //     123 -> {
-    //         if (resultCode == RESULT_OK) {
-    //             data?.let { 
-    //                 println("Ahmed  _______ ${it.data}")
-    //                 resultChannel?.success(it.data)
-    //                 // result.success(uri)
-    //                 // exportData2(uri)
-    //             }
-    //         }
-    //     }
-    // }
 }
 
 }

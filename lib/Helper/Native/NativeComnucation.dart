@@ -2,7 +2,8 @@ import 'package:flutter/services.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
 
 class NativeComnucation {
-  static const platform = MethodChannel('com.example.app/channel');
+  
+  static const platform = MethodChannel('com.Native.app/openStorage');
 
    Future<String> runJavaCode() async {
     try {
