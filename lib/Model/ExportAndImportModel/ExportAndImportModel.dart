@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:csv/csv.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -10,8 +9,10 @@ import 'package:point_of_sell/Model/Models/DataBaseApp/DataBaseSqflite.dart';
 
 class ExportAndImportModel {
   late DataBaseSqflite _database;
+  late List<List> ls = [];
 
   ExportAndImportModel() {
+    logSuccess('ExportAndImportModel');
     _database = DataBaseSqflite();
   }
 
@@ -22,7 +23,8 @@ class ExportAndImportModel {
     // var status = await Permission.manageExternalStorage.request();
     List t = [];
     final data = await _database.getAllData();
-    final ls = await data.map((row) {
+
+    await data.map((row) {
       t.add(row![DataBaseSqflite.name]);
       t.add(row[DataBaseSqflite.codeItem]);
       t.add(row[DataBaseSqflite.buy]);
@@ -31,32 +33,30 @@ class ExportAndImportModel {
       t.add(row[DataBaseSqflite.date]);
       t.add(row[DataBaseSqflite.company]);
       t.add(row[DataBaseSqflite.id]);
-      return t.toList();
+      t.toList();
     }).toList();
-    String? selectedDirectory = await NativeComnucation().runJavaCode();
+    // ls.add(t);
+    logError(" == s ${data.length}");
 
-    // if (status.isGranted || storage.isGranted) {
-    //   String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
-    //   // ignore: unnecessary_null_comparison
-    //   if (selectedDirectory!.isEmpty && selectedDirectory == null) {
-    //     logWarning('message select is empty');
-    //     return;
-    //   }
-    //   String filePath = '$selectedDirectory/output.csv';
+    await NativeComnucation().runJavaCode({"list" : t});
 
-      // Sample CSV data
-
-      String csvString = const ListToCsvConverter().convert(ls);
-
-      // Save CSV to the selected path
-      File file = File(selectedDirectory);
-      await file.writeAsString(csvString).whenComplete(() {
-        logSuccess('CSV saved at: $selectedDirectory');
-      });
-      logSuccess('CSV saved at: $selectedDirectory');
+    // logSuccess("message ==== ${result}");
+    //
+    // String? csvString = const ListToCsvConverter().convert(rows);
+    // logSuccess("a1");
+    // // Save CSV to the selected path
+    // File file = File(Uri.decodeFull(result));
+    // logSuccess("${file.path}");
+    // if (await file.exists()) {
+    //   logSuccess("a3");
+    //   await file.writeAsString(csvString).whenComplete(() {
+    //     logSuccess('CSV saved at: $file');
+    //   });
+    //   logSuccess("a4");
     // } else {
-    //   logError('Storage permission denied.');
-    //   return;
+    //   logSuccess("a5");
+    //   file.create(recursive: true);
+    //   logError('CSV Not Saved at: ');
     // }
 
     //   if (ls.isEmpty) {

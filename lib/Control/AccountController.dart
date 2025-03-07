@@ -20,14 +20,17 @@ class AccountController extends GetxController  {
   double resultSell = 0.0;
   double count = 0.0;
   late int i;
-  late TextEditingController controller;
+  // late TextEditingController controller;
 
   static const String Result = 'Result';
+
+
+
   @override
 
   void onInit() {
     
-    controller = TextEditingController();
+    // controller = TextEditingController();
     dataBaseSqflite = DataBaseSqflite();
     account = AccountOrdersDataBase();
     // WidgetsBinding.instance.addObserver(this);
@@ -114,13 +117,11 @@ class AccountController extends GetxController  {
           color: Colors.white,
         ),
       );
-      // getDataFromAccount();
       update();
     }
   }
 
   Future<void> searchCodeOrder(String s) async {
-    // order = List.from(search);
 
     i = 0;
     List<Map<String, dynamic>>? result = 
@@ -146,8 +147,6 @@ class AccountController extends GetxController  {
         'empty',
         snackPosition: SnackPosition.TOP,
       );
-
-      // controller!.clear();
       update();
       return;
     }
@@ -168,7 +167,7 @@ class AccountController extends GetxController  {
 
     resultSell += saleDivider;
     i++;
-    controller.clear();
+    // controller.clear();
 
     search.addAll(newResult!);
     newResult!.clear();
@@ -221,7 +220,7 @@ class AccountController extends GetxController  {
   @override
   void dispose() {
     saveShared();
-    controller.dispose();
+    // controller.dispose();
     super.dispose();
   }
 }

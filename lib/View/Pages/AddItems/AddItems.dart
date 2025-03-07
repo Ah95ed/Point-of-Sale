@@ -58,7 +58,6 @@ class _AddItemBodyState extends State<AddItemBody> {
   late TextEditingController code;
 
   late TextEditingController sale;
-
   late TextEditingController buy;
 
   late TextEditingController quantity;
@@ -224,113 +223,6 @@ class _AddItemBodyState extends State<AddItemBody> {
             ],
           ),
         );
-        // : SizedBox(
-        //   child: Column(
-        //       children: [
-        //         SizedBox(
-        //           child: Row(
-        //             children: [
-        //               Expanded(
-        //                 child: TextFieldCustom(
-        //                   name: 'itemName'.tr,
-        //                   icons: Icons.shape_line,
-        //                   text: name,
-        //                 ),
-        //               ),
-        //               Expanded(
-        //                 child: TextFieldCustom(
-        //                   name: 'code'.tr,
-        //                   icons: Icons.barcode_reader,
-        //                   text: code,
-        //                 ),
-        //               ),
-        //               Expanded(
-        //                 child: TextFieldCustom(
-        //                   name: "sale".tr,
-        //                   icons: Icons.price_change,
-        //                   text: sale,
-        //                 ),
-        //               ),
-        //               Expanded(
-        //                 child: TextFieldCustom(
-        //                   name: "buy".tr,
-        //                   icons: Icons.description,
-        //                   text: buy,
-        //                 ),
-        //               ),
-        //             ],
-        //           ),
-        //         ),
-        //         SizedBox(
-        //           child: Row(
-        //             children: [
-        //               Expanded(
-        //                 child: TextFieldCustom(
-        //                   name: 'quantity'.tr,
-        //                   icons: Icons.description,
-        //                   text: quantity,
-        //                 ),
-        //               ),
-        //               Expanded(
-        //                 child: TextFieldCustom(
-        //                   name: 'company_name'.tr,
-        //                   icons: Icons.store_sharp,
-        //                   text: company,
-        //                 ),
-        //               ),
-        //               Expanded(
-        //                 child: Row(
-        //                   children: [
-        //                     Expanded(
-        //                       child: TextFieldCustom(
-        //                         name: "date".tr,
-        //                         icons: Icons.date_range,
-        //                         text: date,
-        //                       ),
-        //                     ),
-        //                     SelectDate(dateCtrl: date),
-        //                   ],
-        //                 ),
-        //               ),
-        //               CustomMaterialButton(
-        //                 title: 'Add'.tr,
-        //                 onPressed: () {
-        //                   controller.addItems(
-        //                     {
-        //                       DataBaseSqflite.name: name.text,
-        //                       DataBaseSqflite.codeItem: code.text,
-        //                       DataBaseSqflite.sale: sale.text,
-        //                       DataBaseSqflite.buy: buy.text,
-        //                       DataBaseSqflite.quantity: quantity.text,
-        //                       DataBaseSqflite.date: date.text,
-        //                       DataBaseSqflite.company: company.text,
-        //                     },
-        //                   );
-        //                   name.clear();
-        //                   code.clear();
-        //                   sale.clear();
-        //                   buy.clear();
-        //                   company.clear();
-        //                   quantity.clear();
-        //                   date.clear();
-
-        //                   // controller.update();
-        //                 },
-        //               ),
-        //             ],
-        //           ),
-        //         ),
-        //         Expanded(
-        //           flex: 3,
-        //           child: CardTableStorage(),
-        //         ),
-        //         // const Expanded(
-        //         //   flex: 2,
-        //         //   child: TabsOnStorage(),
-        //         // ),
-        //       ],
-        //     ),
-        // );
       },
     );
   }

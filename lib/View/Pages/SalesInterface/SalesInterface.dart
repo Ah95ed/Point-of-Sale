@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Control/HomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
+import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/AccountOrders.dart';
 import 'package:point_of_sell/View/Pages/UpdateData/UpdateData.dart';
@@ -18,10 +19,22 @@ class SalesInterface extends StatefulWidget {
 }
 
 class _SalesInterfaceState extends State<SalesInterface> {
+
+static late bool isDisposed ;
   @override
   void initState() {
     super.initState();
+    isDisposed = false;
+    logError("message __ SalesInterface is initState ${isDisposed}");
   }
+
+  @override
+  void dispose() {
+    isDisposed = true;
+    super.dispose();
+    logError("message __ SalesInterface is disposed ${isDisposed}");
+  }
+
 
   @override
   Widget build(BuildContext context) {

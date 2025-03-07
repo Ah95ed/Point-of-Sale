@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:path/path.dart';
+import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/LiabilityDataBase.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -190,7 +191,7 @@ ${LiabilityDataBase.TableLi_user}
     var result = await db!.rawQuery(
       'SELECT * FROM $TableName',
     );
-
+    logInfo("message ${result.toList().length}");
     return result.toList();
   }
 

@@ -13,9 +13,6 @@ class UpdatePrice extends StatefulWidget {
 }
 
 class _UpdatePriceState extends State<UpdatePrice> {
-  // final c = Get.lazyPut( () => HomeController());
-  // HomeController controller = Get.find(); //!
-  // // final controller = Get.put(HomeController());
   late TextEditingController Sale;
 
   late TextEditingController Buy;
@@ -23,14 +20,34 @@ class _UpdatePriceState extends State<UpdatePrice> {
   void initState() {
     Sale = TextEditingController();
     Buy = TextEditingController();
+    Sale.addListener(_handleTextChange);
+    Buy.addListener(_handleTextChange);
+    fetchData();
     super.initState();
+  }
+
+  void _handleTextChange() {
+    print(Sale.text);
+    print(Buy.text);
+  }
+
+  Future<void> fetchData() async {
+    await Future.delayed(Duration(seconds: 2)); // محاكاة انتظار بيانات
+    if (mounted) {
+      setState(() {
+          Sale.text = "";
+       Buy.text = "";
+      });
+    
+    }
   }
 
   @override
   void dispose() {
+    Sale.removeListener(_handleTextChange);
+    Buy.removeListener(_handleTextChange);
     Sale.dispose();
     Buy.dispose();
-
     super.dispose();
   }
 

@@ -17,8 +17,7 @@ class AddCustomer extends StatefulWidget {
 class _AddCustomerState extends State<AddCustomer> {
    late TextEditingController _name;
    late TextEditingController _phone;
-  late  TextEditingController _location;
-
+   late  TextEditingController _location;
   Customercontroller c = Get.put(Customercontroller());
   @override
   void initState() {
@@ -50,7 +49,7 @@ class _AddCustomerState extends State<AddCustomer> {
               text: _name,
               icons: Icons.person,
               name: 'name'.tr,
-              // input: TextInputType.text,
+              
             ),
             TextFieldCustom(
               text: _phone,

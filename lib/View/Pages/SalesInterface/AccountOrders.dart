@@ -8,9 +8,7 @@ import 'package:point_of_sell/View/Widget/AllItems.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
-// import 'package:qr_bar_code_scanner_dialog/qr_bar_code_scanner_dialog.dart';
 
-// ignore: must_be_immutable
 class AccountOrders extends StatefulWidget {
   const AccountOrders({super.key});
 
@@ -18,11 +16,30 @@ class AccountOrders extends StatefulWidget {
   State<AccountOrders> createState() => _AccountOrdersState();
 }
 
-// String? result;
-
 class _AccountOrdersState extends State<AccountOrders> {
+   TextEditingController search = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    search.addListener(_handleTextChange);
+  }
+
+void _handleTextChange() {
+    print(search.text);
+  }
+  @override
+  void dispose() {
+    search.removeListener(_handleTextChange); // أزل المُستمع أولًا
+    search.dispose(); // ثم تخلص من الـ Controller
+    super.dispose();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
+    
     return GetBuilder<AccountController>(
       init: AccountController(),
       builder: (controller) {
@@ -31,7 +48,7 @@ class _AccountOrdersState extends State<AccountOrders> {
             SizedBox(
               height: context.getHeight(40),
               child: Padding(
-                padding:  EdgeInsets.all(context.getMinSize(4)),
+                padding: EdgeInsets.all(context.getMinSize(4)),
                 child: TextFormField(
                     onChanged: (value) {
                       if (value.isEmpty) return;
@@ -39,7 +56,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                       controller.searchCodeOrder(value);
                     },
                     // readOnly: true,
-                    controller: controller.controller,
+                    controller: search,
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
                       hintText: 'Search'.tr,
@@ -70,9 +87,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                                             },
                                             continuous: true,
                                             onBarcodeViewCreated:
-                                                (BarcodeViewController
-                                                    c) {
-                                                      
+                                                (BarcodeViewController c) {
                                               // this.controller = controller;
                                             },
                                           ),
@@ -97,8 +112,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                 // height: context.getHeight(350),
                 child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: DeviceUtils.isMobile(context)
-                     ? 1 : 4,
+                    crossAxisCount: DeviceUtils.isMobile(context) ? 1 : 4,
                     childAspectRatio: 4,
                     mainAxisSpacing: 4,
                     crossAxisSpacing: 4,
@@ -125,6 +139,7 @@ class _AccountOrdersState extends State<AccountOrders> {
               color: ColorUsed.whiteBlue,
               height: context.getHeight(38),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
                     'Result : ${controller.resultSell} ',
@@ -149,7 +164,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                       'Delete All',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: context.getFontSize(10 ),
+                        fontSize: context.getFontSize(10),
                         fontWeight: FontWeight.bold,
                       ),
                     ),

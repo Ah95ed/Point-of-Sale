@@ -1,19 +1,17 @@
+
 import 'package:flutter/services.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
 
 class NativeComnucation {
-  
+
   static const platform = MethodChannel('com.Native.app/openStorage');
 
-   Future<String> runJavaCode() async {
+  Future<dynamic> runJavaCode(Map<String, dynamic> list) async {
     try {
-      final result = await platform.invokeMethod('runJavaCode');
-      logSuccess(await result.toString());
-      // الناتج من Java
-      return result.toString();
+      return await platform.invokeMethod('runJavaCode',list);
     } on PlatformException catch (e) {
-      logInfo("Error: ${e.message}");
+      logInfo("Error in runJavaCode: ${e.message}");
     }
-    return "Error";
+    
   }
 }

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Helper/Locale/LanguageController.dart';
@@ -19,6 +18,7 @@ Future<void> main() async {
     () async {
       WidgetsFlutterBinding.ensureInitialized();
       await initService();
+ 
       runApp(
         const MyApp(),
         // DevicePreview(
@@ -56,8 +56,6 @@ class MyApp extends StatelessWidget {
       ],
       initialRoute: '/',
       routes: RoutePage.routes,
-
-      // initialBinding: Appbinding(),
 
       home: DeviceUtils.isMobile(context)
           ? SizeBuilder(

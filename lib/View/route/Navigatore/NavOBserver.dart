@@ -11,7 +11,7 @@ class NavObserver extends NavigatorObserver {
 
   void addPage(Route name) {
     logError('message add page');
-    if (name != null && routeName.value.isNotEmpty) {
+    if (routeName.value.isNotEmpty) {
       final List<Route> list = List.from(routeName.value);
       list.add(name);
       routeName.value = list;
@@ -20,7 +20,7 @@ class NavObserver extends NavigatorObserver {
 
     void removePage(Route name) {
       logSuccess('message remove page');
-      if (name != null && routeName.value.isNotEmpty) {
+      if (routeName.value.isNotEmpty) {
         final List<Route> list = List.from(routeName.value);
         list.remove(name);
         routeName.value = list;
