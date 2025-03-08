@@ -51,7 +51,7 @@ jobs:
       - name: Copy an extra file to Release folder
         run: |
             
-            assets\\sqlite3.dll build\\windows\\x64\\runner\\Release\\extra_file.txt
+            assets\\sqlite3.dll build\\windows\\x64\\runner\\Release\\sqlite3.dll
 
       - name: Upload windows Artifacts (Entire Folder)
         uses: actions/upload-artifact@v4
