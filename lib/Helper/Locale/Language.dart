@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 class Language implements Translations {
   static const error = 'error';
+  static const saleList = 'saleList';
+  static const fillAllFields = "Please fill all fields";
   static const saleItem = 'saleItem';
   static const nameItem = 'nameItem';
   static const showAllItem = 'showAllItem';
@@ -22,11 +24,17 @@ class Language implements Translations {
   static const ExportAndimport = 'ExportAndImport';
   static const export = 'export';
   static const import = 'import';
+  static const mainSale = 'mainSale';
+  static const billofsale = 'billofsale';
 
 
   @override
   Map<String, Map<String, String>> get keys => {
         "ar": {
+          billofsale: 'فاتورة البيع',
+          mainSale: 'البيع الرئيسي',
+          saleList: 'قائمة البيع',
+          fillAllFields: "من فضلك املأ جميع الحقول",
           export: 'تصدير',
           import: 'استيراد',
           AddAccount : 'اضافة حساب',
@@ -88,6 +96,10 @@ class Language implements Translations {
           'SalesInterface': 'واجهة المبيعات',
         },
         "en": {
+          billofsale: 'Bill of Sale',
+          mainSale: 'Main Sale',
+          saleList: 'Sale List',
+          fillAllFields: "Please fill all fields",
           export: 'Export',
           import: 'Import',
           ExportAndimport : 'Export And Import',

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Control/CustomerController/CustomerController.dart';
+import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/CustomMaterialButton.dart';
@@ -15,16 +16,16 @@ class AddCustomer extends StatefulWidget {
 }
 
 class _AddCustomerState extends State<AddCustomer> {
-   late TextEditingController _name;
-   late TextEditingController _phone;
-   late  TextEditingController _location;
+  late TextEditingController _name;
+  late TextEditingController _phone;
+  late TextEditingController _location;
   Customercontroller c = Get.put(Customercontroller());
   @override
   void initState() {
-  _name = TextEditingController();
-  _phone = TextEditingController();
-  _location = TextEditingController();
-     super.initState();
+    _name = TextEditingController();
+    _phone = TextEditingController();
+    _location = TextEditingController();
+    super.initState();
   }
 
   @override
@@ -45,12 +46,7 @@ class _AddCustomerState extends State<AddCustomer> {
         width: context.getWidth(100),
         child: Column(
           children: [
-            TextFieldCustom(
-              text: _name,
-              icons: Icons.person,
-              name: 'name'.tr,
-              
-            ),
+            TextFieldCustom(text: _name, icons: Icons.person, name: 'name'.tr),
             TextFieldCustom(
               text: _phone,
               icons: Icons.phone,
@@ -66,13 +62,17 @@ class _AddCustomerState extends State<AddCustomer> {
             CustomMaterialButton(
               title: 'Add'.tr,
               onPressed: () async {
-               await c.insert(
-                  {
-                    CustomersDatabase.name: _name.text,
-                    CustomersDatabase.phone: _phone.text,
-                    CustomersDatabase.address: _location.text
-                  },
-                );
+                if (_name.text.isEmpty ||
+                    _phone.text.isEmpty ||
+                    _location.text.isEmpty) {
+                  Get.snackbar(Language.error.tr, Language.fillAllFields.tr);
+                  return;
+                }
+                await c.insert({
+                  CustomersDatabase.name: _name.text,
+                  CustomersDatabase.phone: _phone.text,
+                  CustomersDatabase.address: _location.text,
+                });
               },
             ),
           ],

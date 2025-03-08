@@ -3,17 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Control/MobileContrller/MobileContrller.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
-import 'package:point_of_sell/View/Colors/Colors.dart';
-import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 
 class Mobile extends StatelessWidget {
   Mobile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MobileScreen(),
-    );
+    return Scaffold(body: MobileScreen());
   }
 }
 
@@ -55,85 +51,102 @@ class MobileScreen extends StatelessWidget {
             );
           },
           child: Scaffold(
-        
-            key: Scaffoldkey,
-            drawer: Drawer(
-              backgroundColor: ColorUsed.whitesoft,
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  SizedBox(
-                    height: context.getHeight(20),
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.store),
-                    onTap: () {
-                      Scaffoldkey.currentState!.closeDrawer();
-                      c.changeIndex(0);
-                    },
-                    title: Text('Home'.tr),
-                  ),
-                  const Divider(),
-                  ListTile(
-                    leading: const Icon(Icons.shop),
-                    title: Text('SalesInterface'.tr),
-                    onTap: () {
-                      Scaffoldkey.currentState!.closeDrawer();
-                      c.changeIndex(1);
-                    },
-                  ),
-                  const Divider(),
-                  ListTile(
-                    leading: const Icon(Icons.store),
-                    onTap: () {
-                      Scaffoldkey.currentState!.closeDrawer();
-                      c.changeIndex(2);
-                    },
-                    title: Text(Language.AddItems.tr),
-                  ),
-                  const Divider(),
-                  ListTile(
-                    leading: const Icon(Icons.person_add),
-                    onTap: () {
-                      Scaffoldkey.currentState!.closeDrawer();
-                      c.changeIndex(3);
-                    },
-                    title: Text(Language.Customer.tr),
-                  ),
-                  const Divider(),
-                  ListTile(
-                    leading: const Icon(Icons.explore_outlined),
-                    onTap: () {
-                      Scaffoldkey.currentState!.closeDrawer();
-                      c.changeIndex(4);
-                    },
-                    title: Text(Language.ExportAndimport.tr),
-                  ),
-                  const Divider(),
-                  // ListTile(
-                  //   leading: const Icon(Icons.explore_outlined),
-                  //   onTap: () {
-                  //     Scaffoldkey.currentState!.closeDrawer();
-                  //     c.changeIndex(5);
-                  //   },
-                  //   title: Text(Language.AddAccount.tr),
-                  // ),
-                  // const Divider(),
-                ],
-              ),
-            ),
             appBar: AppBar(
               centerTitle: true,
               title: const Text('Point of Sell'),
               leading: IconButton(
                 icon: const Icon(Icons.menu),
                 onPressed: () {
-                  Scaffoldkey.currentState!.openDrawer();
+                  Navigator.of(context).push(
+                    PageRouteBuilder(
+                      opaque: false,
+                      barrierColor: Colors.black.withOpacity(
+                        0.5,
+                      ),
+                      barrierDismissible: true, // تعتيم الخلفية
+                      pageBuilder: (context, animation, secondaryAnimation) {
+                        return Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            width: context.width / 1.5, // نصف عرض الشاشة
+                            color: Colors.white,
+                            child: Scaffold(
+                              body: ListView(
+                                children: [
+                                  const Divider(),
+                                  ListTile(
+                                    title: const Text('Home'),
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                      c.changeIndex(0);
+                                    },
+                                  ),
+                                  const Divider(),
+                                  ListTile(
+                                    title: const Text('Sales Interface'),
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                      c.changeIndex(1);
+                                    },
+                                  ),
+                                  const Divider(),
+                                  ListTile(
+                                    title: const Text('Add Items'),
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                      c.changeIndex(2);
+                                    },
+                                  ),
+                                  const Divider(),
+                                  ListTile(
+                                    title: const Text('Customer Management'),
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                      c.changeIndex(3);
+                                    },
+                                  ),
+                                  const Divider(),
+
+                                  // ListTile(
+                                  //   title: const Text('Export'),
+                                  //   onTap: () {
+                                  //     Navigator.pop(context);
+                                  //     c.changeIndex(4);
+                                  //   },
+                                  // ),
+                                  ListTile(
+                                    title:  Text(Language.saleList.tr),
+                                    onTap: () {
+                                        Navigator.pop(context);
+                                      c.changeIndex(4);
+                                    },
+                                  ),
+                                ],
+                              ), // ضع هنا المحتوى الذي تريده
+                            ),
+                          ),
+                        );
+                      },
+                      transitionsBuilder: (
+                        context,
+                        animation,
+                        secondaryAnimation,
+                        child,
+                      ) {
+                        return SlideTransition(
+                          position: Tween<Offset>(
+                            begin: const Offset(-1, 0),
+                            end: const Offset(0, 0),
+                          ).animate(animation),
+                          child: child,
+                        );
+                      },
+                    ),
+                  );
                 },
               ),
             ),
-          
-            
+
             body: c.addNav[0],
           ),
         );

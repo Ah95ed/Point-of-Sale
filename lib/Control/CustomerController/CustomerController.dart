@@ -10,19 +10,22 @@ class Customercontroller extends GetxController {
   void onInit() async {
     super.onInit();
     model = CustomerModel();
-   await getCustomer();
+    await getCustomer();
   }
 
   Future<void> getCustomer() async {
     var list = await model.getCustomer();
-    customers = list
-        .map((item) => CustomerModel(
-              name: item![CustomersDatabase.name],
-              phone: item[CustomersDatabase.phone],
-              address: item[CustomersDatabase.address],
-            ))
-        .toList();
-       
+    customers =
+        list
+            .map(
+              (item) => CustomerModel(
+                name: item![CustomersDatabase.name],
+                phone: item[CustomersDatabase.phone],
+                address: item[CustomersDatabase.address],
+              ),
+            )
+            .toList();
+
     update();
   }
 
@@ -36,7 +39,7 @@ class Customercontroller extends GetxController {
         ),
       );
       update();
-      
+      return;
     }
     Get.showSnackbar(
       const GetSnackBar(
@@ -45,10 +48,11 @@ class Customercontroller extends GetxController {
       ),
     );
   }
+
   List<Map<String, dynamic>> search = [];
   Future<void> searchCustomer(String name) async {
     search = await model.searchCustomer(name);
-    if(search.isEmpty){
+    if (search.isEmpty) {
       Get.showSnackbar(
         const GetSnackBar(
           message: "No data found",
@@ -58,11 +62,16 @@ class Customercontroller extends GetxController {
       return;
     }
     customers!.clear();
-    customers  = search.map((item) => CustomerModel(
-      name: item[CustomersDatabase.name],
-      phone: item[CustomersDatabase.phone],
-      address: item[CustomersDatabase.address],
-    )).toList();
+    customers =
+        search
+            .map(
+              (item) => CustomerModel(
+                name: item[CustomersDatabase.name],
+                phone: item[CustomersDatabase.phone],
+                address: item[CustomersDatabase.address],
+              ),
+            )
+            .toList();
     update();
   }
 }
