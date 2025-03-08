@@ -28,17 +28,19 @@ jobs:
           channel: 'stable'
           flutter-version: '3.29.1'
 
-      - name: Install dependencies
-        run: flutter pub get
+      
 
       - name: clean Project
         run: flutter clean
 
+      - name: Install dependencies
+        run: flutter pub get
+
       - name: Build APKs
         run: flutter build apk --split-per-abi
 
-      - name: Build windows exe
-        run: flutter build windows --release
+      - name: Build windows
+        run: flutter build windows
 
 
 
