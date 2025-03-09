@@ -67,15 +67,7 @@ class _SaleListScreenState extends State<SaleListScreen> {
       totalPrice: 4000,
       barcode: '',
     ),
-    InventoryItem(
-      id: 5,
-      description: 'بوكس كاميرات 2',
-      quantity: 8,
-      warehouse: 'المخزن الرئيسي',
-      unitPrice: 1000,
-      totalPrice: 8000,
-      barcode: '',
-    ),
+
     InventoryItem(
       id: 6,
       description: 'محول TOTO 10A',
@@ -112,7 +104,6 @@ class _SaleListScreenState extends State<SaleListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-  
       body: Column(
         children: [
           // Header Info Section
@@ -121,9 +112,9 @@ class _SaleListScreenState extends State<SaleListScreen> {
             color: Colors.grey[200],
             padding: EdgeInsets.symmetric(
               // horizontal: context.getWidth(4),
-              vertical: context.getHeight(6 ),
+              vertical: context.getHeight(6),
             ),
-            child:  Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Row(
@@ -138,8 +129,7 @@ class _SaleListScreenState extends State<SaleListScreen> {
                         filled: true,
                         fillColor: Colors.white,
                       ),
-                      
-                    )
+                    ),
                   ],
                 ),
                 Row(

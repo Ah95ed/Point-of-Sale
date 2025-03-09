@@ -14,28 +14,18 @@ import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeBuilder.dart';
 
 Future<void> main() async {
-  await runZonedGuarded<Future<void>>(
-    () async {
-      WidgetsFlutterBinding.ensureInitialized();
-      await initService();
- 
-      runApp(
-        const MyApp(),
-        // DevicePreview(
-        //   enabled: !kReleaseMode,
-        //   builder: (context) => const MyApp(), // Wrap your app
-        // ),
-      );
-    },
-    (
-      error,
-      stack,
-    ) =>
-        logError(
-      'error ${error}/n At The Main ${stack}',
-    ),
-  );
-  // if it's not on the web, windows or android, load the accent color
+  await runZonedGuarded<Future<void>>(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await initService();
+
+    runApp(
+      const MyApp(),
+      // DevicePreview(
+      //   enabled: !kReleaseMode,
+      //   builder: (context) => const MyApp(), // Wrap your app
+      // ),
+    );
+  }, (error, stack) => logError('error ${error}/n At The Main ${stack}'));
 }
 
 RouteObserver<Route> routeObserver = RouteObserver();
@@ -50,21 +40,19 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       locale: c.language,
       translations: Language(),
-      navigatorObservers: [
-        NavObserver.instance,
-        routeObserver,
-      ],
+      navigatorObservers: [NavObserver.instance, routeObserver],
       initialRoute: '/',
       routes: RoutePage.routes,
 
-      home: DeviceUtils.isMobile(context)
-          ? SizeBuilder(
-              baseSize: const Size(360, 690),
-              height: context.screenHeight,
-              width: context.screenWidth,
-              child: Mobile(),
-            )
-          : const RunnerApp(),
+      home:
+          DeviceUtils.isMobile(context)
+              ? SizeBuilder(
+                baseSize: const Size(360, 690),
+                height: context.screenHeight,
+                width: context.screenWidth,
+                child: Mobile(),
+              )
+              : const RunnerApp(),
     );
   }
 }
