@@ -93,7 +93,7 @@ class _SaleListScreenState extends State<SaleListScreen> {
       warehouse: 'المخزن الرئيسي',
       unitPrice: 40000,
       totalPrice: 40000,
-      barcode: '',
+      barcode: '342243423',
     ),
   ];
 
@@ -106,7 +106,6 @@ class _SaleListScreenState extends State<SaleListScreen> {
     return Scaffold(
       body: Column(
         children: [
-          // Header Info Section
           Container(
             height: context.getHeight(50),
             color: Colors.grey[200],

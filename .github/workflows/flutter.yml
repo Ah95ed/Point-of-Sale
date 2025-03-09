@@ -50,11 +50,6 @@ jobs:
           name: apk-${{ matrix.abi }}
           path: build/app/outputs/flutter-apk/app-${{ matrix.abi }}-release.apk
 
-      - name: Copy an extra file to Release folder
-        run: |
-            
-            assets\\sqlite3.dll build\\windows\\x64\\runner\\Release\\sqlite3.dll
-
       - name: Upload windows Artifacts (Entire Folder)
         uses: actions/upload-artifact@v4
         with:
