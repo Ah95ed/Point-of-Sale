@@ -11,7 +11,8 @@ class HomeScreen extends StatelessWidget {
         return Center(
           child: Image.asset(
             'assets/image/show.png',
-            fit: DeviceUtils.isMobile(context) ? BoxFit.contain:BoxFit.cover,
+            fit: DeviceUtils.isMobile(context)
+             ? BoxFit.contain:BoxFit.cover,
             height: context.screenWidth,
             width: context.screenHeight,
             alignment: Alignment.center,

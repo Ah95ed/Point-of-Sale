@@ -4,14 +4,14 @@ import 'package:get/get.dart';
 import 'package:point_of_sell/Control/MobileContrller/MobileContrller.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 
-class Mobile extends StatelessWidget {
-  Mobile({super.key});
+// class Mobile extends StatelessWidget {
+//   Mobile({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: MobileScreen());
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(body: MobileScreen());
+//   }
+// }
 
 class MobileScreen extends StatelessWidget {
   MobileScreen({super.key});
@@ -25,6 +25,7 @@ class MobileScreen extends StatelessWidget {
       builder: (c) {
         return PopScope(
           canPop: false,
+          
           onPopInvoked: (didPop) {
             showDialog(
               context: context,

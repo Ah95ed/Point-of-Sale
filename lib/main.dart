@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
                 baseSize: const Size(360, 690),
                 height: context.screenHeight,
                 width: context.screenWidth,
-                child: Mobile(),
+                child: MobileScreen(),
               )
               : const RunnerApp(),
     );

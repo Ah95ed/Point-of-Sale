@@ -6,8 +6,8 @@ import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Pages/AddItems/AddItems.dart';
 import 'package:point_of_sell/View/Pages/CustomerManagement/CustomerManagement.dart';
 import 'package:point_of_sell/View/Pages/ExportAndImport/ExportAndImport.dart';
-import 'package:point_of_sell/View/Pages/SaleList/SaleListScreen.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/SalesInterface.dart';
+import 'package:point_of_sell/View/Pages/SaleList/SaleList_Screen.dart';
 import 'package:point_of_sell/View/Pages/home_screen.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 
@@ -26,7 +26,7 @@ class WelcomeScreen extends StatelessWidget {
               openMaxWidth: context.sizeBuilder.width / 3,
               openMinWidth: context.sizeBuilder.width / 4,
             ),
-            
+
             items: [
               PaneItem(
                 title: Text('welcomescreen'.tr),
@@ -46,7 +46,7 @@ class WelcomeScreen extends StatelessWidget {
               PaneItem(
                 title: Text(Language.Customer.tr),
                 icon: const Icon(Icons.price_change_sharp),
-                body:  CustomerManagement(),
+                body: CustomerManagement(),
               ),
 
               PaneItem(
@@ -56,9 +56,9 @@ class WelcomeScreen extends StatelessWidget {
                 enabled: true,
               ),
               PaneItem(
-                title:  Text(Language.saleList.tr),
+                title: Text(Language.saleList.tr),
                 icon: const Icon(Icons.shop),
-                body:  SaleListScreen(),
+                body: const InvoicePage(),
               ),
 
               // PaneItem(
@@ -77,11 +77,8 @@ class WelcomeScreen extends StatelessWidget {
             },
           ),
         );
-   
       },
     );
     // : const Mobile();
   }
 }
-
-   
