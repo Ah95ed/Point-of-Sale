@@ -125,8 +125,8 @@ class InvoicePage extends StatelessWidget {
 
             // 2) جدول الأصناف
             Container(
-              height: context.screenWidth /1.3 ,
-              width: context.screenHeight ,
+              height: context.screenWidth / 1.3,
+              width: context.screenHeight,
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(8.0),

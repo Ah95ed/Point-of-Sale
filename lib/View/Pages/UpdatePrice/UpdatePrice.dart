@@ -32,7 +32,7 @@ class _UpdatePriceState extends State<UpdatePrice> {
   }
 
   Future<void> fetchData() async {
-    await Future.delayed(Duration(seconds: 2)); // محاكاة انتظار بيانات
+    await Future.delayed(const Duration(seconds: 2)); // محاكاة انتظار بيانات
     if (mounted) {
      
           Sale.text = "";
