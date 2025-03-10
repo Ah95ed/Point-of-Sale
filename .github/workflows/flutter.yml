@@ -5,8 +5,9 @@ on:
     branches: [ release ]
 
 jobs:
-  build:
-    runs-on: windows-latest
+  build_android:
+    name: بناء APK لنظام Android
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -50,9 +51,34 @@ jobs:
           name: apk-${{ matrix.abi }}
           path: build/app/outputs/flutter-apk/app-${{ matrix.abi }}-release.apk
 
-      - name: Upload windows Artifacts (Entire Folder)
+      # - name: Upload windows Artifacts (Entire Folder)
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: release
+      #     path: build/windows/x64/runner/Release/
+
+  build_windows:
+    name: بناء APK لنظام Android
+    runs-on: windows-latest
+    steps:
+      - name: استنساخ المستودع
+        uses: actions/checkout@v4
+
+      - name: إعداد Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.29.1'  # تأكد من توافق الإصدار مع مشروعك
+
+      - name: تنزيل الاعتمادات
+        run: flutter pub get
+
+      - name: بناء تطبيق Windows بنسخة Release
+        run: flutter build windows --release
+
+      - name: رفع ملفات تطبيق Windows كأثر (Artifact)
         uses: actions/upload-artifact@v4
         with:
-          name: release
+          name: windows-app
           path: build/windows/x64/runner/Release/
 
