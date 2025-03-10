@@ -68,9 +68,15 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.27.4'  # تأكد من توافق الإصدار مع مشروعك
+          flutter-version: '3.29.1'  # تأكد من توافق الإصدار مع مشروعك
 
-      - name: تنزيل الاعتمادات
+      - name: download packages 
+        run: flutter clean
+        
+      - name: upgrade flutter
+        run: flutter upgrade
+
+      - name: download packages 
         run: flutter pub get
 
       - name: Windows Release
