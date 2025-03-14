@@ -137,16 +137,18 @@ class AccountController extends GetxController  {
             quantity: item[DataBaseSqflite.quantity],
             company: item[DataBaseSqflite.company],
             date: item[DataBaseSqflite.date],
-            time: item[DataBaseSqflite.time] ?? 'ah',
+            time: item[DataBaseSqflite.time] ,
           ),
         )
         .toList();
     if (newResult!.isEmpty) {
       Get.snackbar(
-        'title',
-        'empty',
+        "Not Found",
+        'لايوجد هذا العنصر',
         snackPosition: SnackPosition.TOP,
       );
+
+      
       update();
       return;
     }
@@ -220,7 +222,7 @@ class AccountController extends GetxController  {
   @override
   void dispose() {
     saveShared();
-    // controller.dispose();
+
     super.dispose();
   }
 }

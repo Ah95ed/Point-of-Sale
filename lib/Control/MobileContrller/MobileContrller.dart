@@ -6,7 +6,9 @@ import 'package:point_of_sell/View/Pages/SaleList/SaleList_Screen.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/SalesInterface.dart';
 import 'package:point_of_sell/View/Pages/home_screen.dart';
 
+
 class MobileContrller extends GetxController {
+  
   List<Navigator> navigators = [
     Navigator(
       key: GlobalKey<NavigatorState>(),

@@ -26,11 +26,17 @@ class Language implements Translations {
   static const import = 'import';
   static const mainSale = 'mainSale';
   static const billofsale = 'billofsale';
+  static const createListsale= "createListsale";
+  static const showlistsale = "showlistsale";
+  static const save = 'save';
 
 
   @override
   Map<String, Map<String, String>> get keys => {
         "ar": {
+          save: 'حفظ',
+          createListsale : "انشاء قائمة البيع",
+          showlistsale : "عرض قائمة البيع",
           billofsale: 'فاتورة البيع',
           mainSale: 'البيع الرئيسي',
           saleList: 'قائمة البيع',
@@ -96,6 +102,9 @@ class Language implements Translations {
           'SalesInterface': 'واجهة المبيعات',
         },
         "en": {
+          save: 'Save',
+          createListsale : "Create List Sale",
+          showlistsale : "Show List Sale",
           billofsale: 'Bill of Sale',
           mainSale: 'Main Sale',
           saleList: 'Sale List',

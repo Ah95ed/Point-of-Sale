@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 
 class InvoicePage extends StatelessWidget {
@@ -6,42 +7,15 @@ class InvoicePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // بيانات تجريبية للعرض في الجدول (UI فقط)
-    final List<Map<String, dynamic>> items = [
-      {
-        'item': 'RB-4.12-26.5 عدسة نظارة',
-        'quantity': 1,
-        'price': 270.0,
-        'total': 270.0,
-      },
-      {'item': 'BNC NEXT', 'quantity': 16, 'price': 1.2, 'total': 19.2},
-      {
-        'item': 'HP PRINTER 4 INK',
-        'quantity': 10,
-        'price': 20.0,
-        'total': 200.0,
-      },
-      {'item': '1.5m HDMI CABLE', 'quantity': 5, 'price': 15.0, 'total': 75.0},
-      {
-        'item': 'HP1200 LASERJET',
-        'quantity': 2,
-        'price': 100.0,
-        'total': 200.0,
-      },
-      {'item': 'HP19v POWER', 'quantity': 3, 'price': 35.0, 'total': 105.0},
-      {'item': 'WD 1TB HARD', 'quantity': 1, 'price': 75.0, 'total': 75.0},
-    ];
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('نموذج فاتورة مبيعات'),
-        centerTitle: true,
+       centerTitle: true,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // 1) قسم الحقول العلوية
             Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.0),
@@ -138,17 +112,32 @@ class InvoicePage extends StatelessWidget {
                   DataColumn(label: Text('سعر البيع')),
                   DataColumn(label: Text('المجموع')),
                 ],
-                rows:
-                    items.map((item) {
-                      return DataRow(
-                        cells: [
-                          DataCell(Text(item['item'].toString())),
-                          DataCell(Text(item['quantity'].toString())),
-                          DataCell(Text(item['price'].toString())),
-                          DataCell(Text(item['total'].toString())),
-                        ],
-                      );
-                    }).toList(),
+                rows: [
+                  const DataRow(
+                    cells: [
+                      DataCell(Text('منتج 1')),
+                      DataCell(Text('2')),
+                      DataCell(Text('100.0')),
+                      DataCell(Text('200.0')),
+                    ],
+                  ),
+                  const DataRow(
+                    cells: [
+                      DataCell(Text('منتج 2')),
+                      DataCell(Text('1')),
+                      DataCell(Text('143.0')),
+                      DataCell(Text('143.0')),
+                    ],
+                  ),
+                  const DataRow(
+                    cells: [
+                      DataCell(Text('منتج 3')),
+                      DataCell(Text('1')),
+                      DataCell(Text('100.0')),
+                      DataCell(Text('100.0')),
+                    ],
+                  ),
+                ],
               ),
             ),
 

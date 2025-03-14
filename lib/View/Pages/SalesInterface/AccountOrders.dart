@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:point_of_sell/Control/AccountController.dart';
+import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
+import 'package:point_of_sell/View/style/SizeApp/SizeBuilder.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
 class AccountOrders extends StatefulWidget {
@@ -17,55 +19,126 @@ class AccountOrders extends StatefulWidget {
 }
 
 class _AccountOrdersState extends State<AccountOrders> {
-   TextEditingController search = TextEditingController();
+  TextEditingController search = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-    search.addListener(_handleTextChange);
-  }
-
-void _handleTextChange() {
-    print(search.text);
-  }
   @override
   void dispose() {
-    search.removeListener(_handleTextChange); // أزل المُستمع أولًا
-    search.dispose(); // ثم تخلص من الـ Controller
+    search.dispose();
     super.dispose();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-    
     return GetBuilder<AccountController>(
       init: AccountController(),
       builder: (controller) {
         return Column(
           children: [
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              elevation: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Row(
+                      spacing: context.getHeight(10),
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              labelText: 'الحساب',
+                              prefixIcon: Icon(Icons.account_balance),
+                            ),
+                          ),
+                        ),
+
+                        Expanded(
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              labelText: 'العميل',
+                              prefixIcon: Icon(Icons.person),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    Row(
+                      spacing: context.getHeight(10),
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              labelText: 'التاريخ',
+                              prefixIcon: Icon(Icons.date_range),
+                            ),
+                          ),
+                        ),
+
+                        Expanded(
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              labelText: 'رقم الفاتورة',
+                              prefixIcon: Icon(Icons.receipt_long),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    Row(
+                      spacing: context.getHeight(10),
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              labelText: 'المستودع',
+                              prefixIcon: Icon(Icons.warehouse),
+                            ),
+                          ),
+                        ),
+
+                        Expanded(
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              labelText: 'نوع السعر',
+                              prefixIcon: Icon(Icons.attach_money),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
             SizedBox(
-              height: context.getHeight(40),
+              height: context.getHeight(34),
               child: Padding(
                 padding: EdgeInsets.all(context.getMinSize(4)),
                 child: TextFormField(
-                    onChanged: (value) {
-                      if (value.isEmpty) return;
-                      logWarning('message  $value');
-                      controller.searchCodeOrder(value);
-                    },
-                    // readOnly: true,
-                    controller: search,
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      hintText: 'Search'.tr,
-                      hintStyle: TextStyle(
-                        color: Colors.black,
-                        fontSize: context.getFontSize(12),
-                      ),
-                      suffixIcon: DeviceUtils.isMobile(context)
-                          ? IconButton(
+                  onChanged: (value) {
+                    if (value.isEmpty) return;
+                    logWarning('message  $value');
+                    controller.searchCodeOrder(value);
+                  },
+                  // readOnly: true,
+                  controller: search,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    hintText: 'Search'.tr,
+                    hintStyle: TextStyle(
+                      color: Colors.black,
+                      fontSize: context.getFontSize(12),
+                    ),
+                    suffixIcon:
+                        DeviceUtils.isMobile(context)
+                            ? IconButton(
                               onPressed: () async {
                                 final perm = await Permission.camera.request();
                                 if (await perm.isGranted) {
@@ -86,8 +159,9 @@ void _handleTextChange() {
                                               });
                                             },
                                             continuous: true,
-                                            onBarcodeViewCreated:
-                                                (BarcodeViewController c) {
+                                            onBarcodeViewCreated: (
+                                              BarcodeViewController c,
+                                            ) {
                                               // this.controller = controller;
                                             },
                                           ),
@@ -102,8 +176,9 @@ void _handleTextChange() {
                                 color: Colors.black,
                               ),
                             )
-                          : null,
-                    )),
+                            : null,
+                  ),
+                ),
               ),
             ),
             Expanded(
@@ -112,24 +187,33 @@ void _handleTextChange() {
                 // height: context.getHeight(350),
                 child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: DeviceUtils.isMobile(context) ? 1 : 4,
-                    childAspectRatio: 4,
+                    crossAxisCount: DeviceUtils.isMobile(context) ? 1 : 3,
+                    childAspectRatio: context.getMinSize(1.6),
                     mainAxisSpacing: 4,
                     crossAxisSpacing: 4,
                   ),
                   itemCount: controller.search.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return AllItems(
-                      () async {
-                        if (controller.search.isEmpty) return;
-                        await controller.deleteItem(
-                          controller.search[index].id,
-                          controller.search[index].sale,
-                        );
-                        controller.getDataFromAccount();
-                      },
-                      name: controller.search[index].name,
-                      sale: controller.search[index].sale,
+                    return SizeBuilder(
+                      baseSize: const Size(250, 300),
+                      height: context.getHeight(300),
+                      width: context.getWidth(200),
+                      child: Builder(
+                        builder: (context) {
+                          return AllItems(
+                            () async {
+                              if (controller.search.isEmpty) return;
+                              await controller.deleteItem(
+                                controller.search[index].id,
+                                controller.search[index].sale,
+                              );
+                              controller.getDataFromAccount();
+                            },
+                            name: controller.search[index].name,
+                            sale: controller.search[index].sale,
+                          );
+                        },
+                      ),
                     );
                   },
                 ),
@@ -149,25 +233,25 @@ void _handleTextChange() {
                       fontSize: context.getFontSize(12),
                     ),
                   ),
-                  OutlinedButton(
-                    style: const ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(Colors.white),
-                      foregroundColor: WidgetStatePropertyAll(Colors.black),
-                      shadowColor: WidgetStatePropertyAll(Colors.black),
-                    ),
+
+                  ElevatedButton.icon(
                     onPressed: () {
                       controller.resultSell = 0.0;
                       controller.deleteShared();
                       controller.deleteAllAccount();
                     },
-                    child: Text(
-                      'Delete All',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: context.getFontSize(10),
-                        fontWeight: FontWeight.bold,
-                      ),
+                    icon: const Icon(Icons.delete),
+                    label: Text(Language.delete.tr),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      foregroundColor: Colors.white,
                     ),
+                  ),
+                  const SizedBox(width: 8.0),
+                  ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(Icons.save),
+                    label: Text(Language.save.tr),
                   ),
                 ],
               ),

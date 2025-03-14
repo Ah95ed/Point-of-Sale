@@ -154,6 +154,15 @@ ${LiabilityDataBase.TableLi_user}
               $quantity TEXT )
           
           ''');
+          await db.execute('''
+         CREATE TABLE IF NOT EXISTS
+          UserAccount (
+           $id INTEGER PRIMARY KEY AUTOINCREMENT ,
+            $name TEXT  ,
+             $sale TEXT  ,
+              $quantity TEXT )
+          
+          ''');
         },
       ),
     );
