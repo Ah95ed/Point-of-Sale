@@ -2,15 +2,18 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/Helper/Service/Service.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/AccountOrdersDataBase.dart';
+import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
 import 'package:point_of_sell/View/Widget/AlertDialog.dart';
 import '../Model/Models/DataBaseApp/DataBaseSqflite.dart';
 import '../Model/Models/Items.dart';
 
-class AccountController extends GetxController  {
+class AccountController extends GetxController {
   late DataBaseSqflite dataBaseSqflite;
   late AccountOrdersDataBase account;
+  late CustomersDatabase customersDatabase;
 
   List<Items> search = [];
   int skip = 0;
@@ -24,18 +27,23 @@ class AccountController extends GetxController  {
 
   static const String Result = 'Result';
 
-
-
   @override
-
   void onInit() {
-    
     // controller = TextEditingController();
     dataBaseSqflite = DataBaseSqflite();
     account = AccountOrdersDataBase();
+    customersDatabase = CustomersDatabase();
+    getNameCustomer();
     // WidgetsBinding.instance.addObserver(this);
     super.onInit();
     getShared();
+  }
+
+   List<String> items = [];
+  Future<List<String>> getNameCustomer() async {
+   return items = await customersDatabase.getCustomerNames();
+  
+     // update();
   }
 
   getShared() async {
@@ -72,17 +80,11 @@ class AccountController extends GetxController  {
   }
 
   Widget title = const Text('Account');
-  Icon actionsicon = const Icon(
-    Icons.search,
-    color: Colors.white,
-  );
+  Icon actionsicon = const Icon(Icons.search, color: Colors.white);
   final TextEditingController text = TextEditingController();
   Future<void> changeWidget() async {
     if (actionsicon.icon == Icons.search) {
-      actionsicon = const Icon(
-        Icons.close,
-        color: Colors.white,
-      );
+      actionsicon = const Icon(Icons.close, color: Colors.white);
 
       title = TextFormField(
         controller: text,
@@ -90,9 +92,7 @@ class AccountController extends GetxController  {
         decoration: const InputDecoration(
           labelText: 'search',
           focusedBorder: OutlineInputBorder(),
-          labelStyle: TextStyle(
-            color: Colors.white,
-          ),
+          labelStyle: TextStyle(color: Colors.white),
         ),
         style: const TextStyle(
           fontSize: 10,
@@ -107,40 +107,31 @@ class AccountController extends GetxController  {
       );
       update();
     } else {
-      actionsicon = const Icon(
-        Icons.search,
-        color: Colors.white,
-      );
-      title = const Text(
-        'Account',
-        style: TextStyle(
-          color: Colors.white,
-        ),
-      );
+      actionsicon = const Icon(Icons.search, color: Colors.white);
+      title = const Text('Account', style: TextStyle(color: Colors.white));
       update();
     }
   }
 
   Future<void> searchCodeOrder(String s) async {
-
     i = 0;
-    List<Map<String, dynamic>>? result = 
-    await account.searchBarCodeOrder(s);
-    newResult = result
-        .map(
-          (item) => Items(
-            name: item[DataBaseSqflite.name],
-            code: item[DataBaseSqflite.codeItem],
-            sale: item[DataBaseSqflite.sale],
-            buy: item[DataBaseSqflite.buy],
-            id: item[DataBaseSqflite.id].toString(),
-            quantity: item[DataBaseSqflite.quantity],
-            company: item[DataBaseSqflite.company],
-            date: item[DataBaseSqflite.date],
-            time: item[DataBaseSqflite.time] ,
-          ),
-        )
-        .toList();
+    List<Map<String, dynamic>>? result = await account.searchBarCodeOrder(s);
+    newResult =
+        result
+            .map(
+              (item) => Items(
+                name: item[DataBaseSqflite.name],
+                code: item[DataBaseSqflite.codeItem],
+                sale: item[DataBaseSqflite.sale],
+                buy: item[DataBaseSqflite.buy],
+                id: item[DataBaseSqflite.id].toString(),
+                quantity: item[DataBaseSqflite.quantity],
+                company: item[DataBaseSqflite.company],
+                date: item[DataBaseSqflite.date],
+                time: item[DataBaseSqflite.time],
+              ),
+            )
+            .toList();
     if (newResult!.isEmpty) {
       Get.snackbar(
         "Not Found",
@@ -148,7 +139,6 @@ class AccountController extends GetxController  {
         snackPosition: SnackPosition.TOP,
       );
 
-      
       update();
       return;
     }
@@ -159,13 +149,11 @@ class AccountController extends GetxController  {
   void addSaleAndupdatePrice() {
     count = double.parse(text.text);
     final saleDivider = count * double.parse(newResult![i].sale);
-    account.insertInAccount(
-      {
-        DataBaseSqflite.name: newResult![i].name,
-        DataBaseSqflite.sale: saleDivider.toString(),
-        DataBaseSqflite.quantity: text.text,
-      },
-    );
+    account.insertInAccount({
+      DataBaseSqflite.name: newResult![i].name,
+      DataBaseSqflite.sale: saleDivider.toString(),
+      DataBaseSqflite.quantity: text.text,
+    });
 
     resultSell += saleDivider;
     i++;
@@ -184,19 +172,20 @@ class AccountController extends GetxController  {
 
   Future<void> getDataFromAccount() async {
     var dataList = await account.getAllDataFromAccount();
-    var item = dataList.map((i) {
-      return Items(
-        name: i![DataBaseSqflite.name].toString(),
-        code: i[DataBaseSqflite.codeItem].toString(),
-        sale: i[DataBaseSqflite.sale].toString(),
-        buy: i[DataBaseSqflite.buy].toString(),
-        quantity: i[DataBaseSqflite.quantity].toString(),
-        id: i[DataBaseSqflite.id].toString(),
-        company: i[DataBaseSqflite.company].toString(),
-        date: i[DataBaseSqflite.date].toString(),
-        time: i[DataBaseSqflite.time].toString(),
-      );
-    }).toList();
+    var item =
+        dataList.map((i) {
+          return Items(
+            name: i![DataBaseSqflite.name].toString(),
+            code: i[DataBaseSqflite.codeItem].toString(),
+            sale: i[DataBaseSqflite.sale].toString(),
+            buy: i[DataBaseSqflite.buy].toString(),
+            quantity: i[DataBaseSqflite.quantity].toString(),
+            id: i[DataBaseSqflite.id].toString(),
+            company: i[DataBaseSqflite.company].toString(),
+            date: i[DataBaseSqflite.date].toString(),
+            time: i[DataBaseSqflite.time].toString(),
+          );
+        }).toList();
 
     search.clear();
     search.addAll(item);

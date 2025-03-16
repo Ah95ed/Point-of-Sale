@@ -44,4 +44,11 @@ class CustomersDatabase {
       whereArgs: ['%$q%'],
     );
   }
+  Future<List<String>> getCustomerNames() async {
+    _database = await database;
+    final List<Map<String, dynamic>> maps = await _database!.query(tableCustomer);
+    return List.generate(maps.length, (i) {
+      return maps[i][name];
+    });
+  }
 }

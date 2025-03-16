@@ -6,6 +6,7 @@ import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
+import 'package:point_of_sell/View/Widget/TextField.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeBuilder.dart';
@@ -20,18 +21,20 @@ class AccountOrders extends StatefulWidget {
 
 class _AccountOrdersState extends State<AccountOrders> {
   TextEditingController search = TextEditingController();
-
+  TextEditingController acount = TextEditingController();
   @override
   void dispose() {
     search.dispose();
     super.dispose();
   }
 
+  String selectedValue = "احمد";
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AccountController>(
       init: AccountController(),
       builder: (controller) {
+        controller.getNameCustomer();
         return Column(
           children: [
             Card(
@@ -40,28 +43,39 @@ class _AccountOrdersState extends State<AccountOrders> {
               ),
               elevation: 2,
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(context.getMinSize(8)),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Row(
-                      spacing: context.getHeight(10),
+                      spacing: context.getHeight(1),
                       children: [
                         Expanded(
                           child: TextFormField(
+                            controller: search,
                             decoration: const InputDecoration(
-                              labelText: 'الحساب',
-                              prefixIcon: Icon(Icons.account_balance),
+                              labelText: 'بحث',
+                              prefixIcon: Icon(Icons.search),
                             ),
                           ),
                         ),
 
                         Expanded(
-                          child: TextFormField(
-                            decoration: const InputDecoration(
-                              labelText: 'العميل',
-                              prefixIcon: Icon(Icons.person),
-                            ),
+                          child: DropdownButton<String>(
+                            hint: const Text("اختر خيارًا"),
+                            value: selectedValue,
+                            items:
+                                controller.items.map((String item) {
+                                  return DropdownMenuItem<String>(
+                                    value: item,
+                                    child: Text(item),
+                                  );
+                                }).toList(),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                selectedValue = newValue!;
+                              });
+                            },
                           ),
                         ),
                       ],
