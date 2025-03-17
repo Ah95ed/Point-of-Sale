@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:point_of_sell/Control/AccountController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
@@ -22,19 +23,28 @@ class AccountOrders extends StatefulWidget {
 class _AccountOrdersState extends State<AccountOrders> {
   TextEditingController search = TextEditingController();
   TextEditingController acount = TextEditingController();
+  TextEditingController number = TextEditingController();
+  TextEditingController title = TextEditingController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   void dispose() {
     search.dispose();
+    acount.dispose();
+    number.dispose();
+    title.dispose();
     super.dispose();
   }
 
-  String selectedValue = "احمد";
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AccountController>(
       init: AccountController(),
       builder: (controller) {
-        controller.getNameCustomer();
         return Column(
           children: [
             Card(
@@ -48,33 +58,72 @@ class _AccountOrdersState extends State<AccountOrders> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Row(
-                      spacing: context.getHeight(1),
+                      spacing: context.getHeight(10),
                       children: [
                         Expanded(
                           child: TextFormField(
-                            controller: search,
+                            controller: acount,
                             decoration: const InputDecoration(
-                              labelText: 'بحث',
-                              prefixIcon: Icon(Icons.search),
+                              labelText: 'الحساب',
+                              prefixIcon: Icon(Icons.account_balance),
                             ),
                           ),
                         ),
-
                         Expanded(
-                          child: DropdownButton<String>(
-                            hint: const Text("اختر خيارًا"),
-                            value: selectedValue,
-                            items:
-                                controller.items.map((String item) {
-                                  return DropdownMenuItem<String>(
-                                    value: item,
-                                    child: Text(item),
-                                  );
-                                }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                selectedValue = newValue!;
-                              });
+                          child: TextFormField(
+                            controller: title,
+                            decoration: const InputDecoration(
+                              labelText: 'العنوان',
+                              prefixIcon: Icon(Icons.person),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Autocomplete<Map<String, dynamic>>(
+                            // تحويل الخريطة إلى نص للعرض داخل القائمة
+                            displayStringForOption:
+                                (Map<String, dynamic> option) =>
+                                    option["Name"] ?? "",
+                            optionsBuilder: (
+                              TextEditingValue textEditingValue,
+                            ) {
+                              if (textEditingValue.text.isEmpty) {
+                                return const Iterable<
+                                  Map<String, dynamic>
+                                >.empty();
+                              }
+                              logError("message ${controller.items}");
+                              // فلترة القائمة بناءً على قيمة المفتاح "name"
+                              return controller.items
+                                  .whereType<Map<String, dynamic>>()
+                                  .where((Map<String, dynamic> option) {
+                                    String optionText =
+                                        option["Name"].toString();
+                                    logInfo("message $optionText");
+                                    return optionText.toLowerCase().contains(
+                                      textEditingValue.text.toLowerCase(),
+                                    );
+                                  });
+                            },
+                            fieldViewBuilder: (
+                              BuildContext context,
+                              TextEditingController textEditingController,
+                              FocusNode focusNode,
+                              VoidCallback onFieldSubmitted,
+                            ) {
+                              return TextField(
+                                controller: textEditingController,
+                                focusNode: focusNode,
+                                decoration: const InputDecoration(
+                                  hintText:
+                                      'أدخل الاسم هنا', // التلميح داخل حقل النص
+                                ),
+                              );
+                            },
+                            onSelected: (Map<String, dynamic> selection) {
+                              number.text = selection["Phone"].toString();
+                              title.text = selection["Address"].toString();
+                              setState(() {});
                             },
                           ),
                         ),
@@ -92,7 +141,15 @@ class _AccountOrdersState extends State<AccountOrders> {
                             ),
                           ),
                         ),
-
+                        Expanded(
+                          child: TextFormField(
+                            controller: number,
+                            decoration: const InputDecoration(
+                              labelText: 'الهاتف',
+                              prefixIcon: Icon(Icons.phone),
+                            ),
+                          ),
+                        ),
                         Expanded(
                           child: TextFormField(
                             decoration: const InputDecoration(
@@ -197,7 +254,7 @@ class _AccountOrdersState extends State<AccountOrders> {
             ),
             Expanded(
               child: Container(
-                color: ColorUsed.whitesoft,
+                color: Colors.white38,
                 // height: context.getHeight(350),
                 child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -267,6 +324,20 @@ class _AccountOrdersState extends State<AccountOrders> {
                     icon: const Icon(Icons.save),
                     label: Text(Language.save.tr),
                   ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      //print
+                    },
+                    icon: const Icon(Icons.print,color: Colors.black54,),
+                    label: const Text(
+                      'طباعة',
+                      style: TextStyle(color: Colors.black54),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(width: 8.0),
                 ],
               ),
             ),

@@ -4,6 +4,7 @@ import 'package:point_of_sell/Control/HomeController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
+import 'package:point_of_sell/View/Pages/SaleScreen/PoinOfSaleBody.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/AccountOrders.dart';
 import 'package:point_of_sell/View/Pages/UpdateData/UpdateData.dart';
 import 'package:point_of_sell/View/Pages/UpdatePrice/UpdatePrice.dart';
@@ -39,13 +40,17 @@ static late bool isDisposed ;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         backgroundColor: ColorUsed.whitesoft,
         appBar: AppBar(
           centerTitle: true,
           title: TabBar(
             tabs: [
+               Tab(
+                icon: const Icon(Icons.home),
+                text: Language.sales.tr,
+              ),
               Tab(
                 icon: const Icon(Icons.home),
                 text: Language.showAllItem.tr,
@@ -63,6 +68,7 @@ static late bool isDisposed ;
         ),
         body: TabBarView(
           children: [
+            PointOfSaleBody(),
             const ShowAllItem(),
             const AccountOrders(),
             UpdatePrice(),

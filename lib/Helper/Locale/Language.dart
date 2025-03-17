@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 class Language implements Translations {
   static const error = 'error';
+  static const name = 'name';
   static const saleList = 'saleList';
   static const fillAllFields = "Please fill all fields";
   static const saleItem = 'saleItem';
@@ -34,6 +35,7 @@ class Language implements Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         "ar": {
+          name: 'الأسم',
           save: 'حفظ',
           createListsale : "انشاء قائمة البيع",
           showlistsale : "عرض قائمة البيع",
@@ -102,6 +104,7 @@ class Language implements Translations {
           'SalesInterface': 'واجهة المبيعات',
         },
         "en": {
+          name: 'Name',
           save: 'Save',
           createListsale : "Create List Sale",
           showlistsale : "Show List Sale",

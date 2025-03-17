@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
+import 'package:point_of_sell/View/Widget/TextField.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 import 'package:point_of_sell/View/Widget/PointSalewidget/pointSaletableBody.dart';
 import 'package:point_of_sell/View/Widget/PointSalewidget/textFieldDropdown.dart';
@@ -9,67 +10,49 @@ import 'package:point_of_sell/View/Widget/ShareWidget/TextCustom.dart';
 
 class PointOfSaleBody extends StatelessWidget {
   PointOfSaleBody({super.key});
-  double hi = 0;
 
   @override
   Widget build(BuildContext context) {
-    hi = MediaQuery.of(context).size.height;
-    return SingleChildScrollView(
-      child: Column(
+    return Scaffold(
+      body: Column(
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        // mainAxisAlignment: MainAxisAlignment.start,
+        verticalDirection : VerticalDirection.down,
+        spacing: context.getHeight(22),
         children: [
           SizedBox(
-            height: hi / 10,
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: TextFieldDropdown(),
-                ),
-                Expanded(
-                  child: TextFieldDropdown(),
-                ),
-                Expanded(
-                  child: TextFieldDropdown(),
-                ),
-              ],
+            child: TextFieldCustom(
+              name: 'Search',
+              icons: Icons.search,
+              text: TextEditingController(),
+              input: TextInputType.text,
             ),
           ),
 
           Container(
-            width: Get.width,
-            height: hi * 0.6,
+            width: context.width,
+            height: context.height / 2,
             color: ColorUsed.whitesoft,
             child: const PointSaleTableBody(),
           ),
           Container(
-            height: hi * 0.24,
+            width: context.width,
+            height: context.getHeight(80),
             color: ColorUsed.lightBlue,
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: context.getHeight(8)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextCustom(
-                    text: 'total 100',
-                  ),
-                  SizedBox(
-                    width: context.getWidth(1),
-                  ),
-                  CustomMaterialButton(
-                    title: 'print',
-                    onPressed: () {},
-                  ),
-                  SizedBox(
-                    width: context.getWidth(1),
-                  ),
-                  CustomMaterialButton(
-                    title: 'New Menu',
-                    onPressed: () {},
-                  ),
+                  TextCustom(text: 'total 100'),
+                  SizedBox(width: context.getWidth(1)),
+                  CustomMaterialButton(title: 'print', onPressed: () {}),
+                  SizedBox(width: context.getWidth(1)),
+                  CustomMaterialButton(title: 'New Menu', onPressed: () {}),
                 ],
               ),
             ),
-          )
+          ),
           //! here complete List viwe
         ],
       ),

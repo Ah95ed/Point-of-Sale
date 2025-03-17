@@ -6,6 +6,7 @@ import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Pages/AddItems/AddItems.dart';
 import 'package:point_of_sell/View/Pages/CustomerManagement/CustomerManagement.dart';
 import 'package:point_of_sell/View/Pages/ExportAndImport/ExportAndImport.dart';
+import 'package:point_of_sell/View/Pages/SaleScreen/SaleScreen.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/SalesInterface.dart';
 import 'package:point_of_sell/View/Pages/SaleList/SaleList_Screen.dart';
 import 'package:point_of_sell/View/Pages/home_screen.dart';
@@ -66,11 +67,11 @@ class WelcomeScreen extends StatelessWidget {
               //   body: UpdatePrice(),
               //   title: const Text("UpdatePrice"),
               // ),
-              // PaneItem(
-              //   icon: const Icon(Icons.add_sharp),
-              //   body: AddAccount(),
-              //   title:  Text("AddAccount".tr),
-              // ),
+              PaneItem(
+                icon: const Icon(Icons.add_sharp),
+                body: const SaleScreen(),
+                title: Text("SaleScreen".tr),
+              ),
             ],
             onChanged: (value) {
               controller.selected(value);

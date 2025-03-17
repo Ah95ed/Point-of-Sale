@@ -39,11 +39,10 @@ class AccountController extends GetxController {
     getShared();
   }
 
-   List<String> items = [];
-  Future<List<String>> getNameCustomer() async {
-   return items = await customersDatabase.getCustomerNames();
-  
-     // update();
+  List<Map<String, dynamic>?> items = [];
+  void getNameCustomer() async {
+    items = await customersDatabase.getAllCustomrers();
+    
   }
 
   getShared() async {
@@ -120,7 +119,7 @@ class AccountController extends GetxController {
         result
             .map(
               (item) => Items(
-                name: item[DataBaseSqflite.name],
+                name: item![DataBaseSqflite.name],
                 code: item[DataBaseSqflite.codeItem],
                 sale: item[DataBaseSqflite.sale],
                 buy: item[DataBaseSqflite.buy],
@@ -128,7 +127,7 @@ class AccountController extends GetxController {
                 quantity: item[DataBaseSqflite.quantity],
                 company: item[DataBaseSqflite.company],
                 date: item[DataBaseSqflite.date],
-                time: item[DataBaseSqflite.time],
+                time: item[DataBaseSqflite.time]?? '00:00',
               ),
             )
             .toList();
@@ -157,7 +156,6 @@ class AccountController extends GetxController {
 
     resultSell += saleDivider;
     i++;
-    // controller.clear();
 
     search.addAll(newResult!);
     newResult!.clear();
