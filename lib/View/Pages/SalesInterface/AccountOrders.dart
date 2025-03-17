@@ -226,7 +226,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                                                 context.screenHeight / 1.2,
                                             onScanned: (code) {
                                               setState(() {
-                                                // result = code;
+                                                search.text = code;
                                               });
                                             },
                                             continuous: true,
