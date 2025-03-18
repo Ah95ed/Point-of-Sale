@@ -43,7 +43,7 @@ class _AccountOrdersState extends State<AccountOrders> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AccountController>(
-      init: AccountController(),
+    
       builder: (controller) {
         return Column(
           children: [

@@ -65,7 +65,7 @@ class SaleListBody extends StatelessWidget {
                       TableNameColumn(name: 'delete'),
                     ],
                   ),
-                  ...ListViewGenerateInTable(['data', 'SaleList'])
+                  // ...ListViewGenerateInTable(['data', 'SaleList'])
                 ],
               ),
             ),

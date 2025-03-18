@@ -119,7 +119,7 @@ class AccountController extends GetxController {
         result
             .map(
               (item) => Items(
-                name: item![DataBaseSqflite.name],
+                name: item[DataBaseSqflite.name],
                 code: item[DataBaseSqflite.codeItem],
                 sale: item[DataBaseSqflite.sale],
                 buy: item[DataBaseSqflite.buy],

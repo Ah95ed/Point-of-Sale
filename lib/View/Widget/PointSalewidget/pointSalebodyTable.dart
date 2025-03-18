@@ -17,7 +17,7 @@ class PointofSaleTable extends StatelessWidget {
       color: ColorUsed.whitesoft,
       height: hi / 1.5,
       width: MediaQuery.sizeOf(context).width,
-      child: const PointSaleTableBody(),
+      // child: const PointSaleTableBody(),
     
     );
   }
