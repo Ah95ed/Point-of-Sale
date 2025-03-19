@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 
 class InvoicePage extends StatelessWidget {

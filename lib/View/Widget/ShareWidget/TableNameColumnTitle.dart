@@ -16,10 +16,10 @@ class TableNameColumn extends StatelessWidget {
       child: Center(
         child: Text(
           name,
-          textAlign: TextAlign.center,
+          textAlign: TextAlign.end,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 22.0,
+            fontSize: 20.0,
           ),
         ),
       ),

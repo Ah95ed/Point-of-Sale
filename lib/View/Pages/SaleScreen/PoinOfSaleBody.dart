@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:point_of_sell/Control/AccountController.dart';
-import 'package:point_of_sell/Helper/Log/LogApp.dart';
+import 'package:point_of_sell/Control/PointSale/PointSaleController.dart';
+import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/TableNameColumnTitle.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/list_generate.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
-import 'package:point_of_sell/View/Widget/PointSalewidget/pointSaletableBody.dart';
-import 'package:point_of_sell/View/Widget/ShareWidget/CustomMaterialButton.dart';
-import 'package:point_of_sell/View/Widget/ShareWidget/TextCustom.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeBuilder.dart';
 
 class PointOfSaleBody extends StatefulWidget {
@@ -20,6 +17,14 @@ class PointOfSaleBody extends StatefulWidget {
 
 class _PointOfSaleBodyState extends State<PointOfSaleBody> {
   TextEditingController text = TextEditingController();
+  final s = Get.put(PointSaleController());
+  @override
+  void initState() {
+    s.getDataFromAccount();
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -28,8 +33,8 @@ class _PointOfSaleBodyState extends State<PointOfSaleBody> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AccountController>(
-      init: AccountController(),
+    return GetBuilder<PointSaleController>(
+      init: PointSaleController(),
       builder: (controller) {
         return Scaffold(
           body: Column(
@@ -66,7 +71,6 @@ class _PointOfSaleBodyState extends State<PointOfSaleBody> {
 
                 child: Builder(
                   builder: (context) {
-                    
                     return Container(
                       width: context.getWidth(500),
                       height: context.getHeight(200),
@@ -75,7 +79,6 @@ class _PointOfSaleBodyState extends State<PointOfSaleBody> {
                         color: Colors.white,
                         height: context.screenHeight * 0.6,
                         child: Table(
-                          
                           border: TableBorder.all(
                             color: Colors.black,
                             width: 1.0,
@@ -115,31 +118,78 @@ class _PointOfSaleBodyState extends State<PointOfSaleBody> {
                   },
                 ),
               ),
-              SizeBuilder(
-                baseSize: const Size(450, 720),
-                height: context.screenHeight ,
-                width: context.screenWidth,
-                child: Builder(
-                  builder: (context) {
-                    return Container(
-                           
-                     
-                      color: ColorUsed.lightBlue,
-                      child: Row(
-                        spacing: 4,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextCustom(text: 'total 100'),
-                          SizedBox(width: context.getWidth(1)),
-                          CustomMaterialButton(title: 'print', onPressed: () {}),
-                          SizedBox(width: context.getWidth(1)),
-                          CustomMaterialButton(title: 'New Menu', onPressed: () {}),
-                        ],
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      'Result : ${controller.resultSell} ',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: context.getFontSize(12),
                       ),
-                    );
-                  }
+                    ),
+
+                    ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(Icons.delete),
+                      label: Text(Language.delete.tr),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(width: 8.0),
+                    ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(Icons.save),
+                      label: Text(Language.save.tr),
+                    ),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        //print
+                      },
+                      icon: const Icon(Icons.print, color: Colors.black54),
+                      label: const Text(
+                        'طباعة',
+                        style: TextStyle(color: Colors.black54),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(width: 8.0),
+                  ],
                 ),
               ),
+
+              // Expanded(
+              //   child: Row(
+              //     spacing: 4,
+              //     mainAxisAlignment: MainAxisAlignment.center,
+
+              //     children: [
+              //       // TextCustom(text: controller.resultSell.toString()),
+              //       SizedBox(width: context.getWidth(1)),
+
+              //     ElevatedButton.icon(
+              //       onPressed: () {
+
+              //       },
+              //       icon: const Icon(Icons.delete),
+              //       label: Text(Language.delete.tr),
+              //       style: ElevatedButton.styleFrom(
+              //         backgroundColor: Colors.red,
+              //         foregroundColor: Colors.white,
+              //       ),
+              //     ),
+              //       SizedBox(width: context.getWidth(1)),
+              //       CustomMaterialButton(title: 'New Menu', onPressed: () {}),
+              //     ],
+              //   ),
+              // ),
+
               //! here complete List viwe
             ],
           ),

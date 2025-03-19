@@ -5,7 +5,6 @@ import 'package:point_of_sell/View/Widget/ShareWidget/CustomMaterialButton.dart'
 import 'package:point_of_sell/View/Widget/ShareWidget/TableNameColumnTitle.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/TextCustom.dart';
 import 'package:point_of_sell/View/Widget/PointSalewidget/textFieldDropdown.dart';
-import 'package:point_of_sell/View/Widget/ShareWidget/list_generate.dart';
 
 class SaleListBody extends StatelessWidget {
   SaleListBody({super.key});

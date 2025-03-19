@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/Helper/Service/Service.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/AccountOrdersDataBase.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
@@ -22,7 +21,7 @@ class AccountController extends GetxController {
   List<Items>? newResult = [];
   double resultSell = 0.0;
   double count = 0.0;
-  late int i;
+   int i = 0;
   // late TextEditingController controller;
 
   static const String Result = 'Result';

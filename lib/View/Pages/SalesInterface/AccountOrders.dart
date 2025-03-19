@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:point_of_sell/Control/AccountController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
-import 'package:point_of_sell/View/Widget/TextField.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeBuilder.dart';
@@ -43,7 +41,7 @@ class _AccountOrdersState extends State<AccountOrders> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AccountController>(
-    
+      init: AccountController(),
       builder: (controller) {
         return Column(
           children: [
@@ -328,7 +326,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                     onPressed: () {
                       //print
                     },
-                    icon: const Icon(Icons.print,color: Colors.black54,),
+                    icon: const Icon(Icons.print, color: Colors.black54),
                     label: const Text(
                       'طباعة',
                       style: TextStyle(color: Colors.black54),
