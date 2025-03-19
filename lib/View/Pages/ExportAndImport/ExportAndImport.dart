@@ -9,8 +9,6 @@ class ExportAndImport extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final controller = Get.put( ExportAndImportController());
-    logInfo('message ExportAndImport');
     return GetBuilder<ExportAndImportController>(
         init: ExportAndImportController(),
         builder: (controller) {

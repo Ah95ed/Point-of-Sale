@@ -56,22 +56,9 @@ class WelcomeScreen extends StatelessWidget {
                 body: ExportAndImport(),
                 enabled: true,
               ),
-              PaneItem(
-                title: Text(Language.saleList.tr),
-                icon: const Icon(Icons.shop),
-                body: const InvoicePage(),
-              ),
+           
 
-              // PaneItem(
-              //   icon: const Icon(Icons.update_sharp),
-              //   body: UpdatePrice(),
-              //   title: const Text("UpdatePrice"),
-              // ),
-              PaneItem(
-                icon: const Icon(Icons.add_sharp),
-                body: const SaleScreen(),
-                title: Text("SaleScreen".tr),
-              ),
+             
             ],
             onChanged: (value) {
               controller.selected(value);

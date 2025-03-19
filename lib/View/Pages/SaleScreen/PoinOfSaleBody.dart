@@ -20,7 +20,6 @@ class _PointOfSaleBodyState extends State<PointOfSaleBody> {
   final s = Get.put(PointSaleController());
   @override
   void initState() {
-    s.getDataFromAccount();
     // TODO: implement initState
     super.initState();
   }
@@ -63,61 +62,44 @@ class _PointOfSaleBodyState extends State<PointOfSaleBody> {
                   ),
                 ),
               ),
-
-              SizeBuilder(
-                baseSize: const Size(450, 720),
-                height: context.screenWidth * 2.5,
+              Container(
                 width: context.screenHeight,
-
-                child: Builder(
-                  builder: (context) {
-                    return Container(
-                      width: context.getWidth(500),
-                      height: context.getHeight(200),
-                      color: ColorUsed.whitesoft,
-                      child: Container(
-                        color: Colors.white,
-                        height: context.screenHeight * 0.6,
-                        child: Table(
-                          border: TableBorder.all(
-                            color: Colors.black,
-                            width: 1.0,
-                          ),
-                          columnWidths: {
-                            0: FixedColumnWidth(
-                              context.screenWidth * 0.02,
-                            ), // Width of the first column
-                            1: FixedColumnWidth(
-                              context.screenWidth * 0.3,
-                            ), // Width of the second column
-                            2: FixedColumnWidth(context.screenWidth * 0.1),
-                            3: FixedColumnWidth(context.screenWidth * 0.1),
-                            4: FixedColumnWidth(context.screenWidth * 0.06),
-                            5: FixedColumnWidth(context.screenWidth * 0.1),
-                            6: FixedColumnWidth(
-                              context.screenWidth * 0.06,
-                            ), // Width of the third column
-                          },
-                          children: [
-                            TableRow(
-                              children: [
-                                TableNameColumn(name: 't'),
-                                TableNameColumn(name: 'name'),
-                                TableNameColumn(name: 'BarCode'),
-                                TableNameColumn(name: 'singleprice'),
-                                TableNameColumn(name: 'count'),
-                                TableNameColumn(name: 'allprice'),
-                                TableNameColumn(name: 'delete'),
-                              ],
-                            ),
-                            ...ListViewGenerateInTable(controller.search),
-                          ],
-                        ),
-                      ),
-                    );
+                height: context.screenWidth /1.5,
+                color: ColorUsed.whitesoft,
+                child: Table(
+                  border: TableBorder.all(color: Colors.black, width: 1.0),
+                  columnWidths: {
+                    0: FixedColumnWidth(
+                      context.screenWidth * 0.02,
+                    ), // Width of the first column
+                    1: FixedColumnWidth(
+                      context.screenWidth * 0.3,
+                    ), // Width of the second column
+                    2: FixedColumnWidth(context.screenWidth * 0.1),
+                    3: FixedColumnWidth(context.screenWidth * 0.1),
+                    4: FixedColumnWidth(context.screenWidth * 0.06),
+                    5: FixedColumnWidth(context.screenWidth * 0.1),
+                    6: FixedColumnWidth(
+                      context.screenWidth * 0.06,
+                    ), // Width of the third column
                   },
+                  children: [
+                    TableRow(
+                      children: [
+                        TableNameColumn(name: 't'),
+                        TableNameColumn(name: 'name'),
+                        TableNameColumn(name: 'BarCode'),
+                        TableNameColumn(name: 'singleprice'),
+                        TableNameColumn(name: 'count'),
+                        TableNameColumn(name: 'allprice'),
+                        TableNameColumn(name: 'delete'),
+                      ],
+                    ),
+                    ...ListViewGenerateInTable(controller.search),
+                  ],
                 ),
               ),
+
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,

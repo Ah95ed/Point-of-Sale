@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:csv/csv.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/Helper/Native/NativeComnucation.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/DataBaseSqflite.dart';
+import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 
 class ExportAndImportModel {
   late DataBaseSqflite _database;
@@ -17,14 +19,9 @@ class ExportAndImportModel {
   }
 
   Future<void> exportData(BuildContext context) async {
-    // await Permission.accessMediaLocation.request();
-    // final storage = await Permission.storage.request();
-
-    // var status = await Permission.manageExternalStorage.request();
-    List t = [];
+        List t = [];
     final data = await _database.getAllData();
-
-    await data.map((row) {
+       await data.map((row) {
       t.add(row![DataBaseSqflite.name]);
       t.add(row[DataBaseSqflite.codeItem]);
       t.add(row[DataBaseSqflite.buy]);
@@ -35,10 +32,31 @@ class ExportAndImportModel {
       t.add(row[DataBaseSqflite.id]);
       t.toList();
     }).toList();
-    // ls.add(t);
-    logError(" == s ${data.length}");
+    ls.add(t);
+      logError(" == s ${ls}");
+    if (DeviceUtils.isDesktop(context)) {
+      // await Permission.storage.request();
+      // await Permission.manageExternalStorage.request();
+      // final p = await Permission.accessMediaLocation.request();
+      // await Permission.accessMediaLocation.request();
+ String? csvString = const ListToCsvConverter().convert(ls);
+        String? outputFile = await FilePicker.platform.saveFile(
+        dialogTitle: 'اختر مكان حفظ الملف',
+        fileName: 'data.csv',
+        type: FileType.custom,
+        allowedExtensions: ['csv'],
+      );
+        final File file = File(outputFile!);
+      await file.writeAsString(csvString);
 
-    await NativeComnucation().runJavaCode({"list" : t});
+   
+
+    }
+  
+
+  
+
+    // await NativeComnucation().runJavaCode({"list": t});
 
     // logSuccess("message ==== ${result}");
     //
