@@ -111,6 +111,12 @@ class AccountController extends GetxController {
     }
   }
 
+
+Future<void> insertCustomer(Map<String, dynamic> data) async {
+    await customersDatabase.insertCustomers(data);
+    getNameCustomer();
+    update();
+  }
   Future<void> searchCodeOrder(String s) async {
     i = 0;
     List<Map<String, dynamic>>? result = await account.searchBarCodeOrder(s);

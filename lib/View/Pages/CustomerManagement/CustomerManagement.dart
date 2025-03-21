@@ -15,20 +15,25 @@ class CustomerManagement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 1,
       child: Scaffold(
         appBar: AppBar(
           title: TabBar(
             tabs: [
-              Tab(
-                text: Language.addCustomers.tr,
-                icon: const Icon(Icons.person_add),
-              ),
+              // Tab(
+              //   text: Language.addCustomers.tr,
+              //   icon: const Icon(Icons.person_add),
+              // ),
               Tab(text: "Customer".tr, icon: const Icon(Icons.person)),
             ],
           ),
         ),
-        body: TabBarView(children: [const AddCustomer(), CustomersView()]),
+        body: TabBarView(
+          children: [
+            // const AddCustomer(),
+            CustomersView(),
+          ],
+        ),
       ),
     );
   }
@@ -42,11 +47,10 @@ class CustomersView extends StatefulWidget {
 }
 
 class _CustomersViewState extends State<CustomersView> {
-  late TextEditingController _search;
+  TextEditingController _search = TextEditingController();
 
   @override
   void initState() {
-    _search = TextEditingController();
     final c = Get.find<Customercontroller>();
     c.getCustomer();
     super.initState();

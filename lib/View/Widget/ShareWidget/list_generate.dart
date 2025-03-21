@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:point_of_sell/Control/CustomerController/CustomerController.dart';
+import 'package:point_of_sell/Control/PointSale/PointSaleController.dart';
 import 'package:point_of_sell/Model/Models/Items.dart';
 
 List<TableRow> ListViewGenerateInTable(List<Items> data) {
@@ -31,8 +34,12 @@ List<TableRow> ListViewGenerateInTable(List<Items> data) {
         )),
         Center(
           child: IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.recycling),
+            onPressed: () {
+           
+            final c = Get.find<PointSaleController>();
+           c.deletefromId( data[i].id);
+            },
+            icon: const Icon(Icons.delete),
           ),
         ),
       ],

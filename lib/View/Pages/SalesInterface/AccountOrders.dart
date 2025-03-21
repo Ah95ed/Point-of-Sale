@@ -4,6 +4,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:point_of_sell/Control/AccountController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
+import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
@@ -19,10 +20,15 @@ class AccountOrders extends StatefulWidget {
 }
 
 class _AccountOrdersState extends State<AccountOrders> {
-  TextEditingController search = TextEditingController();
-  TextEditingController acount = TextEditingController();
-  TextEditingController number = TextEditingController();
+  TextEditingController name = TextEditingController();
   TextEditingController title = TextEditingController();
+  TextEditingController accont = TextEditingController();
+  TextEditingController numberList = TextEditingController();
+  TextEditingController phone = TextEditingController();
+  TextEditingController date = TextEditingController();
+  TextEditingController typePrice = TextEditingController();
+  TextEditingController storage = TextEditingController();
+  TextEditingController search = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
@@ -31,10 +37,15 @@ class _AccountOrdersState extends State<AccountOrders> {
 
   @override
   void dispose() {
-    search.dispose();
-    acount.dispose();
-    number.dispose();
+    name.dispose();
+    accont.dispose();
+    numberList.dispose();
     title.dispose();
+    phone.dispose();
+    date.dispose();
+    typePrice.dispose();
+    storage.dispose();
+    search.dispose();
     super.dispose();
   }
 
@@ -60,7 +71,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                       children: [
                         Expanded(
                           child: TextFormField(
-                            controller: acount,
+                            controller: accont,
                             decoration: const InputDecoration(
                               labelText: 'الحساب',
                               prefixIcon: Icon(Icons.account_balance),
@@ -90,7 +101,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                                   Map<String, dynamic>
                                 >.empty();
                               }
-                              logError("message ${controller.items}");
+                              // logError("message ${controller.items}");
                               // فلترة القائمة بناءً على قيمة المفتاح "name"
                               return controller.items
                                   .whereType<Map<String, dynamic>>()
@@ -109,8 +120,9 @@ class _AccountOrdersState extends State<AccountOrders> {
                               FocusNode focusNode,
                               VoidCallback onFieldSubmitted,
                             ) {
+                              this.name = textEditingController;
                               return TextField(
-                                controller: textEditingController,
+                                controller: name,
                                 focusNode: focusNode,
                                 decoration: const InputDecoration(
                                   hintText:
@@ -119,10 +131,11 @@ class _AccountOrdersState extends State<AccountOrders> {
                               );
                             },
                             onSelected: (Map<String, dynamic> selection) {
-                              number.text = selection["Phone"].toString();
+                              phone.text = selection["Phone"].toString();
                               title.text = selection["Address"].toString();
-                              setState(() {});
+                              controller.update();
                             },
+                            
                           ),
                         ),
                       ],
@@ -133,6 +146,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                       children: [
                         Expanded(
                           child: TextFormField(
+                            controller: date,
                             decoration: const InputDecoration(
                               labelText: 'التاريخ',
                               prefixIcon: Icon(Icons.date_range),
@@ -141,7 +155,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                         ),
                         Expanded(
                           child: TextFormField(
-                            controller: number,
+                            controller: phone,
                             decoration: const InputDecoration(
                               labelText: 'الهاتف',
                               prefixIcon: Icon(Icons.phone),
@@ -150,6 +164,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                         ),
                         Expanded(
                           child: TextFormField(
+                            controller: numberList,
                             decoration: const InputDecoration(
                               labelText: 'رقم الفاتورة',
                               prefixIcon: Icon(Icons.receipt_long),
@@ -164,6 +179,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                       children: [
                         Expanded(
                           child: TextFormField(
+                            controller: storage,
                             decoration: const InputDecoration(
                               labelText: 'المستودع',
                               prefixIcon: Icon(Icons.warehouse),
@@ -173,6 +189,7 @@ class _AccountOrdersState extends State<AccountOrders> {
 
                         Expanded(
                           child: TextFormField(
+                            controller: typePrice,
                             decoration: const InputDecoration(
                               labelText: 'نوع السعر',
                               prefixIcon: Icon(Icons.attach_money),
@@ -318,7 +335,53 @@ class _AccountOrdersState extends State<AccountOrders> {
                   ),
                   const SizedBox(width: 8.0),
                   ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () async {
+                      if (name.text.isEmpty) {
+                        Get.snackbar(
+                          'تحذير',
+                          '  اكتب الاسم',
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                        return;
+                      }
+                      
+
+  
+
+                      for ( var i in controller.items) {
+                        if(i != name.text){
+                          showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text('تنبيه!!'),
+                              content: const Text('هل تريد اضافة العميل'),
+                              actions: [
+                                TextButton(
+                                  child: const Text('موافق'),
+                                  onPressed: () async {
+                                    await controller.insertCustomer({
+                                      CustomersDatabase.name: name.text,
+                                      CustomersDatabase.phone: phone.text,
+                                      CustomersDatabase.address: title.text,
+                                    });
+                                    
+                                    Get.back();
+                                  },
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Get.back();
+                                  },
+                                  child: const Text('لا'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                        }
+                      }
+                    },
                     icon: const Icon(Icons.save),
                     label: Text(Language.save.tr),
                   ),

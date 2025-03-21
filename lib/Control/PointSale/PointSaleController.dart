@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:point_of_sell/Helper/Service/Service.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/AccountOrdersDataBase.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/DataBaseSqflite.dart';
 import 'package:point_of_sell/Model/Models/Items.dart';
@@ -15,15 +16,43 @@ class PointSaleController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-  
+    sharep!.getString('AllResult');
     account = AccountOrdersDataBase();
-      getDataFromAccount();
+    getDataFromAccount();
+  }
+
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    sharep!.setString('AllResult', resultSell.toString());
+    super.onClose();
+  }
+
+  @override
+  void onReady() {
+    sharep!.getString('AllResult');
+    // TODO: implement onReady
+    super.onReady();
   }
 
   @override
   void dispose() {
     text.dispose();
+    sharep!.setString('AllResult', resultSell.toString());
     super.dispose();
+  }
+
+  void deletefromId(String id) async {
+    await account.delete(id);
+    search.clear();
+    await getDataFromAccount();
+    update();
+  }
+
+  void deleteAccount() async {
+    await account.deleteAccount();
+    search.clear();
+    update();
   }
 
   Future<void> searchCodeOrder(String s) async {
@@ -70,13 +99,23 @@ class PointSaleController extends GetxController {
             children: [
               IconButton(
                 onPressed: () {
+                  text.clear();
                   Get.back();
                 },
                 icon: const Icon(Icons.close),
               ),
               IconButton(
                 onPressed: () {
+                  if (text.text.isEmpty) {
+                    Get.snackbar(
+                      "تحذير",
+                      '  اكتب الكمية',
+                      snackPosition: SnackPosition.TOP,
+                    );
+                    return;
+                  }
                   addSaleAndupdatePrice();
+                  text.clear();
                   Get.back();
                 },
                 icon: const Icon(Icons.done),

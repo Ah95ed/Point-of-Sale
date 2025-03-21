@@ -6,7 +6,6 @@ import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/TableNameColumnTitle.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/list_generate.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
-import 'package:point_of_sell/View/style/SizeApp/SizeBuilder.dart';
 
 class PointOfSaleBody extends StatefulWidget {
   PointOfSaleBody({super.key});
@@ -46,6 +45,8 @@ class _PointOfSaleBodyState extends State<PointOfSaleBody> {
                   controller: text,
                   onChanged: (value) {
                     controller.searchCodeOrder(value);
+                    value = '';
+                    text.clear();
                   },
 
                   decoration: InputDecoration(
@@ -70,7 +71,7 @@ class _PointOfSaleBodyState extends State<PointOfSaleBody> {
                   border: TableBorder.all(color: Colors.black, width: 1.0),
                   columnWidths: {
                     0: FixedColumnWidth(
-                      context.screenWidth * 0.02,
+                      context.getWidth(.1),
                     ), // Width of the first column
                     1: FixedColumnWidth(
                       context.screenWidth * 0.3,
@@ -146,33 +147,6 @@ class _PointOfSaleBodyState extends State<PointOfSaleBody> {
                 ),
               ),
 
-              // Expanded(
-              //   child: Row(
-              //     spacing: 4,
-              //     mainAxisAlignment: MainAxisAlignment.center,
-
-              //     children: [
-              //       // TextCustom(text: controller.resultSell.toString()),
-              //       SizedBox(width: context.getWidth(1)),
-
-              //     ElevatedButton.icon(
-              //       onPressed: () {
-
-              //       },
-              //       icon: const Icon(Icons.delete),
-              //       label: Text(Language.delete.tr),
-              //       style: ElevatedButton.styleFrom(
-              //         backgroundColor: Colors.red,
-              //         foregroundColor: Colors.white,
-              //       ),
-              //     ),
-              //       SizedBox(width: context.getWidth(1)),
-              //       CustomMaterialButton(title: 'New Menu', onPressed: () {}),
-              //     ],
-              //   ),
-              // ),
-
-              //! here complete List viwe
             ],
           ),
         );

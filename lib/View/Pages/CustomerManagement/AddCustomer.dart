@@ -16,15 +16,13 @@ class AddCustomer extends StatefulWidget {
 }
 
 class _AddCustomerState extends State<AddCustomer> {
-  late TextEditingController _name;
-  late TextEditingController _phone;
-  late TextEditingController _location;
+   TextEditingController _name = TextEditingController();
+   TextEditingController _phone = TextEditingController();
+   TextEditingController _location  = TextEditingController();
   Customercontroller c = Get.put(Customercontroller());
   @override
   void initState() {
-    _name = TextEditingController();
-    _phone = TextEditingController();
-    _location = TextEditingController();
+ 
     super.initState();
   }
 
