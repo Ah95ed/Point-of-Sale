@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:point_of_sell/Control/CustomerController/CustomerController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
-import 'package:point_of_sell/View/Pages/CustomerManagement/AddCustomer.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeBuilder.dart';
@@ -66,14 +65,14 @@ class _CustomersViewState extends State<CustomersView> {
   Widget build(BuildContext context) {
     return GetBuilder<Customercontroller>(
       init: Customercontroller(),
-      builder: (c) {
+      builder: (cb) {
         return Padding(
           padding: EdgeInsets.all(context.getMinSize(5)),
           child: Column(
             children: [
               TextFormField(
                 onChanged: (value) {
-                  c.searchCustomer(value);
+                  cb.searchCustomer(value);
                 },
                 controller: _search,
                 keyboardType: TextInputType.text,
@@ -100,7 +99,7 @@ class _CustomersViewState extends State<CustomersView> {
                     childAspectRatio: 2.4,
                     mainAxisSpacing: 2,
                   ),
-                  itemCount: c.customers!.length,
+                  itemCount: cb.customers.length,
                   itemBuilder: (context, index) {
                     return SizeBuilder(
                       width: context.scaleWidth,
@@ -117,15 +116,38 @@ class _CustomersViewState extends State<CustomersView> {
                                 Radius.circular(10),
                               ),
                             ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
+
                               children: [
-                                Text(c.customers![index].name!),
-                                const Divider(),
-                                Text(c.customers![index].phone!),
-                                const Divider(),
-                                Text(c.customers![index].address!),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 4,
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    spacing: context.getHeight(1),
+                                    mainAxisAlignment: MainAxisAlignment.center,
+
+                                    children: [
+                                      Text(cb.customers[index].name!),
+                                      const Divider(),
+                                      Text(cb.customers[index].phone!),
+                                      const Divider(),
+                                      Text(cb.customers[index].address!),
+                                    ],
+                                  ),
+                                ),
+                                Center(
+                                  child: IconButton(
+                                    onPressed: () async {
+                                     await cb.delete(cb.customers[index].name!);
+                                    },
+                                    icon: const Icon(Icons.delete),
+                                  ),
+                                ),
                               ],
                             ),
                           );

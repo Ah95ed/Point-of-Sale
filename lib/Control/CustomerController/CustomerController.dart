@@ -5,8 +5,9 @@ import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
 
 class Customercontroller extends GetxController {
   late CustomerModel model;
-  List<CustomerModel>? customers;
+ List<CustomerModel> customers = [];
   @override
+
   void onInit() async {
     super.onInit();
     model = CustomerModel();
@@ -26,6 +27,11 @@ class Customercontroller extends GetxController {
             )
             .toList();
 
+    update();
+  }
+  Future<void> delete(String n) async {
+   await model.deleteCustomer(n);
+   customers.remove(n);
     update();
   }
 
@@ -61,7 +67,7 @@ class Customercontroller extends GetxController {
       );
       return;
     }
-    customers!.clear();
+    customers.clear();
     customers =
         search
             .map(

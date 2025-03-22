@@ -5,7 +5,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
-import 'package:point_of_sell/Helper/Native/NativeComnucation.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/DataBaseSqflite.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 

@@ -6,9 +6,7 @@ import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/View/Pages/AddItems/AddItems.dart';
 import 'package:point_of_sell/View/Pages/CustomerManagement/CustomerManagement.dart';
 import 'package:point_of_sell/View/Pages/ExportAndImport/ExportAndImport.dart';
-import 'package:point_of_sell/View/Pages/SaleScreen/SaleScreen.dart';
 import 'package:point_of_sell/View/Pages/SalesInterface/SalesInterface.dart';
-import 'package:point_of_sell/View/Pages/SaleList/SaleList_Screen.dart';
 import 'package:point_of_sell/View/Pages/home_screen.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 

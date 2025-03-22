@@ -2,13 +2,15 @@
 import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
 
 class CustomerModel {
-  String? name, phone, address;
+  String? name, phone, address,id;
   late CustomersDatabase _database;
 
-  CustomerModel({this.name, this.phone, this.address}) {
+  CustomerModel({this.name, this.phone, this.address,this.id}) {
     _database = CustomersDatabase();
   }
-
+Future<void> deleteCustomer ( String n) async {
+    await _database.deleteCustomer(n);
+  }
   Future<List<Map<String, dynamic>?>> getCustomer() async {
     return await _database.getAllCustomrers();
   }

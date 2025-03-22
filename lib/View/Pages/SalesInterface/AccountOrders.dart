@@ -20,15 +20,15 @@ class AccountOrders extends StatefulWidget {
 }
 
 class _AccountOrdersState extends State<AccountOrders> {
-  TextEditingController name = TextEditingController();
-  TextEditingController title = TextEditingController();
-  TextEditingController accont = TextEditingController();
-  TextEditingController numberList = TextEditingController();
-  TextEditingController phone = TextEditingController();
-  TextEditingController date = TextEditingController();
-  TextEditingController typePrice = TextEditingController();
-  TextEditingController storage = TextEditingController();
-  TextEditingController search = TextEditingController();
+  TextEditingController _name = TextEditingController();
+  TextEditingController _title = TextEditingController();
+  TextEditingController _accont = TextEditingController();
+  TextEditingController _numberList = TextEditingController();
+  TextEditingController _phone = TextEditingController();
+  TextEditingController _date = TextEditingController();
+  TextEditingController _typePrice = TextEditingController();
+  TextEditingController _storage = TextEditingController();
+  TextEditingController _search = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
@@ -37,15 +37,17 @@ class _AccountOrdersState extends State<AccountOrders> {
 
   @override
   void dispose() {
-    name.dispose();
-    accont.dispose();
-    numberList.dispose();
-    title.dispose();
-    phone.dispose();
-    date.dispose();
-    typePrice.dispose();
-    storage.dispose();
-    search.dispose();
+    _name = TextEditingController();
+
+    _name.dispose();
+    _accont.dispose();
+    _numberList.dispose();
+    _title.dispose();
+    _phone.dispose();
+    _date.dispose();
+    _typePrice.dispose();
+    _storage.dispose();
+    _search.dispose();
     super.dispose();
   }
 
@@ -71,7 +73,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                       children: [
                         Expanded(
                           child: TextFormField(
-                            controller: accont,
+                            controller: _accont,
                             decoration: const InputDecoration(
                               labelText: 'الحساب',
                               prefixIcon: Icon(Icons.account_balance),
@@ -80,7 +82,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                         ),
                         Expanded(
                           child: TextFormField(
-                            controller: title,
+                            controller: _title,
                             decoration: const InputDecoration(
                               labelText: 'العنوان',
                               prefixIcon: Icon(Icons.person),
@@ -120,9 +122,9 @@ class _AccountOrdersState extends State<AccountOrders> {
                               FocusNode focusNode,
                               VoidCallback onFieldSubmitted,
                             ) {
-                              this.name = textEditingController;
+                              this._name = textEditingController;
                               return TextField(
-                                controller: name,
+                                controller: _name,
                                 focusNode: focusNode,
                                 decoration: const InputDecoration(
                                   hintText:
@@ -130,12 +132,12 @@ class _AccountOrdersState extends State<AccountOrders> {
                                 ),
                               );
                             },
+
                             onSelected: (Map<String, dynamic> selection) {
-                              phone.text = selection["Phone"].toString();
-                              title.text = selection["Address"].toString();
+                              _phone.text = selection["Phone"].toString();
+                              _title.text = selection["Address"].toString();
                               controller.update();
                             },
-                            
                           ),
                         ),
                       ],
@@ -146,7 +148,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                       children: [
                         Expanded(
                           child: TextFormField(
-                            controller: date,
+                            controller: _date,
                             decoration: const InputDecoration(
                               labelText: 'التاريخ',
                               prefixIcon: Icon(Icons.date_range),
@@ -155,7 +157,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                         ),
                         Expanded(
                           child: TextFormField(
-                            controller: phone,
+                            controller: _phone,
                             decoration: const InputDecoration(
                               labelText: 'الهاتف',
                               prefixIcon: Icon(Icons.phone),
@@ -164,7 +166,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                         ),
                         Expanded(
                           child: TextFormField(
-                            controller: numberList,
+                            controller: _numberList,
                             decoration: const InputDecoration(
                               labelText: 'رقم الفاتورة',
                               prefixIcon: Icon(Icons.receipt_long),
@@ -179,7 +181,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                       children: [
                         Expanded(
                           child: TextFormField(
-                            controller: storage,
+                            controller: _storage,
                             decoration: const InputDecoration(
                               labelText: 'المستودع',
                               prefixIcon: Icon(Icons.warehouse),
@@ -189,7 +191,7 @@ class _AccountOrdersState extends State<AccountOrders> {
 
                         Expanded(
                           child: TextFormField(
-                            controller: typePrice,
+                            controller: _typePrice,
                             decoration: const InputDecoration(
                               labelText: 'نوع السعر',
                               prefixIcon: Icon(Icons.attach_money),
@@ -214,7 +216,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                     controller.searchCodeOrder(value);
                   },
                   // readOnly: true,
-                  controller: search,
+                  controller: _search,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     hintText: 'Search'.tr,
@@ -241,7 +243,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                                                 context.screenHeight / 1.2,
                                             onScanned: (code) {
                                               setState(() {
-                                                search.text = code;
+                                                _search.text = code;
                                               });
                                             },
                                             continuous: true,
@@ -335,8 +337,8 @@ class _AccountOrdersState extends State<AccountOrders> {
                   ),
                   const SizedBox(width: 8.0),
                   ElevatedButton.icon(
-                    onPressed: () async {
-                      if (name.text.isEmpty) {
+                    onPressed: () {
+                      if (_name.text.isEmpty) {
                         Get.snackbar(
                           'تحذير',
                           '  اكتب الاسم',
@@ -344,41 +346,38 @@ class _AccountOrdersState extends State<AccountOrders> {
                         );
                         return;
                       }
-                      
 
-  
-
-                      for ( var i in controller.items) {
-                        if(i != name.text){
+                      for (var i in controller.items) {
+                        if (i != _name.text || controller.items.isEmpty) {
                           showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('تنبيه!!'),
-                              content: const Text('هل تريد اضافة العميل'),
-                              actions: [
-                                TextButton(
-                                  child: const Text('موافق'),
-                                  onPressed: () async {
-                                    await controller.insertCustomer({
-                                      CustomersDatabase.name: name.text,
-                                      CustomersDatabase.phone: phone.text,
-                                      CustomersDatabase.address: title.text,
-                                    });
-                                    
-                                    Get.back();
-                                  },
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Get.back();
-                                  },
-                                  child: const Text('لا'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('تنبيه!!'),
+                                content: const Text('هل تريد اضافة العميل'),
+                                actions: [
+                                  TextButton(
+                                    child: const Text('موافق'),
+                                    onPressed: () async {
+                                      await controller.insertCustomer({
+                                        CustomersDatabase.name: _name.text,
+                                        CustomersDatabase.phone: _phone.text,
+                                        CustomersDatabase.address: _title.text,
+                                      });
+                                      Get.back();
+                                    },
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Get.back();
+                                    },
+                                    child: const Text('لا'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          break;
                         }
                       }
                     },

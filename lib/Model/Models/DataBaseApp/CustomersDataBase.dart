@@ -32,6 +32,14 @@ class CustomersDatabase {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
+  Future<void> deleteCustomer(String n) async {
+    _database = await database;
+    await _database!.delete(
+      tableCustomer,
+      where: '$name = ?',
+      whereArgs: [n],
+    );
+  }
    Future<List<Map<String, dynamic>?>> getAllCustomrers() async {
     _database = await database;
     return await _database!.query(tableCustomer);

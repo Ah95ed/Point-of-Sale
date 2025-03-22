@@ -21,7 +21,7 @@ class AccountController extends GetxController {
   List<Items>? newResult = [];
   double resultSell = 0.0;
   double count = 0.0;
-   int i = 0;
+  int i = 0;
   // late TextEditingController controller;
 
   static const String Result = 'Result';
@@ -41,7 +41,7 @@ class AccountController extends GetxController {
   List<Map<String, dynamic>?> items = [];
   void getNameCustomer() async {
     items = await customersDatabase.getAllCustomrers();
-    
+    update();
   }
 
   getShared() async {
@@ -111,12 +111,12 @@ class AccountController extends GetxController {
     }
   }
 
-
-Future<void> insertCustomer(Map<String, dynamic> data) async {
+  Future<void> insertCustomer(Map<String, dynamic> data) async {
     await customersDatabase.insertCustomers(data);
     getNameCustomer();
     update();
   }
+
   Future<void> searchCodeOrder(String s) async {
     i = 0;
     List<Map<String, dynamic>>? result = await account.searchBarCodeOrder(s);
@@ -132,7 +132,7 @@ Future<void> insertCustomer(Map<String, dynamic> data) async {
                 quantity: item[DataBaseSqflite.quantity],
                 company: item[DataBaseSqflite.company],
                 date: item[DataBaseSqflite.date],
-                time: item[DataBaseSqflite.time]?? '00:00',
+                time: item[DataBaseSqflite.time] ?? '00:00',
               ),
             )
             .toList();

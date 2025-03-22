@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:point_of_sell/Control/CustomerController/CustomerController.dart';
 import 'package:point_of_sell/Control/PointSale/PointSaleController.dart';
 import 'package:point_of_sell/Model/Models/Items.dart';
 
