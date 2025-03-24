@@ -41,7 +41,7 @@ class AccountController extends GetxController {
   List<Map<String, dynamic>?> items = [];
   void getNameCustomer() async {
     items = await customersDatabase.getAllCustomrers();
-    update();
+    // update();
   }
 
   getShared() async {

@@ -1,13 +1,13 @@
 import 'package:get/get.dart';
+import 'package:point_of_sell/Helper/Log/LogApp.dart';
 
 import 'package:point_of_sell/Model/CustomersModels/CustomerModel.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
 
 class Customercontroller extends GetxController {
   late CustomerModel model;
- List<CustomerModel> customers = [];
+  List<CustomerModel> customers = [];
   @override
-
   void onInit() async {
     super.onInit();
     model = CustomerModel();
@@ -23,21 +23,24 @@ class Customercontroller extends GetxController {
                 name: item![CustomersDatabase.name],
                 phone: item[CustomersDatabase.phone],
                 address: item[CustomersDatabase.address],
+                id: item[CustomersDatabase.id].toString(),
               ),
             )
             .toList();
 
     update();
   }
-  Future<void> delete(String n) async {
-   await model.deleteCustomer(n);
-   customers.remove(n);
+
+  Future<void> delete(int id) async {
+    customers.clear();
+    await model.deleteCustomer(id);
+
     update();
   }
 
   Future<void> insert(Map<String, String> data) async {
     await model.insertCustomers(data);
-    if (model.result > 0) {
+    if (await model.result > 0) {
       Get.showSnackbar(
         const GetSnackBar(
           message: "data inserted successfully",

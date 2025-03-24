@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Control/CustomerController/CustomerController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
+import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
@@ -50,8 +51,8 @@ class _CustomersViewState extends State<CustomersView> {
 
   @override
   void initState() {
-    final c = Get.find<Customercontroller>();
-    c.getCustomer();
+    // final c = Get.find<Customercontroller>();
+    // c.getCustomer();
     super.initState();
   }
 
@@ -143,7 +144,10 @@ class _CustomersViewState extends State<CustomersView> {
                                 Center(
                                   child: IconButton(
                                     onPressed: () async {
-                                     await cb.delete(cb.customers[index].name!);
+                                      logInfo("message ${cb.customers[index].id}");
+                                      await cb.delete(
+                                        int.parse(cb.customers[index].id!),
+                                      );
                                     },
                                     icon: const Icon(Icons.delete),
                                   ),

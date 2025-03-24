@@ -6,6 +6,7 @@ import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
+import 'package:point_of_sell/View/Pages/CustomerManagement/AddCustomer.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
@@ -338,48 +339,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                   const SizedBox(width: 8.0),
                   ElevatedButton.icon(
                     onPressed: () {
-                      if (_name.text.isEmpty) {
-                        Get.snackbar(
-                          'تحذير',
-                          '  اكتب الاسم',
-                          snackPosition: SnackPosition.BOTTOM,
-                        );
-                        return;
-                      }
-
-                      for (var i in controller.items) {
-                        if (i != _name.text || controller.items.isEmpty) {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: const Text('تنبيه!!'),
-                                content: const Text('هل تريد اضافة العميل'),
-                                actions: [
-                                  TextButton(
-                                    child: const Text('موافق'),
-                                    onPressed: () async {
-                                      await controller.insertCustomer({
-                                        CustomersDatabase.name: _name.text,
-                                        CustomersDatabase.phone: _phone.text,
-                                        CustomersDatabase.address: _title.text,
-                                      });
-                                      Get.back();
-                                    },
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Get.back();
-                                    },
-                                    child: const Text('لا'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                          break;
-                        }
-                      }
+                      checkcustomer(controller, context);
                     },
                     icon: const Icon(Icons.save),
                     label: Text(Language.save.tr),
@@ -400,6 +360,47 @@ class _AccountOrdersState extends State<AccountOrders> {
                   const SizedBox(width: 8.0),
                 ],
               ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void checkcustomer(AccountController c, BuildContext context) async {
+    for (var element in c.items) {
+      if (element!['Name'] == _name.text) {
+        return;
+      }
+    }
+    showDailogToAdd(context, c);
+    return;
+  }
+
+  void showDailogToAdd(BuildContext context, AccountController c) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Add Customer'),
+          content: const Text("هل تريد اضافة العميل"),
+          actions: [
+            TextButton(
+              child: const Text('نعم'),
+              onPressed: () {
+                c.insertCustomer({
+                  CustomersDatabase.name: _name.text,
+                  CustomersDatabase.phone: _phone.text,
+                  CustomersDatabase.address: _title.text,
+                });
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+              child: const Text('لا'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
           ],
         );

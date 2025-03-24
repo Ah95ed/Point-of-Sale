@@ -8,9 +8,10 @@ class CustomerModel {
   CustomerModel({this.name, this.phone, this.address,this.id}) {
     _database = CustomersDatabase();
   }
-Future<void> deleteCustomer ( String n) async {
-    await _database.deleteCustomer(n);
+Future<void> deleteCustomer ( int i) async {
+    await _database.deleteCustomer(i);
   }
+
   Future<List<Map<String, dynamic>?>> getCustomer() async {
     return await _database.getAllCustomrers();
   }
