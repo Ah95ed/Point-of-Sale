@@ -6,7 +6,6 @@ import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
-import 'package:point_of_sell/View/Pages/CustomerManagement/AddCustomer.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
@@ -347,6 +346,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                   ElevatedButton.icon(
                     onPressed: () {
                       //print
+                      controller.printOrder();
                     },
                     icon: const Icon(Icons.print, color: Colors.black54),
                     label: const Text(

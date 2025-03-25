@@ -12,6 +12,7 @@ class CustomersDatabase {
   static const name = 'Name';
   static const phone = 'Phone';
   static const address = 'Address';
+  
 
     static Database? _database;
 

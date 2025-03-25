@@ -23,6 +23,7 @@ dependencies:
   device_preview:
   flutter_svg:
   pdf: 
+  printing:
   # permission_handler: 
   # flutter_lints: 
   # google_fonts:

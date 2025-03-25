@@ -2,10 +2,13 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pdf/pdf.dart';
 import 'package:point_of_sell/Helper/Service/Service.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/AccountOrdersDataBase.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
+import 'package:point_of_sell/Model/Models/Pdf/PdfApi.dart';
 import 'package:point_of_sell/View/Widget/AlertDialog.dart';
+import 'package:printing/printing.dart';
 import '../Model/Models/DataBaseApp/DataBaseSqflite.dart';
 import '../Model/Models/Items.dart';
 
@@ -13,6 +16,7 @@ class AccountController extends GetxController {
   late DataBaseSqflite dataBaseSqflite;
   late AccountOrdersDataBase account;
   late CustomersDatabase customersDatabase;
+  late PdfApi pdfApi;
 
   List<Items> search = [];
   int skip = 0;
@@ -75,6 +79,17 @@ class AccountController extends GetxController {
       // saveShared();
       log('message saved Done  __________________________ ');
     }
+  }
+
+  Future<void> printOrder() async {
+    pdfApi = PdfApi();
+    final pdfFile = await pdfApi.generatePdf(PdfPageFormat.a4, 'مستند مثال');
+
+    // طباعة PDF
+    await Printing.layoutPdf(onLayout: (PdfPageFormat format) async => pdfFile);
+
+    // // حفظ PDF
+    // await pdfApi.savePdf(pdfFile);
   }
 
   Widget title = const Text('Account');
