@@ -6,7 +6,10 @@ import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
+import 'package:point_of_sell/View/Pages/CustomerManagement/CustomerManagement.dart';
+import 'package:point_of_sell/View/Widget/AlertDialog.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
+import 'package:point_of_sell/View/Widget/TextField.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeBuilder.dart';
@@ -290,12 +293,30 @@ class _AccountOrdersState extends State<AccountOrders> {
                         builder: (context) {
                           return AllItems(
                             () async {
-                              if (controller.search.isEmpty) return;
-                              await controller.deleteItem(
-                                controller.search[index].id,
-                                controller.search[index].sale,
+                              showDialog(
+                                context: context,
+                                builder: (c) {
+                                  return AlertDialog(
+                                    title: const Text("Select "),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                         
+                                          showEditDailog(context,{"name":controller.search[index].name});
+                                          
+                                        },
+                                        child: const Text("Edit"),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(c);
+                                        },
+                                        child: const Text("Delete"),
+                                      ),
+                                    ],
+                                  );
+                                },
                               );
-                              controller.getDataFromAccount();
                             },
                             name: controller.search[index].name,
                             sale: controller.search[index].sale,
@@ -377,9 +398,49 @@ class _AccountOrdersState extends State<AccountOrders> {
     return;
   }
 
-  void showDailogToAdd(BuildContext context, AccountController c) {
+  void showEditDailog(BuildContext ctx,Map<String,dynamic> data) {
+    _name.text = data['name'];
+
     showDialog(
-      context: context,
+      context: ctx,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Edit Customer'),
+          content: Column(
+            children: [
+              TextFormField(
+                controller: _name,
+                decoration: const InputDecoration(
+                  labelText: 'Name',
+                ),
+              
+              ),
+            ],
+          ),
+          // actions: [
+          //   TextButton(
+          //     child: const Text('نعم'),
+          //     onPressed: () {
+          //       Navigator.pop(context);
+          //     },
+          //   ),
+          //   TextButton(
+          //     child: const Text('لا'),
+          //     onPressed: () {
+          //       Navigator.pop(context);
+          //         Navigator.pop(context);
+          //     },
+          //   ),
+          // ],
+       
+        );
+      },
+    );
+  }
+
+  void showDailogToAdd(BuildContext cx, AccountController c) {
+    showDialog(
+      context: cx,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Add Customer'),

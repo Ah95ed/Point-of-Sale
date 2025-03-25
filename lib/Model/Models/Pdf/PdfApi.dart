@@ -76,7 +76,7 @@ class PdfApi {
               ),
               pw.SizedBox(height: 20),
               pw.Text(
-                'مثال على إنشاء مستند PDF في تطبيق Flutter',
+                'مثال على إنشاء مستند PDF في تطبيق Flutter'.codeUnits.toString(),
                 style: const pw.TextStyle(fontSize: 18),
               ),
               pw.Divider(),
