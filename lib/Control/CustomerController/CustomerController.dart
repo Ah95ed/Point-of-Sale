@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:point_of_sell/Helper/Log/LogApp.dart';
 
 import 'package:point_of_sell/Model/CustomersModels/CustomerModel.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';

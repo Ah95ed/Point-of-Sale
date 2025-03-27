@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:path/path.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
+import 'package:point_of_sell/Model/Models/DataBaseApp/AccountOrdersDataBase.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/LiabilityDataBase.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -140,29 +141,30 @@ ${LiabilityDataBase.TableLi_user}
          CREATE TABLE IF NOT EXISTS
           $TableAccount (
            $id INTEGER PRIMARY KEY AUTOINCREMENT ,
+           ${AccountOrdersDataBase.id_customer} TEXT ,
             $name TEXT  ,
              $sale TEXT  ,
               $quantity TEXT )
           
           ''');
-          await db.execute('''
-         CREATE TABLE IF NOT EXISTS
-          UserAccount (
-           $id INTEGER PRIMARY KEY AUTOINCREMENT ,
-            $name TEXT  ,
-             $sale TEXT  ,
-              $quantity TEXT )
+        //   await db.execute('''
+        //  CREATE TABLE IF NOT EXISTS
+        //   UserAccount (
+        //    $id INTEGER PRIMARY KEY AUTOINCREMENT ,
+        //     $name TEXT  ,
+        //      $sale TEXT  ,
+        //       $quantity TEXT )
           
-          ''');
-          await db.execute('''
-         CREATE TABLE IF NOT EXISTS
-          UserAccount (
-           $id INTEGER PRIMARY KEY AUTOINCREMENT ,
-            $name TEXT  ,
-             $sale TEXT  ,
-              $quantity TEXT )
+        //   ''');
+        //   await db.execute('''
+        //  CREATE TABLE IF NOT EXISTS
+        //   UserAccount (
+        //    $id INTEGER PRIMARY KEY AUTOINCREMENT ,
+        //     $name TEXT  ,
+        //      $sale TEXT  ,
+        //       $quantity TEXT )
           
-          ''');
+        //   ''');
         },
       ),
     );

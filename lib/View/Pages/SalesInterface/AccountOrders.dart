@@ -6,10 +6,7 @@ import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
-import 'package:point_of_sell/View/Pages/CustomerManagement/CustomerManagement.dart';
-import 'package:point_of_sell/View/Widget/AlertDialog.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
-import 'package:point_of_sell/View/Widget/TextField.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeBuilder.dart';
@@ -32,16 +29,10 @@ class _AccountOrdersState extends State<AccountOrders> {
   TextEditingController _typePrice = TextEditingController();
   TextEditingController _storage = TextEditingController();
   TextEditingController _search = TextEditingController();
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   void dispose() {
     _name = TextEditingController();
-
     _name.dispose();
     _accont.dispose();
     _numberList.dispose();
@@ -213,12 +204,28 @@ class _AccountOrdersState extends State<AccountOrders> {
               child: Padding(
                 padding: EdgeInsets.all(context.getMinSize(4)),
                 child: TextFormField(
-                  onChanged: (value) {
+                  onChanged: (value) async {
                     if (value.isEmpty) return;
-                    logWarning('message  $value');
-                    controller.searchCodeOrder(value);
+                    if (controller.items.isEmpty) {
+                      showDialog(
+                        context: context,
+                        builder: (ctx) {
+                          return AlertDialog(
+                            title: const Text("No Customer Found !! "),
+                            content: const Text("Please Select Customer First"),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(ctx),
+                                child: const Text("Ok"),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
+                    await controller.searchCodeOrder(value);
+                    _search.clear();
                   },
-                  // readOnly: true,
                   controller: _search,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
@@ -275,7 +282,6 @@ class _AccountOrdersState extends State<AccountOrders> {
             Expanded(
               child: Container(
                 color: Colors.white38,
-                // height: context.getHeight(350),
                 child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: DeviceUtils.isMobile(context) ? 1 : 3,
@@ -301,9 +307,10 @@ class _AccountOrdersState extends State<AccountOrders> {
                                     actions: [
                                       TextButton(
                                         onPressed: () {
-                                         
-                                          showEditDailog(context,{"name":controller.search[index].name});
-                                          
+                                          showEditDailog(context, {
+                                            "name":
+                                                controller.search[index].name,
+                                          });
                                         },
                                         child: const Text("Edit"),
                                       ),
@@ -398,7 +405,7 @@ class _AccountOrdersState extends State<AccountOrders> {
     return;
   }
 
-  void showEditDailog(BuildContext ctx,Map<String,dynamic> data) {
+  void showEditDailog(BuildContext ctx, Map<String, dynamic> data) {
     _name.text = data['name'];
 
     showDialog(
@@ -410,13 +417,11 @@ class _AccountOrdersState extends State<AccountOrders> {
             children: [
               TextFormField(
                 controller: _name,
-                decoration: const InputDecoration(
-                  labelText: 'Name',
-                ),
-              
+                decoration: const InputDecoration(labelText: 'Name'),
               ),
             ],
           ),
+
           // actions: [
           //   TextButton(
           //     child: const Text('نعم'),
@@ -432,7 +437,6 @@ class _AccountOrdersState extends State<AccountOrders> {
           //     },
           //   ),
           // ],
-       
         );
       },
     );

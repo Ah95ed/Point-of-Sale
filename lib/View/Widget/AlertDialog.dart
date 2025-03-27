@@ -25,23 +25,21 @@ class AlertDialogCustom extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {
+                controller.text.clear();
                 Get.back();
               },
-              icon: const Icon(
-                Icons.close,
-              ),
+              icon: const Icon(Icons.close),
             ),
             IconButton(
               onPressed: () {
                 controller.addSaleAndupdatePrice();
+                controller.text.clear();
                 Get.back();
               },
-              icon: const Icon(
-                Icons.done,
-              ),
+              icon: const Icon(Icons.done),
             ),
           ],
-        )
+        ),
       ],
     );
   }

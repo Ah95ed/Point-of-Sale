@@ -57,7 +57,6 @@ class AccountController extends GetxController {
 
   void saveShared() async {
     sharep!.setDouble('result', resultSell);
-    log('message saved done  ___');
   }
 
   void deleteShared() async {

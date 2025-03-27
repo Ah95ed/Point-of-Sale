@@ -6,6 +6,7 @@ class AccountOrdersDataBase {
   static const TableResultSell = 'Result';
   static const version = 1;
   static const id = 'ID';
+  static const id_customer = 'ID_Customer';
   static const name = 'Name';
   static const codeItem = 'Code';
   static const sale = 'Sale';
