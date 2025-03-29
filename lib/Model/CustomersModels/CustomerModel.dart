@@ -20,6 +20,9 @@ Future<void> deleteCustomer ( int i) async {
   Future<void> insertCustomers(Map<String, String> data) async {
     result = await _database.insertCustomers(data);
   }
+  Future<void> updateCustomer (Map<String , dynamic> data) async {
+    result = await _database.updateCustomer(data);
+  }
   Future<List<Map<String, dynamic>>> searchCustomer(String name) async {
    return _database.searchCustomer(name);
   }

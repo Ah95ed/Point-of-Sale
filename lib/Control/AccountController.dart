@@ -41,7 +41,11 @@ class AccountController extends GetxController {
     super.onInit();
     getShared();
   }
-
+  Future<void> updateAccount(Map<String , dynamic> data) async {
+    await account.updateAccount(data);
+    
+    update();
+  }
   List<Map<String, dynamic>?> items = [];
   void getNameCustomer() async {
     items = await customersDatabase.getAllCustomrers();
@@ -228,7 +232,7 @@ class AccountController extends GetxController {
   @override
   void dispose() {
     saveShared();
-
+    text.dispose();
     super.dispose();
   }
 }

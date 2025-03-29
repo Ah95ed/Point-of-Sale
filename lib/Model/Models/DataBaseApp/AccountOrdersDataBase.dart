@@ -83,4 +83,13 @@ class AccountOrdersDataBase {
       [id],
     );
   }
+  Future<void> updateAccount(Map<String, dynamic> data) async {
+    _database = await database;
+    await _database!.update(
+      TableAccount,
+      data,
+      where: '$id = ?',
+      whereArgs: [data[id]],
+    );
+  }
 }

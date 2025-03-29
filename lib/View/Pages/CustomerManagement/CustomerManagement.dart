@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:point_of_sell/Control/CustomerController/CustomerController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
-import 'package:point_of_sell/Helper/Log/LogApp.dart';
+import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
@@ -48,6 +48,9 @@ class CustomersView extends StatefulWidget {
 
 class _CustomersViewState extends State<CustomersView> {
   TextEditingController _search = TextEditingController();
+  TextEditingController _name = TextEditingController();
+  TextEditingController _phone = TextEditingController();
+  TextEditingController _address = TextEditingController();
 
   @override
   void initState() {
@@ -59,6 +62,9 @@ class _CustomersViewState extends State<CustomersView> {
   @override
   void dispose() {
     _search.dispose();
+    _name.dispose();
+    _phone.dispose();
+    _address.dispose();
     super.dispose();
   }
 
@@ -67,6 +73,7 @@ class _CustomersViewState extends State<CustomersView> {
     return GetBuilder<Customercontroller>(
       init: Customercontroller(),
       builder: (cb) {
+        // logInfo("message ${context.getFontSize(12)}");
         return Padding(
           padding: EdgeInsets.all(context.getMinSize(5)),
           child: Column(
@@ -144,13 +151,86 @@ class _CustomersViewState extends State<CustomersView> {
                                 Center(
                                   child: IconButton(
                                     onPressed: () async {
-                                      logInfo("message ${cb.customers[index].id}");
-                                      await cb.delete(
-                                        int.parse(cb.customers[index].id!),
+                                      _name.text = cb.customers[index].name!;
+                                      _phone.text = cb.customers[index].phone!;
+                                      _address.text =
+                                          cb.customers[index].address!;
+                                      showDialog(
+                                        context: context,
+                                        builder: (ctx) {
+                                          return AlertDialog(
+                                            title: const Text('Edit Customer'),
+                                            content: Column(
+                                              children: [
+                                                TextField(
+                                                  controller: _name,
+                                                  decoration:
+                                                      const InputDecoration(
+                                                        hintText:
+                                                            'Enter new name',
+                                                      ),
+                                                ),
+                                                TextField(
+                                                  controller: _phone,
+                                                  decoration:
+                                                      const InputDecoration(
+                                                        hintText:
+                                                            'Enter new phone',
+                                                      ),
+                                                ),
+                                                TextField(
+                                                  controller: _address,
+                                                  decoration:
+                                                      const InputDecoration(
+                                                        hintText:
+                                                            'Enter new address',
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(ctx);
+                                                },
+                                                child: const Text('Cancel'),
+                                              ),
+                                              TextButton(
+                                                onPressed: () async {
+                                                  await cb.updateCustomer(
+                                                    {
+                                                      CustomersDatabase.name:
+                                                          _name.text,
+                                                      CustomersDatabase.phone:
+                                                          _phone.text,
+                                                      CustomersDatabase.address:
+                                                          _address.text,
+                                                      CustomersDatabase.id:
+                                                          cb.customers[index]
+                                                              .id,
+                                                    }
+                                                  );
+                                                  Navigator.pop(ctx);
+                                                },
+                                                child: const Text('Save'),
+                                              ),
+                                            ],
+                                          );
+                                        },
                                       );
                                     },
-                                    icon: const Icon(Icons.delete),
+                                    icon: const Icon(Icons.more_horiz),
                                   ),
+                                  // child: IconButton(
+                                  //   onPressed: () async {
+                                  //     logInfo("message ${cb.customers[index].id}");
+                                  //     await cb.delete(
+                                  //       int.parse(cb.customers[index].id!),
+                                  //     );
+                                  //   },
+                                  //   icon: const Icon(Icons.delete),
+                                  // ),
                                 ),
                               ],
                             ),

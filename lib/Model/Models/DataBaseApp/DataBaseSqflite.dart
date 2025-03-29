@@ -144,6 +144,7 @@ ${LiabilityDataBase.TableLi_user}
            ${AccountOrdersDataBase.id_customer} TEXT ,
             $name TEXT  ,
              $sale TEXT  ,
+             $buy TEXT  ,
               $quantity TEXT )
           
           ''');

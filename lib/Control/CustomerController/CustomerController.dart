@@ -37,6 +37,27 @@ class Customercontroller extends GetxController {
     update();
   }
 
+  Future<void> updateCustomer(Map<String, dynamic> data) async {
+    await model.updateCustomer(data);
+    if (await model.result > 0) {
+      Get.showSnackbar(
+        const GetSnackBar(
+          message: "data updated successfully",
+          duration: Duration(seconds: 2),
+        ),
+      );
+      model.result = 0;
+     await getCustomer();
+      return;
+    }
+    Get.showSnackbar(
+      const GetSnackBar(
+        message: "something went wrong",
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
   Future<void> insert(Map<String, String> data) async {
     await model.insertCustomers(data);
     if (await model.result > 0) {

@@ -26,6 +26,7 @@ class AlertDialogCustom extends StatelessWidget {
             IconButton(
               onPressed: () {
                 controller.text.clear();
+                
                 Get.back();
               },
               icon: const Icon(Icons.close),

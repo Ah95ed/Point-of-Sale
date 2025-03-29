@@ -4,6 +4,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:point_of_sell/Control/AccountController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
+import 'package:point_of_sell/Model/Models/DataBaseApp/AccountOrdersDataBase.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
@@ -206,7 +207,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                 child: TextFormField(
                   onChanged: (value) async {
                     if (value.isEmpty) return;
-                    if (controller.items.isEmpty) {
+                    if (controller.items.isEmpty || _name.text.isEmpty) {
                       showDialog(
                         context: context,
                         builder: (ctx) {
@@ -222,6 +223,8 @@ class _AccountOrdersState extends State<AccountOrders> {
                           );
                         },
                       );
+                      _search.clear();
+                      return;
                     }
                     await controller.searchCodeOrder(value);
                     _search.clear();
@@ -308,9 +311,21 @@ class _AccountOrdersState extends State<AccountOrders> {
                                       TextButton(
                                         onPressed: () {
                                           showEditDailog(context, {
-                                            "name":
+                                            AccountOrdersDataBase.name:
                                                 controller.search[index].name,
-                                          });
+                                            AccountOrdersDataBase.sale:
+                                                controller.search[index].sale,
+                                            AccountOrdersDataBase.id:
+                                                controller.search[index].id,
+                                            AccountOrdersDataBase.codeItem:
+                                                controller.search[index].code,
+                                            AccountOrdersDataBase.quantity:
+                                                controller
+                                                    .search[index]
+                                                    .quantity,
+                                            AccountOrdersDataBase.buy:
+                                                controller.search[index].buy,
+                                          }, controller);
                                         },
                                         child: const Text("Edit"),
                                       ),
@@ -405,12 +420,37 @@ class _AccountOrdersState extends State<AccountOrders> {
     return;
   }
 
-  void showEditDailog(BuildContext ctx, Map<String, dynamic> data) {
-    _name.text = data['name'];
+  void showEditDailog(
+    BuildContext ctx,
+    Map<String, dynamic> data,
+    AccountController c,
+  ) {
+    TextEditingController _name = TextEditingController(
+      text: data[AccountOrdersDataBase.name],
+    );
+    TextEditingController _sale = TextEditingController(
+      text: data[AccountOrdersDataBase.sale],
+    );
+    TextEditingController _buy = TextEditingController(
+      text: data[AccountOrdersDataBase.buy],
+    );
+    TextEditingController _code = TextEditingController(
+      text: data[AccountOrdersDataBase.codeItem],
+    );
+    TextEditingController _quantity = TextEditingController(
+      text: data[AccountOrdersDataBase.quantity],
+    );
+    TextEditingController _id = TextEditingController(
+      text: data[AccountOrdersDataBase.id],
+    );
+    TextEditingController _idCustomer = TextEditingController(
+      text: data[AccountOrdersDataBase.id_customer],
+    );
 
     showDialog(
       context: ctx,
       builder: (context) {
+        logInfo("${data[AccountOrdersDataBase.id]}");
         return AlertDialog(
           title: const Text('Edit Customer'),
           content: Column(
@@ -419,24 +459,50 @@ class _AccountOrdersState extends State<AccountOrders> {
                 controller: _name,
                 decoration: const InputDecoration(labelText: 'Name'),
               ),
+              TextFormField(
+                controller: _sale,
+                decoration: const InputDecoration(labelText: 'Sale'),
+              ),
+              TextFormField(
+                controller: _buy,
+                decoration: const InputDecoration(labelText: 'Buy'),
+              ),
+              TextFormField(
+                controller: _code,
+                decoration: const InputDecoration(labelText: 'Code'),
+              ),
+              TextFormField(
+                controller: _quantity,
+                decoration: const InputDecoration(labelText: 'Quantity'),
+              ),
             ],
           ),
 
-          // actions: [
-          //   TextButton(
-          //     child: const Text('نعم'),
-          //     onPressed: () {
-          //       Navigator.pop(context);
-          //     },
-          //   ),
-          //   TextButton(
-          //     child: const Text('لا'),
-          //     onPressed: () {
-          //       Navigator.pop(context);
-          //         Navigator.pop(context);
-          //     },
-          //   ),
-          // ],
+          actions: [
+            TextButton(
+              child: const Text('نعم'),
+              onPressed: () {
+                c.updateAccount({
+                  AccountOrdersDataBase.name: _name.text,
+                  AccountOrdersDataBase.sale: _sale.text,
+                  AccountOrdersDataBase.buy: _buy.text,
+                  AccountOrdersDataBase.codeItem: _code.text,
+                  AccountOrdersDataBase.quantity: _quantity.text,
+                  AccountOrdersDataBase.id: _id.text,
+                  AccountOrdersDataBase.id_customer: _idCustomer.text,
+                });
+
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+              child: const Text('لا'),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+            ),
+          ],
         );
       },
     );

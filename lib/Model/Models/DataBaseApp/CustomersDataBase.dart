@@ -53,6 +53,15 @@ class CustomersDatabase {
       whereArgs: ['%$q%'],
     );
   }
+  Future<int> updateCustomer(Map<String, dynamic> data) async {
+    _database = await database;
+    return await _database!.update(
+      tableCustomer,
+      data,
+      where: '$id = ?',
+      whereArgs: [data[id]],
+    );
+  }
   Future<List<String>> getCustomerNames() async {
     _database = await database;
     final List<Map<String, dynamic>> maps = await _database!.query(tableCustomer);
