@@ -20,15 +20,14 @@ class HomeController extends GetxController {
     paginationData();
     super.onInit();
   }
+
   @override
   void dispose() {
     controller.dispose();
     super.dispose();
   }
 
-  Future<void> addItems(
-    Map<String, dynamic> data,
-  ) async {
+  Future<void> addItems(Map<String, dynamic> data) async {
     await dataBaseSqflite.insert(data);
     items.clear();
     paginationData();
@@ -39,33 +38,34 @@ class HomeController extends GetxController {
     if (items.isEmpty) {
       getData();
     }
-    controller.addListener(
-      () async {
-        if (controller.position.pixels == controller.position.maxScrollExtent) {
-          isLaodingMore = true;
-          getData();
-          skip = skip + limit;
-          isLaodingMore = false;
-        }
-      },
-    );
+    controller.addListener(() async {
+      if (controller.position.pixels == controller.position.maxScrollExtent) {
+        isLaodingMore = true;
+        getData();
+        skip = skip + limit;
+        isLaodingMore = false;
+      }
+    });
   }
 
   Future<void> getData() async {
     var dataList = await dataBaseSqflite.getAllUser(skip, limit);
-    var item = dataList
-        .map((i) => Items(
-              name: i![DataBaseSqflite.name].toString(),
-              code: i[DataBaseSqflite.codeItem].toString(),
-              sale: i[DataBaseSqflite.sale].toString(),
-              buy: i[DataBaseSqflite.buy].toString(),
-              quantity: i[DataBaseSqflite.quantity].toString(),
-              id: i[DataBaseSqflite.id].toString(),
-              company: i[DataBaseSqflite.company].toString(),
-              date: i[DataBaseSqflite.date].toString(),
-              time: i[DataBaseSqflite.time].toString(),
-            ))
-        .toList();
+    var item =
+        dataList
+            .map(
+              (i) => Items(
+                i![DataBaseSqflite.name].toString(),
+                i[DataBaseSqflite.codeItem].toString(),
+                i[DataBaseSqflite.sale].toString(),
+                i[DataBaseSqflite.buy].toString(),
+                i[DataBaseSqflite.quantity].toString(),
+                i[DataBaseSqflite.id].toString(),
+                i[DataBaseSqflite.company].toString(),
+                i[DataBaseSqflite.date].toString(),
+                i[DataBaseSqflite.time].toString(),
+              ),
+            )
+            .toList();
     items.addAll(item);
     update();
   }
@@ -78,10 +78,7 @@ class HomeController extends GetxController {
     update();
   }
 
-  Future<void> updateData(
-    Map<String, dynamic> data,
-    String id,
-  ) async {
+  Future<void> updateData(Map<String, dynamic> data, String id) async {
     items.clear();
     await dataBaseSqflite.updateItem(data, id);
     paginationData();
@@ -103,10 +100,7 @@ class HomeController extends GetxController {
   }
 
   Widget title = const Text('Any');
-  Icon actionsicon = const Icon(
-    Icons.search,
-    color: Colors.white,
-  );
+  Icon actionsicon = const Icon(Icons.search, color: Colors.white);
   final TextEditingController text = TextEditingController();
   Future<void> changeWidget() async {
     if (actionsicon.icon == Icons.search) {
@@ -119,9 +113,7 @@ class HomeController extends GetxController {
         decoration: InputDecoration(
           labelText: "".tr,
           focusedBorder: const OutlineInputBorder(),
-          labelStyle: const TextStyle(
-            color: Colors.white,
-          ),
+          labelStyle: const TextStyle(color: Colors.white),
         ),
         style: const TextStyle(
           fontSize: 14,
@@ -140,10 +132,7 @@ class HomeController extends GetxController {
     } else {
       items = copy;
       copy = [];
-      actionsicon = const Icon(
-        Icons.search,
-        color: Colors.white,
-      );
+      actionsicon = const Icon(Icons.search, color: Colors.white);
       title = const Text('Any');
       update();
       paginationData();
@@ -151,8 +140,9 @@ class HomeController extends GetxController {
   }
 
   Future<void> searchInData(String v) async {
-    List<Map<String, dynamic>>? data =
-        await dataBaseSqflite.searchInDatabase(v);
+    List<Map<String, dynamic>>? data = await dataBaseSqflite.searchInDatabase(
+      v,
+    );
     /*
 اذا رجعت البيانات فارغة توقف  
     */
@@ -160,21 +150,22 @@ class HomeController extends GetxController {
     if (data.isEmpty) {
       return;
     }
-    List<Items> newResult = data
-        .map(
-          (item) => Items(
-            name: item[DataBaseSqflite.name],
-            code: item[DataBaseSqflite.codeItem],
-            sale: item[DataBaseSqflite.sale],
-            buy: item[DataBaseSqflite.buy],
-            quantity: item[DataBaseSqflite.quantity],
-            id: item[DataBaseSqflite.id].toString(),
-            company: item[DataBaseSqflite.company],
-            date: item[DataBaseSqflite.date],
-            time: item[DataBaseSqflite.time],
-          ),
-        )
-        .toList();
+    List<Items> newResult =
+        data
+            .map(
+              (item) => Items(
+                item[DataBaseSqflite.name],
+                item[DataBaseSqflite.codeItem],
+                item[DataBaseSqflite.sale],
+                item[DataBaseSqflite.buy],
+                item[DataBaseSqflite.quantity],
+                item[DataBaseSqflite.id].toString(),
+                item[DataBaseSqflite.company],
+                item[DataBaseSqflite.date],
+                item[DataBaseSqflite.time],
+              ),
+            )
+            .toList();
     items.clear();
     items = newResult;
     update();

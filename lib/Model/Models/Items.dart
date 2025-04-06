@@ -1,16 +1,22 @@
 class Items {
-  String id, name, code, sale, buy, quantity,company, date, time;
+ late String id, name, code, sale, buy, quantity,company, date, time;
 
   
-  Items({
-    required this.name,
-    required this.code,
-    required this.sale,
-    required this.buy,
-    required this.quantity,
-    required this.id,
-    required this.company,
-    required this.date,
-    required this.time
-  });
+  Items(
+     this.name,
+     this.code,
+     this.sale,
+     this.buy,
+     this.quantity,
+     this.id,
+     this.company,
+     this.date,
+     this.time
+  );
+  Items.FromAccount(String name,String sale ,String quantity) {
+    this.name = name;
+    this.sale = sale;
+    this.quantity = quantity;
+  }
+  
 }

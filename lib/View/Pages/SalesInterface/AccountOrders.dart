@@ -6,6 +6,7 @@ import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/AccountOrdersDataBase.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
+import 'package:point_of_sell/Model/Models/DataBaseApp/DataBaseSqflite.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Widget/AllItems.dart';
 import 'package:point_of_sell/View/style/SizeApp/DeviceUtils.dart';
@@ -30,7 +31,7 @@ class _AccountOrdersState extends State<AccountOrders> {
   TextEditingController _typePrice = TextEditingController();
   TextEditingController _storage = TextEditingController();
   TextEditingController _search = TextEditingController();
-
+ late String optionText ,id_customer;
   @override
   void dispose() {
     _name = TextEditingController();
@@ -63,7 +64,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Row(
+                    Row( 
                       spacing: context.getHeight(10),
                       children: [
                         Expanded(
@@ -103,9 +104,8 @@ class _AccountOrdersState extends State<AccountOrders> {
                               return controller.items
                                   .whereType<Map<String, dynamic>>()
                                   .where((Map<String, dynamic> option) {
-                                    String optionText =
-                                        option["Name"].toString();
-                                    logInfo("message $optionText");
+                                    optionText = option["Name"].toString();
+                                    logError(" ====== ${option}");
                                     return optionText.toLowerCase().contains(
                                       textEditingValue.text.toLowerCase(),
                                     );
@@ -131,6 +131,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                             onSelected: (Map<String, dynamic> selection) {
                               _phone.text = selection["Phone"].toString();
                               _title.text = selection["Address"].toString();
+                              id_customer = selection["ID"].toString();
                               controller.update();
                             },
                           ),
@@ -226,7 +227,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                       _search.clear();
                       return;
                     }
-                    await controller.searchCodeOrder(value);
+                    await controller.searchCodeOrder(value,id_customer);
                     _search.clear();
                   },
                   controller: _search,
@@ -294,6 +295,9 @@ class _AccountOrdersState extends State<AccountOrders> {
                   ),
                   itemCount: controller.search.length,
                   itemBuilder: (BuildContext context, int index) {
+                    logInfo(
+                      "message ++++ ${controller.items[index]![DataBaseSqflite.name]}",
+                    );
                     return SizeBuilder(
                       baseSize: const Size(250, 300),
                       height: context.getHeight(300),
@@ -310,21 +314,18 @@ class _AccountOrdersState extends State<AccountOrders> {
                                     actions: [
                                       TextButton(
                                         onPressed: () {
+                                          logInfo(
+                                            "message ++++++ ${controller.text.text}",
+                                          );
                                           showEditDailog(context, {
-                                            AccountOrdersDataBase.name:
+                                            DataBaseSqflite.name:
                                                 controller.search[index].name,
-                                            AccountOrdersDataBase.sale:
+                                            DataBaseSqflite.sale:
                                                 controller.search[index].sale,
-                                            AccountOrdersDataBase.id:
-                                                controller.search[index].id,
-                                            AccountOrdersDataBase.codeItem:
-                                                controller.search[index].code,
-                                            AccountOrdersDataBase.quantity:
+                                            DataBaseSqflite.quantity:
                                                 controller
                                                     .search[index]
                                                     .quantity,
-                                            AccountOrdersDataBase.buy:
-                                                controller.search[index].buy,
                                           }, controller);
                                         },
                                         child: const Text("Edit"),
@@ -431,26 +432,15 @@ class _AccountOrdersState extends State<AccountOrders> {
     TextEditingController _sale = TextEditingController(
       text: data[AccountOrdersDataBase.sale],
     );
-    TextEditingController _buy = TextEditingController(
-      text: data[AccountOrdersDataBase.buy],
-    );
-    TextEditingController _code = TextEditingController(
-      text: data[AccountOrdersDataBase.codeItem],
-    );
     TextEditingController _quantity = TextEditingController(
       text: data[AccountOrdersDataBase.quantity],
-    );
-    TextEditingController _id = TextEditingController(
-      text: data[AccountOrdersDataBase.id],
-    );
-    TextEditingController _idCustomer = TextEditingController(
-      text: data[AccountOrdersDataBase.id_customer],
     );
 
     showDialog(
       context: ctx,
+
+      barrierDismissible: false,
       builder: (context) {
-        logInfo("${data[AccountOrdersDataBase.id]}");
         return AlertDialog(
           title: const Text('Edit Customer'),
           content: Column(
@@ -463,14 +453,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                 controller: _sale,
                 decoration: const InputDecoration(labelText: 'Sale'),
               ),
-              TextFormField(
-                controller: _buy,
-                decoration: const InputDecoration(labelText: 'Buy'),
-              ),
-              TextFormField(
-                controller: _code,
-                decoration: const InputDecoration(labelText: 'Code'),
-              ),
+
               TextFormField(
                 controller: _quantity,
                 decoration: const InputDecoration(labelText: 'Quantity'),
@@ -485,13 +468,12 @@ class _AccountOrdersState extends State<AccountOrders> {
                 c.updateAccount({
                   AccountOrdersDataBase.name: _name.text,
                   AccountOrdersDataBase.sale: _sale.text,
-                  AccountOrdersDataBase.buy: _buy.text,
-                  AccountOrdersDataBase.codeItem: _code.text,
                   AccountOrdersDataBase.quantity: _quantity.text,
-                  AccountOrdersDataBase.id: _id.text,
-                  AccountOrdersDataBase.id_customer: _idCustomer.text,
                 });
 
+                _name.dispose();
+                _sale.dispose();
+                _quantity.dispose();
                 Navigator.pop(context);
               },
             ),
@@ -500,6 +482,13 @@ class _AccountOrdersState extends State<AccountOrders> {
               onPressed: () {
                 Navigator.pop(context);
                 Navigator.pop(context);
+                // _name.clear();
+                // _sale.clear();
+                // _quantity.clear();
+
+                _name.dispose();
+                _sale.dispose();
+                _quantity.dispose();
               },
             ),
           ],

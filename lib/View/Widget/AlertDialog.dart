@@ -4,7 +4,11 @@ import 'package:point_of_sell/Control/AccountController.dart';
 import 'package:point_of_sell/View/Widget/TextField.dart';
 
 class AlertDialogCustom extends StatelessWidget {
+ late String id_customer;
   AlertDialogCustom({super.key});
+  AlertDialogCustom.FrtomAccount(String id_customer) {
+    this.id_customer = id_customer;
+  }
   final c = Get.lazyPut(() => AccountController());
 
   AccountController controller = Get.find();
@@ -33,7 +37,7 @@ class AlertDialogCustom extends StatelessWidget {
             ),
             IconButton(
               onPressed: () {
-                controller.addSaleAndupdatePrice();
+                controller.addSaleAndupdatePrice(id_customer);
                 controller.text.clear();
                 Get.back();
               },

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pdf/pdf.dart';
 import 'package:point_of_sell/Control/PointSale/PointSaleController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
+import 'package:point_of_sell/Helper/Service/Service.dart';
+import 'package:point_of_sell/Model/Models/Pdf/PdfApi.dart';
 import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/TableNameColumnTitle.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/list_generate.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
+import 'package:printing/printing.dart';
 
 class PointOfSaleBody extends StatefulWidget {
   PointOfSaleBody({super.key});
@@ -65,7 +69,7 @@ class _PointOfSaleBodyState extends State<PointOfSaleBody> {
               ),
               Container(
                 width: context.screenHeight,
-                height: context.screenWidth /1.5,
+                height: context.screenWidth / 1.5,
                 color: ColorUsed.whitesoft,
                 child: Table(
                   border: TableBorder.all(color: Colors.black, width: 1.0),
@@ -115,7 +119,12 @@ class _PointOfSaleBodyState extends State<PointOfSaleBody> {
                     ),
 
                     ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        sharep!.remove('AllResult');
+                        controller.resultSell = 0.0;
+                        controller.search.clear();
+                        controller.update();
+                      },
                       icon: const Icon(Icons.delete),
                       label: Text(Language.delete.tr),
                       style: ElevatedButton.styleFrom(
@@ -125,7 +134,16 @@ class _PointOfSaleBodyState extends State<PointOfSaleBody> {
                     ),
                     const SizedBox(width: 8.0),
                     ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () async {
+                        var pdfApi = PdfApi();
+                       
+                        // طباعة PDF
+                        // await Printing.layoutPdf(
+                        //   onLayout: (PdfPageFormat format) async => pdfFile,
+                        // );
+                        // حفظ PDF
+                        await pdfApi.savePdf(controller.search);
+                      },
                       icon: const Icon(Icons.save),
                       label: Text(Language.save.tr),
                     ),
@@ -146,7 +164,6 @@ class _PointOfSaleBodyState extends State<PointOfSaleBody> {
                   ],
                 ),
               ),
-
             ],
           ),
         );

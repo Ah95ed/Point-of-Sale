@@ -61,15 +61,15 @@ class PointSaleController extends GetxController {
         result
             .map(
               (item) => Items(
-                name: item[DataBaseSqflite.name],
-                code: item[DataBaseSqflite.codeItem],
-                sale: item[DataBaseSqflite.sale],
-                buy: item[DataBaseSqflite.buy],
-                id: item[DataBaseSqflite.id].toString(),
-                quantity: item[DataBaseSqflite.quantity],
-                company: item[DataBaseSqflite.company],
-                date: item[DataBaseSqflite.date],
-                time: item[DataBaseSqflite.time] ?? '00:00',
+                item[DataBaseSqflite.name],
+                item[DataBaseSqflite.codeItem],
+                item[DataBaseSqflite.sale],
+                item[DataBaseSqflite.buy],
+                item[DataBaseSqflite.id].toString(),
+                item[DataBaseSqflite.quantity],
+                item[DataBaseSqflite.company],
+                item[DataBaseSqflite.date],
+                item[DataBaseSqflite.time] ?? '00:00',
               ),
             )
             .toList();
@@ -153,15 +153,15 @@ class PointSaleController extends GetxController {
     var item =
         dataList.map((i) {
           return Items(
-            name: i![DataBaseSqflite.name].toString(),
-            code: i[DataBaseSqflite.codeItem].toString(),
-            sale: i[DataBaseSqflite.sale].toString(),
-            buy: i[DataBaseSqflite.buy].toString(),
-            quantity: i[DataBaseSqflite.quantity].toString(),
-            id: i[DataBaseSqflite.id].toString(),
-            company: i[DataBaseSqflite.company].toString(),
-            date: i[DataBaseSqflite.date].toString(),
-            time: i[DataBaseSqflite.time].toString(),
+            i![DataBaseSqflite.name].toString(),
+            i[DataBaseSqflite.codeItem].toString(),
+            i[DataBaseSqflite.sale].toString(),
+            i[DataBaseSqflite.buy].toString(),
+            i[DataBaseSqflite.quantity].toString(),
+            i[DataBaseSqflite.id].toString(),
+            i[DataBaseSqflite.company].toString(),
+            i[DataBaseSqflite.date].toString(),
+            i[DataBaseSqflite.time].toString(),
           );
         }).toList();
 

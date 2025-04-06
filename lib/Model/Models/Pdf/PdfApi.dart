@@ -1,10 +1,13 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:point_of_sell/Model/Models/Items.dart';
+import 'package:printing/printing.dart';
 
 class PdfApi {
   static Future<File> generateCenteredText(String text, String nameFile) async {
@@ -94,19 +97,27 @@ class PdfApi {
     return pdf.save();
   }
 
-  Future<void> savePdf(Uint8List pdfFile) async {
-    try {
-      // الحصول على مجلد التخزين
-      final output = await getTemporaryDirectory();
-      final file = File('${output.path}/example.pdf');
+  Future<void> savePdf(List<Items> search) async {
+   final pdf = pw.Document();
 
-      // كتابة الملف
-      await file.writeAsBytes(pdfFile);
-
-      // عرض رسالة نجاح
-      print('تم حفظ الملف: ${file.path}');
-    } catch (e) {
-      print('خطأ في حفظ الملف: $e');
-    }
+  pdf.addPage(
+    pw.Page(
+      build: (pw.Context context) {
+        return pw.Column(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: search.map((item) => pw.Text(item.name)).toList(),
+        );
+      },
+    ),
+  );
+    // String? outputFile = await FilePicker.platform.saveFile(
+    //     dialogTitle: 'اختر مكان حفظ الملف',
+    //     fileName: 'data.pdf',
+    //     type: FileType.custom,
+    //     allowedExtensions: ['pdf'],
+    //   );
+    await Printing.layoutPdf(
+    onLayout: (PdfPageFormat format) async => pdf.save(),
+  );
   }
 }

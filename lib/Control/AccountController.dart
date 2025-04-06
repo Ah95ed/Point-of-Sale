@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pdf/pdf.dart';
+import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/Helper/Service/Service.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/AccountOrdersDataBase.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
@@ -41,11 +42,13 @@ class AccountController extends GetxController {
     super.onInit();
     getShared();
   }
-  Future<void> updateAccount(Map<String , dynamic> data) async {
+
+  Future<void> updateAccount(Map<String, dynamic> data) async {
     await account.updateAccount(data);
-    
+
     update();
   }
+
   List<Map<String, dynamic>?> items = [];
   void getNameCustomer() async {
     items = await customersDatabase.getAllCustomrers();
@@ -135,22 +138,16 @@ class AccountController extends GetxController {
     update();
   }
 
-  Future<void> searchCodeOrder(String s) async {
+  Future<void> searchCodeOrder(String s, String id_customer) async {
     i = 0;
     List<Map<String, dynamic>>? result = await account.searchBarCodeOrder(s);
     newResult =
         result
             .map(
-              (item) => Items(
-                name: item[DataBaseSqflite.name],
-                code: item[DataBaseSqflite.codeItem],
-                sale: item[DataBaseSqflite.sale],
-                buy: item[DataBaseSqflite.buy],
-                id: item[DataBaseSqflite.id].toString(),
-                quantity: item[DataBaseSqflite.quantity],
-                company: item[DataBaseSqflite.company],
-                date: item[DataBaseSqflite.date],
-                time: item[DataBaseSqflite.time] ?? '00:00',
+              (item) => Items.FromAccount(
+                item[DataBaseSqflite.name],
+                item[DataBaseSqflite.sale],
+                item[DataBaseSqflite.quantity],
               ),
             )
             .toList();
@@ -165,13 +162,14 @@ class AccountController extends GetxController {
       return;
     }
 
-    Get.dialog(AlertDialogCustom(), useSafeArea: true);
+    Get.dialog(AlertDialogCustom.FrtomAccount(id_customer), useSafeArea: true);
   }
 
-  void addSaleAndupdatePrice() {
+  void addSaleAndupdatePrice(String id_customer) {
     count = double.parse(text.text);
     final saleDivider = count * double.parse(newResult![i].sale);
     account.insertInAccount({
+      AccountOrdersDataBase.id_customer: id_customer,
       DataBaseSqflite.name: newResult![i].name,
       DataBaseSqflite.sale: saleDivider.toString(),
       DataBaseSqflite.quantity: text.text,
@@ -193,18 +191,13 @@ class AccountController extends GetxController {
 
   Future<void> getDataFromAccount() async {
     var dataList = await account.getAllDataFromAccount();
+    logError("message ${dataList}");
     var item =
         dataList.map((i) {
-          return Items(
-            name: i![DataBaseSqflite.name].toString(),
-            code: i[DataBaseSqflite.codeItem].toString(),
-            sale: i[DataBaseSqflite.sale].toString(),
-            buy: i[DataBaseSqflite.buy].toString(),
-            quantity: i[DataBaseSqflite.quantity].toString(),
-            id: i[DataBaseSqflite.id].toString(),
-            company: i[DataBaseSqflite.company].toString(),
-            date: i[DataBaseSqflite.date].toString(),
-            time: i[DataBaseSqflite.time].toString(),
+          return Items.FromAccount(
+            i![DataBaseSqflite.name].toString(),
+            i[DataBaseSqflite.sale].toString(),
+            i[DataBaseSqflite.quantity].toString(),
           );
         }).toList();
 

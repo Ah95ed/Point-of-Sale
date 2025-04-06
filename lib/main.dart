@@ -26,7 +26,7 @@ Future<void> main() async {
       //   builder: (context) => const MyApp(), // Wrap your app
       // ),
     );
-  }, (error, stack) => logError('error ${error}/n At The Main ${stack}'));
+  }, (error, stack) => logError('error ===== ${error}/n ===== At The Main ${stack}'));
 }
 
 RouteObserver<Route> routeObserver = RouteObserver();
