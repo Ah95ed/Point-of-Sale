@@ -31,7 +31,7 @@ class _AccountOrdersState extends State<AccountOrders> {
   TextEditingController _typePrice = TextEditingController();
   TextEditingController _storage = TextEditingController();
   TextEditingController _search = TextEditingController();
- late String optionText ,id_customer;
+  late String optionText, id_customer;
   @override
   void dispose() {
     _name = TextEditingController();
@@ -49,6 +49,7 @@ class _AccountOrdersState extends State<AccountOrders> {
 
   @override
   Widget build(BuildContext context) {
+    id_customer = '';
     return GetBuilder<AccountController>(
       init: AccountController(),
       builder: (controller) {
@@ -64,7 +65,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Row( 
+                    Row(
                       spacing: context.getHeight(10),
                       children: [
                         Expanded(
@@ -132,6 +133,8 @@ class _AccountOrdersState extends State<AccountOrders> {
                               _phone.text = selection["Phone"].toString();
                               _title.text = selection["Address"].toString();
                               id_customer = selection["ID"].toString();
+                              controller.getDataCustomers(id_customer);
+                              //!    aaaaaaaaaaaaaaaaaaaaaaaaaaaaa
                               controller.update();
                             },
                           ),
@@ -208,7 +211,9 @@ class _AccountOrdersState extends State<AccountOrders> {
                 child: TextFormField(
                   onChanged: (value) async {
                     if (value.isEmpty) return;
-                    if (controller.items.isEmpty || _name.text.isEmpty) {
+                    if (controller.items.isEmpty ||
+                        _name.text.isEmpty ||
+                        id_customer.isEmpty) {
                       showDialog(
                         context: context,
                         builder: (ctx) {
@@ -227,7 +232,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                       _search.clear();
                       return;
                     }
-                    await controller.searchCodeOrder(value,id_customer);
+                    await controller.searchCodeOrder(value, id_customer);
                     _search.clear();
                   },
                   controller: _search,
@@ -295,9 +300,6 @@ class _AccountOrdersState extends State<AccountOrders> {
                   ),
                   itemCount: controller.search.length,
                   itemBuilder: (BuildContext context, int index) {
-                    logInfo(
-                      "message ++++ ${controller.items[index]![DataBaseSqflite.name]}",
-                    );
                     return SizeBuilder(
                       baseSize: const Size(250, 300),
                       height: context.getHeight(300),
@@ -314,9 +316,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                                     actions: [
                                       TextButton(
                                         onPressed: () {
-                                          logInfo(
-                                            "message ++++++ ${controller.text.text}",
-                                          );
+                                        
                                           showEditDailog(context, {
                                             DataBaseSqflite.name:
                                                 controller.search[index].name,
@@ -326,6 +326,8 @@ class _AccountOrdersState extends State<AccountOrders> {
                                                 controller
                                                     .search[index]
                                                     .quantity,
+                                            DataBaseSqflite.id:
+                                                controller.search[index].id,
                                           }, controller);
                                         },
                                         child: const Text("Edit"),
@@ -335,6 +337,12 @@ class _AccountOrdersState extends State<AccountOrders> {
                                           Navigator.pop(c);
                                         },
                                         child: const Text("Delete"),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(c);
+                                        },
+                                        child: const Text("Close"),
                                       ),
                                     ],
                                   );
@@ -414,9 +422,11 @@ class _AccountOrdersState extends State<AccountOrders> {
   void checkcustomer(AccountController c, BuildContext context) async {
     for (var element in c.items) {
       if (element!['Name'] == _name.text) {
+        id_customer = element['ID'];
         return;
       }
     }
+
     showDailogToAdd(context, c);
     return;
   }
@@ -469,7 +479,9 @@ class _AccountOrdersState extends State<AccountOrders> {
                   AccountOrdersDataBase.name: _name.text,
                   AccountOrdersDataBase.sale: _sale.text,
                   AccountOrdersDataBase.quantity: _quantity.text,
+                  AccountOrdersDataBase.id: data[AccountOrdersDataBase.id],
                 });
+                c.search.clear();
 
                 _name.dispose();
                 _sale.dispose();
@@ -507,12 +519,13 @@ class _AccountOrdersState extends State<AccountOrders> {
           actions: [
             TextButton(
               child: const Text('نعم'),
-              onPressed: () {
-                c.insertCustomer({
+              onPressed: () async {
+                await c.insertCustomer({
                   CustomersDatabase.name: _name.text,
                   CustomersDatabase.phone: _phone.text,
                   CustomersDatabase.address: _title.text,
                 });
+
                 Navigator.pop(context);
               },
             ),

@@ -1,3 +1,4 @@
+import 'package:point_of_sell/Model/Models/DataBaseApp/CustomersDataBase.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/DataBaseSqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
@@ -48,7 +49,21 @@ class AccountOrdersDataBase {
     _database = await database;
     return await _database!.query(TableAccount);
   }
+ Future<List<Map<String, dynamic>>> getDataCustomers (String id_cus) async {
+    _database = await database;
+    final List<Map<String, dynamic>> results = await _database!.query(
+      DataBaseSqflite.TableAccount,
+      where: '$id_customer LIKE ?',
+      whereArgs: ['%$id_cus%'],
+    );
+    return results;
+  }
 
+
+  Future<List<Map<String, dynamic>>> getDataSale() async {
+    _database = await database;
+    return await _database!.query(TableAccount, columns: [sale]);
+}
   Future<List<Map<String, dynamic>?>> getAllDataFromAccount() async {
     _database = await database;
     return await _database!.query(TableAccount);

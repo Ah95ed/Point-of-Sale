@@ -27,32 +27,30 @@ class AccountController extends GetxController {
   double resultSell = 0.0;
   double count = 0.0;
   int i = 0;
-  // late TextEditingController controller;
 
   static const String Result = 'Result';
 
   @override
   void onInit() {
-    // controller = TextEditingController();
     dataBaseSqflite = DataBaseSqflite();
     account = AccountOrdersDataBase();
     customersDatabase = CustomersDatabase();
     getNameCustomer();
-    // WidgetsBinding.instance.addObserver(this);
     super.onInit();
     getShared();
   }
 
   Future<void> updateAccount(Map<String, dynamic> data) async {
     await account.updateAccount(data);
-
+    search.clear();
+    getDataFromAccount();
     update();
   }
 
   List<Map<String, dynamic>?> items = [];
   void getNameCustomer() async {
     items = await customersDatabase.getAllCustomrers();
-    // update();
+    update();
   }
 
   getShared() async {
@@ -85,6 +83,21 @@ class AccountController extends GetxController {
       // saveShared();
       log('message saved Done  __________________________ ');
     }
+  }
+
+  void getDataCustomers(String id_customer) async {
+    List r = await account.getDataCustomers(id_customer);
+    for (var element in r) {
+      search.add(
+        Items.FromAccountData(
+          element[DataBaseSqflite.name].toString(),
+          element[DataBaseSqflite.sale].toString(),
+          element[DataBaseSqflite.quantity].toString(),
+          element[DataBaseSqflite.id].toString(),
+        ),
+      );
+    }
+    update();
   }
 
   Future<void> printOrder() async {
@@ -194,10 +207,11 @@ class AccountController extends GetxController {
     logError("message ${dataList}");
     var item =
         dataList.map((i) {
-          return Items.FromAccount(
+          return Items.FromAccountData(
             i![DataBaseSqflite.name].toString(),
             i[DataBaseSqflite.sale].toString(),
             i[DataBaseSqflite.quantity].toString(),
+            i[DataBaseSqflite.id].toString(),
           );
         }).toList();
 

@@ -9,6 +9,7 @@ class CustomersDatabase {
   static const tableCustomer = 'Customer';
   static const version = 1;
   static const id = 'ID';
+  static const id_customer = 'ID_Customer';
   static const name = 'Name';
   static const phone = 'Phone';
   static const address = 'Address';

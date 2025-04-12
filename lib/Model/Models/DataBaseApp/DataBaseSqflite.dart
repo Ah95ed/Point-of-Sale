@@ -8,7 +8,7 @@ import 'package:point_of_sell/Model/Models/DataBaseApp/LiabilityDataBase.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 class DataBaseSqflite {
-  static const version = 1;
+  static const version = 2;
   static const TableName = 'Items';
 
   static const TableAccount = 'Account';
@@ -60,6 +60,7 @@ class DataBaseSqflite {
         await db.execute(
           '''CREATE TABLE IF NOT EXISTS ${CustomersDatabase.tableCustomer} 
           (${CustomersDatabase.id} INTEGER PRIMARY KEY AUTOINCREMENT  ,
+          ${CustomersDatabase.id_customer} TEXT ,
            ${CustomersDatabase.name} TEXT ,
             ${CustomersDatabase.phone} TEXT
             ,${CustomersDatabase.address} TEXT )''',
@@ -116,6 +117,7 @@ class DataBaseSqflite {
           await db.execute(
             '''CREATE TABLE IF NOT EXISTS ${CustomersDatabase.tableCustomer} 
           (${CustomersDatabase.id} INTEGER PRIMARY KEY AUTOINCREMENT  ,
+          ${CustomersDatabase.id_customer} TEXT ,
            ${CustomersDatabase.name} TEXT ,
             ${CustomersDatabase.phone} TEXT
             ,${CustomersDatabase.address} TEXT )''',
