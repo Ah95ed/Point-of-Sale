@@ -77,6 +77,10 @@ class Customercontroller extends GetxController {
       ),
     );
   }
+  Future<void> deleteCustomer(int i) async {
+    await model.deleteCustomer(i);
+   
+  }
 
   List<Map<String, dynamic>> search = [];
   Future<void> searchCustomer(String name) async {

@@ -9,7 +9,7 @@ class CustomerModel {
     _database = CustomersDatabase();
   }
 Future<void> deleteCustomer ( int i) async {
-    await _database.deleteCustomer(i);
+  await _database.deleteCustomer(i) ;
   }
 
   Future<List<Map<String, dynamic>?>> getCustomer() async {

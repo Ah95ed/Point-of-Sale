@@ -48,8 +48,9 @@ class AccountController extends GetxController {
   }
 
   List<Map<String, dynamic>?> items = [];
-  void getNameCustomer() async {
+  Future<void> getNameCustomer() async {
     items = await customersDatabase.getAllCustomrers();
+ 
     update();
   }
 
@@ -147,7 +148,7 @@ class AccountController extends GetxController {
 
   Future<void> insertCustomer(Map<String, dynamic> data) async {
     await customersDatabase.insertCustomers(data);
-    getNameCustomer();
+   await getNameCustomer();
     update();
   }
 
@@ -157,10 +158,11 @@ class AccountController extends GetxController {
     newResult =
         result
             .map(
-              (item) => Items.FromAccount(
+              (item) => Items.FromAccountData(
                 item[DataBaseSqflite.name],
                 item[DataBaseSqflite.sale],
                 item[DataBaseSqflite.quantity],
+                item[DataBaseSqflite.id].toString(),
               ),
             )
             .toList();

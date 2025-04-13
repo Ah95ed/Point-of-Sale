@@ -134,7 +134,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                               _title.text = selection["Address"].toString();
                               id_customer = selection["ID"].toString();
                               controller.getDataCustomers(id_customer);
-                              //!    aaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
                               controller.update();
                             },
                           ),
@@ -232,6 +232,7 @@ class _AccountOrdersState extends State<AccountOrders> {
                       _search.clear();
                       return;
                     }
+
                     await controller.searchCodeOrder(value, id_customer);
                     _search.clear();
                   },
@@ -316,7 +317,6 @@ class _AccountOrdersState extends State<AccountOrders> {
                                     actions: [
                                       TextButton(
                                         onPressed: () {
-                                        
                                           showEditDailog(context, {
                                             DataBaseSqflite.name:
                                                 controller.search[index].name,
@@ -389,10 +389,28 @@ class _AccountOrdersState extends State<AccountOrders> {
                   ),
                   const SizedBox(width: 8.0),
                   ElevatedButton.icon(
-                    onPressed: () {
-                      checkcustomer(controller, context);
+                    onPressed: () async {
+                      if(_name.text.isEmpty){
+                        Get.snackbar('Attention', "The Field of name is empty");
+                        return;
+                      }
+                      await checkcustomer(controller, context);
                     },
-                    icon: const Icon(Icons.save),
+                    icon: const Icon(Icons.save, color: Colors.black54),
+                    label: Text(
+                      Language.save_cusyomer.tr,
+                      style: const TextStyle(color: Colors.black54),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(width: 8.0),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      //!!!!!!!
+                    },
+                    icon: const Icon(Icons.save, color: Colors.black54),
                     label: Text(Language.save.tr),
                   ),
                   ElevatedButton.icon(
@@ -419,23 +437,23 @@ class _AccountOrdersState extends State<AccountOrders> {
     );
   }
 
-  void checkcustomer(AccountController c, BuildContext context) async {
+  Future<void> checkcustomer(AccountController c, BuildContext context) async {
     for (var element in c.items) {
       if (element!['Name'] == _name.text) {
-        id_customer = element['ID'];
+        id_customer = element['ID'].toString();
         return;
       }
     }
 
-    showDailogToAdd(context, c);
+    await showDailogToAdd(context, c);
     return;
   }
 
-  void showEditDailog(
+  Future<void> showEditDailog(
     BuildContext ctx,
     Map<String, dynamic> data,
     AccountController c,
-  ) {
+  ) async {
     TextEditingController _name = TextEditingController(
       text: data[AccountOrdersDataBase.name],
     );
@@ -509,7 +527,7 @@ class _AccountOrdersState extends State<AccountOrders> {
     );
   }
 
-  void showDailogToAdd(BuildContext cx, AccountController c) {
+  Future<void> showDailogToAdd(BuildContext cx, AccountController c) async {
     showDialog(
       context: cx,
       builder: (BuildContext context) {
@@ -525,6 +543,8 @@ class _AccountOrdersState extends State<AccountOrders> {
                   CustomersDatabase.phone: _phone.text,
                   CustomersDatabase.address: _title.text,
                 });
+
+                await c.getNameCustomer();
 
                 Navigator.pop(context);
               },

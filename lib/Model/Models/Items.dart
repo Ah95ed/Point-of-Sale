@@ -13,11 +13,11 @@ class Items {
      this.date,
      this.time
   );
-  Items.FromAccount(String name,String sale ,String quantity) {
-    this.name = name;
-    this.sale = sale;
-    this.quantity = quantity;
-  }
+  // Items.FromAccount(String name,String sale ,String quantity) {
+  //   this.name = name;
+  //   this.sale = sale;
+  //   this.quantity = quantity;
+  // }
    Items.FromAccountData(String name,String sale ,String quantity,String id) {
    this.id = id;
     this.name = name;

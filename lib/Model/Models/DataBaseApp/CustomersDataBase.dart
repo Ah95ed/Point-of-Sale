@@ -1,6 +1,7 @@
 
 
 
+import 'package:get/get.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/DataBaseSqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
@@ -34,13 +35,29 @@ class CustomersDatabase {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
-  Future<void> deleteCustomer(int id) async {
+  Future<void> deleteCustomer(int i) async {
     _database = await database;
-    await _database!.delete(
+   int e = await _database!.delete(
       tableCustomer,
       where: '$id = ?',
-      whereArgs: [id],
+      whereArgs: [i],
     );
+    if (e > 0) {
+      Get.showSnackbar(
+        const GetSnackBar(
+          message: "data deleted successfully",
+          duration: Duration(seconds: 2),
+        ),
+      );
+      
+    } else {
+      Get.showSnackbar(
+        const GetSnackBar(
+          message: "something went wrong",
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
   }
    Future<List<Map<String, dynamic>?>> getAllCustomrers() async {
     _database = await database;

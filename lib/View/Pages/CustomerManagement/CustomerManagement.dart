@@ -157,63 +157,117 @@ class _CustomersViewState extends State<CustomersView> {
                                           cb.customers[index].address!;
                                       showDialog(
                                         context: context,
-                                        builder: (ctx) {
+                                        builder: (c) {
                                           return AlertDialog(
-                                            title: const Text('Edit Customer'),
-                                            content: Column(
-                                              children: [
-                                                TextField(
-                                                  controller: _name,
-                                                  decoration:
-                                                      const InputDecoration(
-                                                        hintText:
-                                                            'Enter new name',
-                                                      ),
-                                                ),
-                                                TextField(
-                                                  controller: _phone,
-                                                  decoration:
-                                                      const InputDecoration(
-                                                        hintText:
-                                                            'Enter new phone',
-                                                      ),
-                                                ),
-                                                TextField(
-                                                  controller: _address,
-                                                  decoration:
-                                                      const InputDecoration(
-                                                        hintText:
-                                                            'Enter new address',
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
-
+                                            title: const Text("Select Action"),
                                             actions: [
                                               TextButton(
-                                                onPressed: () {
-                                                  Navigator.pop(ctx);
+                                                onPressed: () async {
+                                                  await cb
+                                                      .deleteCustomer(
+                                                        int.parse(
+                                                          cb
+                                                              .customers[index]
+                                                              .id!,
+                                                        ),
+                                                      )
+                                                      .then((value) {
+                                                        cb.customers.clear();
+                                                        cb.getCustomer();
+                                                      });
+                                                  Navigator.pop(c);
                                                 },
-                                                child: const Text('Cancel'),
+                                                child: const Text('Delete'),
                                               ),
                                               TextButton(
-                                                onPressed: () async {
-                                                  await cb.updateCustomer(
-                                                    {
-                                                      CustomersDatabase.name:
-                                                          _name.text,
-                                                      CustomersDatabase.phone:
-                                                          _phone.text,
-                                                      CustomersDatabase.address:
-                                                          _address.text,
-                                                      CustomersDatabase.id:
-                                                          cb.customers[index]
-                                                              .id,
-                                                    }
+                                                onPressed: () {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (ctx) {
+                                                      return AlertDialog(
+                                                        title: const Text(
+                                                          'Edit Customer',
+                                                        ),
+                                                        content: Column(
+                                                          children: [
+                                                            TextField(
+                                                              controller: _name,
+                                                              decoration:
+                                                                  const InputDecoration(
+                                                                    hintText:
+                                                                        'Enter new name',
+                                                                  ),
+                                                            ),
+                                                            TextField(
+                                                              controller:
+                                                                  _phone,
+                                                              decoration:
+                                                                  const InputDecoration(
+                                                                    hintText:
+                                                                        'Enter new phone',
+                                                                  ),
+                                                            ),
+                                                            TextField(
+                                                              controller:
+                                                                  _address,
+                                                              decoration:
+                                                                  const InputDecoration(
+                                                                    hintText:
+                                                                        'Enter new address',
+                                                                  ),
+                                                            ),
+                                                          ],
+                                                        ),
+
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                ctx,
+                                                              );
+                                                            },
+                                                            child: const Text(
+                                                              'Cancel',
+                                                            ),
+                                                          ),
+                                                          TextButton(
+                                                            onPressed: () async {
+                                                              await cb.updateCustomer({
+                                                                CustomersDatabase
+                                                                        .name:
+                                                                    _name.text,
+                                                                CustomersDatabase
+                                                                        .phone:
+                                                                    _phone.text,
+                                                                CustomersDatabase
+                                                                        .address:
+                                                                    _address
+                                                                        .text,
+                                                                CustomersDatabase
+                                                                    .id: cb
+                                                                        .customers[index]
+                                                                        .id,
+                                                              });
+                                                              Navigator.pop(
+                                                                ctx,
+                                                              );
+                                                            },
+                                                            child: const Text(
+                                                              'Save',
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
                                                   );
-                                                  Navigator.pop(ctx);
                                                 },
-                                                child: const Text('Save'),
+                                                child: const Text('edit'),
+                                              ),
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(c);
+                                                },
+                                                child: const Text('Cancel'),
                                               ),
                                             ],
                                           );
