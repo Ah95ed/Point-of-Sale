@@ -6,7 +6,7 @@ class AccountOrdersDataBase {
   static const TableAccount = 'Account';
   static const TableResultSell = 'Result';
   static const version = 1;
-  static const id = 'ID';
+  static const id = 'ID'; 
   static const id_customer = 'ID_Customer';
   static const name = 'Name';
   static const codeItem = 'Code';
@@ -91,11 +91,11 @@ class AccountOrdersDataBase {
     return results;
   }
 
-  Future<Future<int>?> delete(String id) async {
+  Future<Future<int>?> delete(String i) async {
     _database = await database;
     return _database!.rawDelete(
-      'DELETE FROM $TableAccount WHERE ID = ?',
-      [id],
+      'DELETE FROM $TableAccount WHERE $id = ?',
+      [i],
     );
   }
   Future<void> updateAccount(Map<String, dynamic> data) async {

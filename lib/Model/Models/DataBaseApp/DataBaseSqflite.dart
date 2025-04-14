@@ -208,14 +208,12 @@ ${LiabilityDataBase.TableLi_user}
   }
 
   // delete
-  Future<int> delete(String id) async {
+  Future<int> delete(String i) async {
     _database = await databasesq;
-    // db?.delete(TableName, id);
     return await _database!.rawDelete(
       'DELETE FROM $TableName WHERE ID = ?',
-      [id],
+      [i],
     );
-    // return r;
   }
 
   Future<List<Map<String, dynamic>>> searchInDatabase(String query) async {

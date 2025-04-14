@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pdf/pdf.dart';
 import 'package:point_of_sell/Control/PointSale/PointSaleController.dart';
 import 'package:point_of_sell/Helper/Locale/Language.dart';
 import 'package:point_of_sell/Helper/Service/Service.dart';
@@ -9,7 +8,6 @@ import 'package:point_of_sell/View/Colors/Colors.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/TableNameColumnTitle.dart';
 import 'package:point_of_sell/View/Widget/ShareWidget/list_generate.dart';
 import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
-import 'package:printing/printing.dart';
 
 class PointOfSaleBody extends StatefulWidget {
   PointOfSaleBody({super.key});
@@ -20,10 +18,8 @@ class PointOfSaleBody extends StatefulWidget {
 
 class _PointOfSaleBodyState extends State<PointOfSaleBody> {
   TextEditingController text = TextEditingController();
-  final s = Get.put(PointSaleController());
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -100,7 +96,7 @@ class _PointOfSaleBodyState extends State<PointOfSaleBody> {
                         TableNameColumn(name: 'delete'),
                       ],
                     ),
-                    ...ListViewGenerateInTable(controller.search),
+                    ...ListViewGenerateInTable(controller),
                   ],
                 ),
               ),
@@ -136,7 +132,7 @@ class _PointOfSaleBodyState extends State<PointOfSaleBody> {
                     ElevatedButton.icon(
                       onPressed: () async {
                         var pdfApi = PdfApi();
-                       
+
                         // طباعة PDF
                         // await Printing.layoutPdf(
                         //   onLayout: (PdfPageFormat format) async => pdfFile,

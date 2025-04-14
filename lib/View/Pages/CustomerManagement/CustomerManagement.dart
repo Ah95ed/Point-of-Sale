@@ -177,7 +177,7 @@ class _CustomersViewState extends State<CustomersView> {
                                                       });
                                                   Navigator.pop(c);
                                                 },
-                                                child: const Text('Delete'),
+                                                child:  Text(Language.delete.tr),
                                               ),
                                               TextButton(
                                                 onPressed: () {

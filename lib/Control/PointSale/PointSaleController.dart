@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:point_of_sell/Helper/Log/LogApp.dart';
 import 'package:point_of_sell/Helper/Service/Service.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/AccountOrdersDataBase.dart';
 import 'package:point_of_sell/Model/Models/DataBaseApp/DataBaseSqflite.dart';
@@ -16,21 +17,28 @@ class PointSaleController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    sharep!.getString('AllResult');
+    resultSell = double.tryParse(sharep!.getString('AllResult') ?? '0.0')!;
     account = AccountOrdersDataBase();
     getDataFromAccount();
+    logInfo("message onInit PointSaleController");
   }
 
   @override
   void onClose() {
-    // TODO: implement onClose
     sharep!.setString('AllResult', resultSell.toString());
+    // search.clear();
+    // newResult.clear();
+    resultSell = 0.0;
+    logInfo("message onClose PointSaleController");
+
     super.onClose();
   }
 
   @override
   void onReady() {
     sharep!.getString('AllResult');
+    logInfo("message onReady PointSaleController");
+
     // TODO: implement onReady
     super.onReady();
   }
@@ -39,13 +47,14 @@ class PointSaleController extends GetxController {
   void dispose() {
     text.dispose();
     sharep!.setString('AllResult', resultSell.toString());
+    logInfo("message dispose PointSaleController");
     super.dispose();
   }
 
-  void deletefromId(String id) async {
+  Future<void> deletefromId(String id) async {
     await account.delete(id);
     search.clear();
-    await getDataFromAccount();
+
     update();
   }
 
