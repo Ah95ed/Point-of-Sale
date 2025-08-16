@@ -14,19 +14,22 @@ import 'package:point_of_sell/View/style/SizeApp/ScreenSize.dart';
 import 'package:point_of_sell/View/style/SizeApp/SizeBuilder.dart';
 
 Future<void> main() async {
-  
-  await runZonedGuarded<Future<void>>(() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await initService();
+  await runZonedGuarded<Future<void>>(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      await initService();
 
-    runApp(
-      const MyApp(),
-      // DevicePreview(
-      //   enabled: !kReleaseMode,
-      //   builder: (context) => const MyApp(), // Wrap your app
-      // ),
-    );
-  }, (error, stack) => logError('error ===== ${error}/n ===== At The Main ${stack}'));
+      runApp(
+        const MyApp(),
+        // DevicePreview(
+        //   enabled: !kReleaseMode,
+        //   builder: (context) => const MyApp(), // Wrap your app
+        // ),
+      );
+    },
+    (error, stack) =>
+        logError('error ===== ${error}/n ===== At The Main ${stack}'),
+  );
 }
 
 RouteObserver<Route> routeObserver = RouteObserver();
@@ -44,13 +47,14 @@ class MyApp extends StatelessWidget {
       navigatorObservers: [NavObserver.instance, routeObserver],
       initialRoute: '/',
       routes: RoutePage.routes,
-      home:DeviceUtils.isMobile(context)
-              ? SizeBuilder(
-                baseSize: const Size(360, 690),
-                height: context.screenHeight,
-                width: context.screenWidth,
-                child: MobileScreen(),
-              ) : const LargScreen(),
+      home: DeviceUtils.isMobile(context)
+          ? SizeBuilder(
+              baseSize: const Size(360, 690),
+              height: context.screenHeight,
+              width: context.screenWidth,
+              child: MobileScreen(),
+            )
+          : const RunnerApp(),
     );
   }
 }
