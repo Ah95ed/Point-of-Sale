@@ -44,22 +44,19 @@ class MyApp extends StatelessWidget {
       navigatorObservers: [NavObserver.instance, routeObserver],
       initialRoute: '/',
       routes: RoutePage.routes,
-
-      home:
-          DeviceUtils.isMobile(context)
+      home:DeviceUtils.isMobile(context)
               ? SizeBuilder(
                 baseSize: const Size(360, 690),
                 height: context.screenHeight,
                 width: context.screenWidth,
                 child: MobileScreen(),
-              )
-              : const RunnerApp(),
+              ) : const LargScreen(),
     );
   }
 }
 
-class RunnerApp extends StatelessWidget {
-  const RunnerApp({super.key});
+class LargScreen extends StatelessWidget {
+  const LargScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
