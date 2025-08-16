@@ -63,14 +63,14 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         initialBinding: Appbinding(),
         getPages: RoutePage.routs,
-        home: context.isMobile ? const Mobile() : const RunnerApp(),
+        home: context.isMobile ? const Mobile() : const LargScreen(),
       ),
     );
   }
 }
 
-class RunnerApp extends StatelessWidget {
-  const RunnerApp({super.key});
+class LargScreen extends StatelessWidget {
+  const LargScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
