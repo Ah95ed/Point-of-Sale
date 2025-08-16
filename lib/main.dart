@@ -53,13 +53,13 @@ class MyApp extends StatelessWidget {
                 width: context.screenWidth,
                 child: MobileScreen(),
               )
-              : const RunnerApp(),
+              : const LargScreen(),
     );
   }
 }
 
-class RunnerApp extends StatelessWidget {
-  const RunnerApp({super.key});
+class LargScreen extends StatelessWidget {
+  const LargScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
